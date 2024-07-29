@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha256-HtsXJanqjKTc8vVQjO4YMhiqFoXkfBsjBWcX91T1jr8=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"monkeyx1.github.io","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.17.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"show_result":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="一、符号与命令的关系在cmd命令中，我们可以使用&quot;、^和()不会影响命令的执行，而且在Windows中命令不会区分大小写。  1.whoami2.w”h”o”a”m”i3.wh^o^ami4.((whoami))   这里我们可以同时加多个&quot;，但是不能同时使用多个^^，因为在cmd中^是转义符，跟在他后面的符号会被转义的，所以执行的话会报错。  二、set命令和Windows变">
+<meta property="og:type" content="article">
+<meta property="og:title" content="常见Windows命令执行漏洞绕过过滤的小技巧">
+<meta property="og:url" content="https://monkeyx1.github.io/2022/08/16/%E5%B8%B8%E8%A7%81Windows%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E%E7%BB%95%E8%BF%87%E8%BF%87%E6%BB%A4%E7%9A%84%E5%B0%8F%E6%8A%80%E5%B7%A7/index.html">
+<meta property="og:site_name" content="monkey111">
+<meta property="og:description" content="一、符号与命令的关系在cmd命令中，我们可以使用&quot;、^和()不会影响命令的执行，而且在Windows中命令不会区分大小写。  1.whoami2.w”h”o”a”m”i3.wh^o^ami4.((whoami))   这里我们可以同时加多个&quot;，但是不能同时使用多个^^，因为在cmd中^是转义符，跟在他后面的符号会被转义的，所以执行的话会报错。  二、set命令和Windows变">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://monkeyx1.github.io/images/%E5%B8%B8%E8%A7%81Windows%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E%E7%BB%95%E8%BF%87%E8%BF%87%E6%BB%A4%E7%9A%84%E5%B0%8F%E6%8A%80%E5%B7%A7/image-4-1024x248.png">
+<meta property="og:image" content="https://monkeyx1.github.io/images/%E5%B8%B8%E8%A7%81Windows%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E%E7%BB%95%E8%BF%87%E8%BF%87%E6%BB%A4%E7%9A%84%E5%B0%8F%E6%8A%80%E5%B7%A7/image-5-1024x90.png">
+<meta property="og:image" content="https://monkeyx1.github.io/images/%E5%B8%B8%E8%A7%81Windows%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E%E7%BB%95%E8%BF%87%E8%BF%87%E6%BB%A4%E7%9A%84%E5%B0%8F%E6%8A%80%E5%B7%A7/image-6-1024x98.png">
+<meta property="og:image" content="https://monkeyx1.github.io/images/%E5%B8%B8%E8%A7%81Windows%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E%E7%BB%95%E8%BF%87%E8%BF%87%E6%BB%A4%E7%9A%84%E5%B0%8F%E6%8A%80%E5%B7%A7/image-7-1024x87.png">
+<meta property="og:image" content="https://monkeyx1.github.io/images/%E5%B8%B8%E8%A7%81Windows%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E%E7%BB%95%E8%BF%87%E8%BF%87%E6%BB%A4%E7%9A%84%E5%B0%8F%E6%8A%80%E5%B7%A7/image-8-1024x199.png">
+<meta property="og:image" content="https://monkeyx1.github.io/images/%E5%B8%B8%E8%A7%81Windows%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E%E7%BB%95%E8%BF%87%E8%BF%87%E6%BB%A4%E7%9A%84%E5%B0%8F%E6%8A%80%E5%B7%A7/image-10-1024x255.png">
+<meta property="og:image" content="https://monkeyx1.github.io/images/%E5%B8%B8%E8%A7%81Windows%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E%E7%BB%95%E8%BF%87%E8%BF%87%E6%BB%A4%E7%9A%84%E5%B0%8F%E6%8A%80%E5%B7%A7/image-11-1024x159.png">
+<meta property="og:image" content="https://monkeyx1.github.io/images/%E5%B8%B8%E8%A7%81Windows%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E%E7%BB%95%E8%BF%87%E8%BF%87%E6%BB%A4%E7%9A%84%E5%B0%8F%E6%8A%80%E5%B7%A7/image-12-1024x154.png">
+<meta property="og:image" content="https://monkeyx1.github.io/images/%E5%B8%B8%E8%A7%81Windows%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E%E7%BB%95%E8%BF%87%E8%BF%87%E6%BB%A4%E7%9A%84%E5%B0%8F%E6%8A%80%E5%B7%A7/image-13-1024x115.png">
+<meta property="og:image" content="https://monkeyx1.github.io/images/%E5%B8%B8%E8%A7%81Windows%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E%E7%BB%95%E8%BF%87%E8%BF%87%E6%BB%A4%E7%9A%84%E5%B0%8F%E6%8A%80%E5%B7%A7/image-14-1024x44.png">
+<meta property="og:image" content="https://monkeyx1.github.io/images/%E5%B8%B8%E8%A7%81Windows%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E%E7%BB%95%E8%BF%87%E8%BF%87%E6%BB%A4%E7%9A%84%E5%B0%8F%E6%8A%80%E5%B7%A7/image-15-1024x389.png">
+<meta property="og:image" content="https://monkeyx1.github.io/images/%E5%B8%B8%E8%A7%81Windows%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E%E7%BB%95%E8%BF%87%E8%BF%87%E6%BB%A4%E7%9A%84%E5%B0%8F%E6%8A%80%E5%B7%A7/image-16-1024x54.png">
+<meta property="og:image" content="https://monkeyx1.github.io/images/%E5%B8%B8%E8%A7%81Windows%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E%E7%BB%95%E8%BF%87%E8%BF%87%E6%BB%A4%E7%9A%84%E5%B0%8F%E6%8A%80%E5%B7%A7/image-17-1024x314.png">
+<meta property="og:image" content="https://monkeyx1.github.io/images/%E5%B8%B8%E8%A7%81Windows%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E%E7%BB%95%E8%BF%87%E8%BF%87%E6%BB%A4%E7%9A%84%E5%B0%8F%E6%8A%80%E5%B7%A7/image-18-1024x488.png">
+<meta property="og:image" content="https://monkeyx1.github.io/images/%E5%B8%B8%E8%A7%81Windows%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E%E7%BB%95%E8%BF%87%E8%BF%87%E6%BB%A4%E7%9A%84%E5%B0%8F%E6%8A%80%E5%B7%A7/image-19-1024x60.png">
+<meta property="article:published_time" content="2022-08-16T03:04:10.000Z">
+<meta property="article:modified_time" content="2024-07-27T17:31:00.701Z">
+<meta property="article:author" content="monkey111">
+<meta property="article:tag" content="CTF">
+<meta property="article:tag" content="web">
+<meta property="article:tag" content="安全">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://monkeyx1.github.io/images/%E5%B8%B8%E8%A7%81Windows%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E%E7%BB%95%E8%BF%87%E8%BF%87%E6%BB%A4%E7%9A%84%E5%B0%8F%E6%8A%80%E5%B7%A7/image-4-1024x248.png">
+
+
+<link rel="canonical" href="https://monkeyx1.github.io/2022/08/16/%E5%B8%B8%E8%A7%81Windows%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E%E7%BB%95%E8%BF%87%E8%BF%87%E6%BB%A4%E7%9A%84%E5%B0%8F%E6%8A%80%E5%B7%A7/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://monkeyx1.github.io/2022/08/16/%E5%B8%B8%E8%A7%81Windows%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E%E7%BB%95%E8%BF%87%E8%BF%87%E6%BB%A4%E7%9A%84%E5%B0%8F%E6%8A%80%E5%B7%A7/","path":"2022/08/16/常见Windows命令执行漏洞绕过过滤的小技巧/","title":"常见Windows命令执行漏洞绕过过滤的小技巧"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>常见Windows命令执行漏洞绕过过滤的小技巧 | monkey111</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">monkey111</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">欢迎来到小菜猴子的安全小窝</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E7%AC%A6%E5%8F%B7%E4%B8%8E%E5%91%BD%E4%BB%A4%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="nav-number">1.</span> <span class="nav-text">一、符号与命令的关系</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81set%E5%91%BD%E4%BB%A4%E5%92%8CWindows%E5%8F%98%E9%87%8F"><span class="nav-number">2.</span> <span class="nav-text">二、set命令和Windows变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81Windows%E5%88%87%E5%89%B2%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="nav-number">3.</span> <span class="nav-text">三、Windows切割字符串</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E9%80%BB%E8%BE%91%E8%BF%90%E7%AE%97%E7%AC%A6%E5%9C%A8%E7%BB%95%E8%BF%87%E4%B8%AD%E7%9A%84%E4%BD%9C%E7%94%A8"><span class="nav-number">4.</span> <span class="nav-text">四、逻辑运算符在绕过中的作用</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="monkey111"
+      src="/images/header.jpg">
+  <p class="site-author-name" itemprop="name">monkey111</p>
+  <div class="site-description" itemprop="description">自先沉稳，而后爱人</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">42</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/monkeyx1" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;monkeyx1" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:647498949@qq.com" title="E-Mail → mailto:647498949@qq.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://monkeyx1.github.io/2022/08/16/%E5%B8%B8%E8%A7%81Windows%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E%E7%BB%95%E8%BF%87%E8%BF%87%E6%BB%A4%E7%9A%84%E5%B0%8F%E6%8A%80%E5%B7%A7/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="monkey111">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="monkey111">
+      <meta itemprop="description" content="自先沉稳，而后爱人">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="常见Windows命令执行漏洞绕过过滤的小技巧 | monkey111">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          常见Windows命令执行漏洞绕过过滤的小技巧
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-08-16 11:04:10" itemprop="dateCreated datePublished" datetime="2022-08-16T11:04:10+08:00">2022-08-16</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2024-07-28 01:31:00" itemprop="dateModified" datetime="2024-07-28T01:31:00+08:00">2024-07-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/web%E5%AE%89%E5%85%A8%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">web安全学习</span></a>
+        </span>
+    </span>
+
+  
+    <span id="/2022/08/16/%E5%B8%B8%E8%A7%81Windows%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E%E7%BB%95%E8%BF%87%E8%BF%87%E6%BB%A4%E7%9A%84%E5%B0%8F%E6%8A%80%E5%B7%A7/" class="post-meta-item leancloud_visitors" data-flag-title="常见Windows命令执行漏洞绕过过滤的小技巧" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>1.3k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>1 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h2 id="一、符号与命令的关系"><a href="#一、符号与命令的关系" class="headerlink" title="一、符号与命令的关系"></a>一、符号与命令的关系</h2><p>在cmd命令中，我们可以使用<code>&quot;</code>、<code>^</code>和<code>()</code>不会影响命令的执行，而且在Windows中命令不会区分大小写。</p>
+<blockquote>
+<p>1.whoami<br>2.w”h”o”a”m”i<br>3.wh^o^ami<br>4.((whoami))</p>
+</blockquote>
+<p><img src="/images/%E5%B8%B8%E8%A7%81Windows%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E%E7%BB%95%E8%BF%87%E8%BF%87%E6%BB%A4%E7%9A%84%E5%B0%8F%E6%8A%80%E5%B7%A7/image-4-1024x248.png"></p>
+<p>这里我们可以同时加多个<code>&quot;</code>，但是不能同时使用多个<code>^^</code>，因为在cmd中<code>^</code>是转义符，跟在他后面的符号会被转义的，所以执行的话会报错。</p>
+<p><img src="/images/%E5%B8%B8%E8%A7%81Windows%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E%E7%BB%95%E8%BF%87%E8%BF%87%E6%BB%A4%E7%9A%84%E5%B0%8F%E6%8A%80%E5%B7%A7/image-5-1024x90.png"></p>
+<h2 id="二、set命令和Windows变量"><a href="#二、set命令和Windows变量" class="headerlink" title="二、set命令和Windows变量"></a>二、set命令和Windows变量</h2><p>（1）首先set命令可以用来设置一个变量，%相当于引用一个变量（使用%括起来的变量，会引用其变量内的值）</p>
+<blockquote>
+<p>1.set a&#x3D;1<br>2.echo a<br>3.echo %a%</p>
+</blockquote>
+<p><img src="/images/%E5%B8%B8%E8%A7%81Windows%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E%E7%BB%95%E8%BF%87%E8%BF%87%E6%BB%A4%E7%9A%84%E5%B0%8F%E6%8A%80%E5%B7%A7/image-6-1024x98.png"></p>
+<p>我们还可以设置多个变量来绕过过滤</p>
+<blockquote>
+<p>1.set a &#x3D; who<br>2.set b &#x3D; ami<br>%a%%b%</p>
+</blockquote>
+<p><img src="/images/%E5%B8%B8%E8%A7%81Windows%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E%E7%BB%95%E8%BF%87%E8%BF%87%E6%BB%A4%E7%9A%84%E5%B0%8F%E6%8A%80%E5%B7%A7/image-7-1024x87.png"></p>
+<blockquote>
+<p>set a&#x3D;ser&amp;&amp; set b&#x3D;ne&amp;&amp; set c&#x3D;t u &amp;&amp; call %b%%c%%a%<br>&#x2F;&#x2F;在变量中设置空格，最后调用执行命令</p>
+</blockquote>
+<p><img src="/images/%E5%B8%B8%E8%A7%81Windows%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E%E7%BB%95%E8%BF%87%E8%BF%87%E6%BB%A4%E7%9A%84%E5%B0%8F%E6%8A%80%E5%B7%A7/image-8-1024x199.png"></p>
+<p>似乎翻车了，但是可以记一下，应该还是有作用的。</p>
+<p>我们这里还可以自定义一个或多个环境变量，利用环境变量中的字符，提取并拼接出想要的cmd命令。如：<code>cmd /c &quot;set </code>a<code>=ipconfig &amp;&amp; call echo %</code>a<code>%&quot;</code></p>
+<p><img src="/images/%E5%B8%B8%E8%A7%81Windows%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E%E7%BB%95%E8%BF%87%E8%BF%87%E6%BB%A4%E7%9A%84%E5%B0%8F%E6%8A%80%E5%B7%A7/image-10-1024x255.png"></p>
+<p>我们还可以定义多个环境变量：<code>cmd /c &quot;set a=ser&amp;&amp; set b=ne&amp;&amp; set c=t u&amp;&amp;call echo %b%%c%%a%&quot;</code></p>
+<p><img src="/images/%E5%B8%B8%E8%A7%81Windows%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E%E7%BB%95%E8%BF%87%E8%BF%87%E6%BB%A4%E7%9A%84%E5%B0%8F%E6%8A%80%E5%B7%A7/image-11-1024x159.png"></p>
+<h2 id="三、Windows切割字符串"><a href="#三、Windows切割字符串" class="headerlink" title="三、Windows切割字符串"></a>三、Windows切割字符串</h2><p>Windows中的cmd命令行是存在类似于PHP中的切割字符串的语法。</p>
+<blockquote>
+<p>set a&#x3D;whoami<br>1.%a:<del>0% # 这里表示的是取a中所有字符，也就是whoami<br>2.%a:</del>0,6% # 取出a的值，从第0个开始取，取6个值，也是whoami<br>3.%a:~0,5% # 取五个值，是whoam</p>
+</blockquote>
+<p><img src="/images/%E5%B8%B8%E8%A7%81Windows%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E%E7%BB%95%E8%BF%87%E8%BF%87%E6%BB%A4%E7%9A%84%E5%B0%8F%E6%8A%80%E5%B7%A7/image-12-1024x154.png"></p>
+<p>所以在cmd中截取字符串的语法就是这样的：<code>%变量名:~x,y%</code>，表示的就是从第x个元素开始取，取y个字符</p>
+<p>然后在Windows中有许多自带的环境变量，然后我们可以截取获得一些有用的东西：</p>
+<p>当空格被过滤的时候，我们可以使用<code>net%CommonProgramFiles:~10,1%user</code></p>
+<p><img src="/images/%E5%B8%B8%E8%A7%81Windows%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E%E7%BB%95%E8%BF%87%E8%BF%87%E6%BB%A4%E7%9A%84%E5%B0%8F%E6%8A%80%E5%B7%A7/image-13-1024x115.png"></p>
+<p>注：CommonProgramFiles&#x3D;C:\Program Files\Common Files</p>
+<p>当环境变量中没有我们想要的内容，我们还可以自己进行设置：</p>
+<pre><code>set BL=a bcde/$@\&quot;;fgphvlrequst?# 设置这个我们就可以构成一个shell了
+</code></pre>
+<h2 id="四、逻辑运算符在绕过中的作用"><a href="#四、逻辑运算符在绕过中的作用" class="headerlink" title="四、逻辑运算符在绕过中的作用"></a>四、逻辑运算符在绕过中的作用</h2><p><code>|</code>在cmd中，可以连接命令，并且只会执行后面的那条命令</p>
+<p><img src="/images/%E5%B8%B8%E8%A7%81Windows%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E%E7%BB%95%E8%BF%87%E8%BF%87%E6%BB%A4%E7%9A%84%E5%B0%8F%E6%8A%80%E5%B7%A7/image-14-1024x44.png"></p>
+<p>但是我们使用<code>||</code>的话，只有前面的命令执行失败，才会执行后面的语句</p>
+<p>使用<code>ipconfig || whoami</code></p>
+<p><img src="/images/%E5%B8%B8%E8%A7%81Windows%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E%E7%BB%95%E8%BF%87%E8%BF%87%E6%BB%A4%E7%9A%84%E5%B0%8F%E6%8A%80%E5%B7%A7/image-15-1024x389.png"></p>
+<p>使用<code>ping xxx. || whoami</code></p>
+<p><img src="/images/%E5%B8%B8%E8%A7%81Windows%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E%E7%BB%95%E8%BF%87%E8%BF%87%E6%BB%A4%E7%9A%84%E5%B0%8F%E6%8A%80%E5%B7%A7/image-16-1024x54.png"></p>
+<p>然后&amp;，前面的命令可以成功也可以失败，都会执行后面的命令</p>
+<p><img src="/images/%E5%B8%B8%E8%A7%81Windows%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E%E7%BB%95%E8%BF%87%E8%BF%87%E6%BB%A4%E7%9A%84%E5%B0%8F%E6%8A%80%E5%B7%A7/image-17-1024x314.png"></p>
+<p>然后<code>&amp;&amp;</code>符号就必须两条命令都为真才会执行</p>
+<p>使用<code>whoami &amp;&amp; ipconfig</code></p>
+<p><img src="/images/%E5%B8%B8%E8%A7%81Windows%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E%E7%BB%95%E8%BF%87%E8%BF%87%E6%BB%A4%E7%9A%84%E5%B0%8F%E6%8A%80%E5%B7%A7/image-18-1024x488.png"></p>
+<p>使用<code>ping xxx. &amp;&amp; whoami</code></p>
+<p><img src="/images/%E5%B8%B8%E8%A7%81Windows%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E%E7%BB%95%E8%BF%87%E8%BF%87%E6%BB%A4%E7%9A%84%E5%B0%8F%E6%8A%80%E5%B7%A7/image-19-1024x60.png"></p>
+<p>参考文章：<a target="_blank" rel="noopener" href="https://bbs.zkaq.cn/t/4557.html">https://bbs.zkaq.cn/t/4557.html</a></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>monkey111
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://monkeyx1.github.io/2022/08/16/%E5%B8%B8%E8%A7%81Windows%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E%E7%BB%95%E8%BF%87%E8%BF%87%E6%BB%A4%E7%9A%84%E5%B0%8F%E6%8A%80%E5%B7%A7/" title="常见Windows命令执行漏洞绕过过滤的小技巧">https://monkeyx1.github.io/2022/08/16/常见Windows命令执行漏洞绕过过滤的小技巧/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+                    
+                      <a href="/" rel="tag"><i class="fa fa-tag"></i> </a>
+                    
+                      <a href="/" rel="tag"><i class="fa fa-tag"></i> </a>
+                    
+                      <a href="/" rel="tag"><i class="fa fa-tag"></i> </a>
+                    
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/05/18/SQL%E7%9B%B2%E6%B3%A8-%E4%BA%8C%E5%88%86%E6%B3%95/" rel="prev" title="SQL盲注---二分法">
+                  <i class="fa fa-chevron-left"></i> SQL盲注---二分法
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/08/17/Java%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95-%E4%B8%80/" rel="next" title="Java学习记录(一)">
+                  Java学习记录(一) <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2022 – 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">monkey111</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">180k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">2:44</span>
+  </span>
+</div><div>
+  <span id="sitetime"></span>
+  <script language=javascript>
+      function siteTime(){
+          window.setTimeout("siteTime()", 1000);
+          var seconds = 1000;
+          var minutes = seconds * 60;
+          var hours = minutes * 60;
+          var days = hours * 24;
+          var years = days * 365;
+          var today = new Date();
+          var todayYear = today.getFullYear();
+          var todayMonth = today.getMonth()+1;
+          var todayDate = today.getDate();
+          var todayHour = today.getHours();
+          var todayMinute = today.getMinutes();
+          var todaySecond = today.getSeconds();
+          /* 
+          Date.UTC() -- 返回date对象距世界标准时间(UTC)1970年1月1日午夜之间的毫秒数(时间戳)
+          year - 作为date对象的年份，为4位年份值
+          month - 0-11之间的整数，做为date对象的月份
+          day - 1-31之间的整数，做为date对象的天数
+          hours - 0(午夜24点)-23之间的整数，做为date对象的小时数
+          minutes - 0-59之间的整数，做为date对象的分钟数
+          seconds - 0-59之间的整数，做为date对象的秒数
+          microseconds - 0-999之间的整数，做为date对象的毫秒数
+      */
+          var t1 = Date.UTC(2021,12,23,11,40,00); //北京时间2018-2-13 00:00:00
+          var t2 = Date.UTC(todayYear,todayMonth,todayDate,todayHour,todayMinute,todaySecond);
+          var diff = t2-t1;
+      var diffYears = Math.floor(diff/years);
+      var diffDays = Math.floor((diff/days)-diffYears*365);
+      var diffHours = Math.floor((diff-(diffYears*365+diffDays)*days)/hours);
+      var diffMinutes = Math.floor((diff-(diffYears*365+diffDays)*days-diffHours*hours)/minutes);
+      var diffSeconds = Math.floor((diff-(diffYears*365+diffDays)*days-diffHours*hours-diffMinutes*minutes)/seconds);
+      document.getElementById("sitetime").innerHTML=" 已运行"+/*diffYears+" 年 "+*/diffDays+" 天 "+diffHours+" 小时 "+diffMinutes+" 分钟 "+diffSeconds+" 秒";
+    }
+      siteTime();
+  </script>
+</div>
+
+    </div>
+  </footer>
+
+  
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+
+  
+
+  <script class="next-config" data-name="leancloud_visitors" type="application/json">{"enable":true,"app_id":"ccA2VsTMA0zc7SQqWsCEBhP6-gzGzoHsz","app_key":"RzrgPNrOtq5LckltkJZDwE0z","server_url":null,"security":true}</script>
+  <script src="/js/third-party/statistics/lean-analytics.js"></script>
+
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/miku.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body>
+</html>

