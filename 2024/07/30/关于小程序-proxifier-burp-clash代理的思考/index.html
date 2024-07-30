@@ -19,39 +19,37 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"monkeyx1.github.io","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.17.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"show_result":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="下载proxifier软件，然后在网上找个注册码，否则只能使用一个月。 然后先开启HTTP服务器代理   然后设置代理服务器，要跟burp的端口一致   最后设置规则即可   这里的WeChatAppEx.exe路径在 C:\Users\用户名\AppData\Roaming\Tencent\WeChat\XPlugin\Plugins\RadiumWMPF\9185\extracted\runt">
+    <meta name="description" content="我们有时候会有需要要使用burp抓包小程序，然后还要通过clash代理转发出去，那么我们该怎么做呢？ 关于小程序+proxifier+burp转发的话，请参考proxifier-burp小程序代理这篇文章，里面应该是写的还算清楚的吧…… 然后那么我们该怎么将clash代理加在里面呢？尝试的还是比较久的，我先是将clash使用系统代理，然后转发情况大致是如下图这样：  然后发现burp中流量是抓取到">
 <meta property="og:type" content="article">
-<meta property="og:title" content="proxifier+burp小程序代理">
-<meta property="og:url" content="https://monkeyx1.github.io/2024/07/17/proxifier-burp%E5%B0%8F%E7%A8%8B%E5%BA%8F%E4%BB%A3%E7%90%86/index.html">
+<meta property="og:title" content="关于小程序+proxifier+burp+clash代理的思考">
+<meta property="og:url" content="https://monkeyx1.github.io/2024/07/30/%E5%85%B3%E4%BA%8E%E5%B0%8F%E7%A8%8B%E5%BA%8F-proxifier-burp-clash%E4%BB%A3%E7%90%86%E7%9A%84%E6%80%9D%E8%80%83/index.html">
 <meta property="og:site_name" content="monkey111">
-<meta property="og:description" content="下载proxifier软件，然后在网上找个注册码，否则只能使用一个月。 然后先开启HTTP服务器代理   然后设置代理服务器，要跟burp的端口一致   最后设置规则即可   这里的WeChatAppEx.exe路径在 C:\Users\用户名\AppData\Roaming\Tencent\WeChat\XPlugin\Plugins\RadiumWMPF\9185\extracted\runt">
+<meta property="og:description" content="我们有时候会有需要要使用burp抓包小程序，然后还要通过clash代理转发出去，那么我们该怎么做呢？ 关于小程序+proxifier+burp转发的话，请参考proxifier-burp小程序代理这篇文章，里面应该是写的还算清楚的吧…… 然后那么我们该怎么将clash代理加在里面呢？尝试的还是比较久的，我先是将clash使用系统代理，然后转发情况大致是如下图这样：  然后发现burp中流量是抓取到">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://monkeyx1.github.io/images/proxifier-burp%E5%B0%8F%E7%A8%8B%E5%BA%8F%E4%BB%A3%E7%90%86/1.jpg">
-<meta property="og:image" content="https://monkeyx1.github.io/images/proxifier-burp%E5%B0%8F%E7%A8%8B%E5%BA%8F%E4%BB%A3%E7%90%86/2.jpg">
-<meta property="og:image" content="https://monkeyx1.github.io/images/proxifier-burp%E5%B0%8F%E7%A8%8B%E5%BA%8F%E4%BB%A3%E7%90%86/3.jpg">
-<meta property="og:image" content="https://monkeyx1.github.io/images/proxifier-burp%E5%B0%8F%E7%A8%8B%E5%BA%8F%E4%BB%A3%E7%90%86/4.jpg">
-<meta property="og:image" content="https://monkeyx1.github.io/images/proxifier-burp%E5%B0%8F%E7%A8%8B%E5%BA%8F%E4%BB%A3%E7%90%86/5.jpg">
-<meta property="og:image" content="https://monkeyx1.github.io/images/proxifier-burp%E5%B0%8F%E7%A8%8B%E5%BA%8F%E4%BB%A3%E7%90%86/6.jpg">
-<meta property="og:image" content="https://monkeyx1.github.io/images/proxifier-burp%E5%B0%8F%E7%A8%8B%E5%BA%8F%E4%BB%A3%E7%90%86/7.jpg">
-<meta property="og:image" content="https://monkeyx1.github.io/images/proxifier-burp%E5%B0%8F%E7%A8%8B%E5%BA%8F%E4%BB%A3%E7%90%86/9.png">
-<meta property="article:published_time" content="2024-07-17T11:57:51.000Z">
-<meta property="article:modified_time" content="2024-07-29T08:15:46.046Z">
+<meta property="og:image" content="https://monkeyx1.github.io/images/%E6%97%A0%E6%A0%87%E9%A2%98.png">
+<meta property="og:image" content="https://monkeyx1.github.io/images/image-20240730091041325.png">
+<meta property="og:image" content="https://monkeyx1.github.io/images/image-20240730091140205.png">
+<meta property="og:image" content="https://monkeyx1.github.io/images/image-20240730091550935.png">
+<meta property="og:image" content="https://monkeyx1.github.io/images/image-20240730091633864.png">
+<meta property="og:image" content="https://monkeyx1.github.io/images/image-20240730091733470.png">
+<meta property="article:published_time" content="2024-07-30T01:01:50.000Z">
+<meta property="article:modified_time" content="2024-07-30T01:17:57.303Z">
 <meta property="article:author" content="monkey111">
 <meta property="article:tag" content="web">
 <meta property="article:tag" content="安全">
 <meta property="article:tag" content="SRC">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://monkeyx1.github.io/images/proxifier-burp%E5%B0%8F%E7%A8%8B%E5%BA%8F%E4%BB%A3%E7%90%86/1.jpg">
+<meta name="twitter:image" content="https://monkeyx1.github.io/images/%E6%97%A0%E6%A0%87%E9%A2%98.png">
 
 
-<link rel="canonical" href="https://monkeyx1.github.io/2024/07/17/proxifier-burp%E5%B0%8F%E7%A8%8B%E5%BA%8F%E4%BB%A3%E7%90%86/">
+<link rel="canonical" href="https://monkeyx1.github.io/2024/07/30/%E5%85%B3%E4%BA%8E%E5%B0%8F%E7%A8%8B%E5%BA%8F-proxifier-burp-clash%E4%BB%A3%E7%90%86%E7%9A%84%E6%80%9D%E8%80%83/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://monkeyx1.github.io/2024/07/17/proxifier-burp%E5%B0%8F%E7%A8%8B%E5%BA%8F%E4%BB%A3%E7%90%86/","path":"2024/07/17/proxifier-burp小程序代理/","title":"proxifier+burp小程序代理"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://monkeyx1.github.io/2024/07/30/%E5%85%B3%E4%BA%8E%E5%B0%8F%E7%A8%8B%E5%BA%8F-proxifier-burp-clash%E4%BB%A3%E7%90%86%E7%9A%84%E6%80%9D%E8%80%83/","path":"2024/07/30/关于小程序-proxifier-burp-clash代理的思考/","title":"关于小程序+proxifier+burp+clash代理的思考"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>proxifier+burp小程序代理 | monkey111</title>
+<title>关于小程序+proxifier+burp+clash代理的思考 | monkey111</title>
   
 
 
@@ -218,7 +216,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://monkeyx1.github.io/2024/07/17/proxifier-burp%E5%B0%8F%E7%A8%8B%E5%BA%8F%E4%BB%A3%E7%90%86/">
+    <link itemprop="mainEntityOfPage" href="https://monkeyx1.github.io/2024/07/30/%E5%85%B3%E4%BA%8E%E5%B0%8F%E7%A8%8B%E5%BA%8F-proxifier-burp-clash%E4%BB%A3%E7%90%86%E7%9A%84%E6%80%9D%E8%80%83/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/header.jpg">
@@ -231,12 +229,12 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="proxifier+burp小程序代理 | monkey111">
+      <meta itemprop="name" content="关于小程序+proxifier+burp+clash代理的思考 | monkey111">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          proxifier+burp小程序代理
+          关于小程序+proxifier+burp+clash代理的思考
         </h1>
 
         <div class="post-meta-container">
@@ -246,15 +244,9 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
+      
 
-      <time title="创建时间：2024-07-17 19:57:51" itemprop="dateCreated datePublished" datetime="2024-07-17T19:57:51+08:00">2024-07-17</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2024-07-29 16:15:46" itemprop="dateModified" datetime="2024-07-29T16:15:46+08:00">2024-07-29</time>
+      <time title="创建时间：2024-07-30 09:01:50 / 修改时间：09:17:57" itemprop="dateCreated datePublished" datetime="2024-07-30T09:01:50+08:00">2024-07-30</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -267,7 +259,7 @@
     </span>
 
   
-    <span id="/2024/07/17/proxifier-burp%E5%B0%8F%E7%A8%8B%E5%BA%8F%E4%BB%A3%E7%90%86/" class="post-meta-item leancloud_visitors" data-flag-title="proxifier+burp小程序代理" title="阅读次数">
+    <span id="/2024/07/30/%E5%85%B3%E4%BA%8E%E5%B0%8F%E7%A8%8B%E5%BA%8F-proxifier-burp-clash%E4%BB%A3%E7%90%86%E7%9A%84%E6%80%9D%E8%80%83/" class="post-meta-item leancloud_visitors" data-flag-title="关于小程序+proxifier+burp+clash代理的思考" title="阅读次数">
       <span class="post-meta-item-icon">
         <i class="far fa-eye"></i>
       </span>
@@ -280,7 +272,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>276</span>
+      <span>432</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -297,22 +289,22 @@
     
     
     
-    <div class="post-body" itemprop="articleBody"><p>下载proxifier软件，然后在网上找个注册码，否则只能使用一个月。</p>
-<p>然后先开启HTTP服务器代理</p>
-<p><img src="/images/proxifier-burp%E5%B0%8F%E7%A8%8B%E5%BA%8F%E4%BB%A3%E7%90%86/1.jpg"></p>
-<p><img src="/images/proxifier-burp%E5%B0%8F%E7%A8%8B%E5%BA%8F%E4%BB%A3%E7%90%86/2.jpg"></p>
-<p>然后设置代理服务器，要跟burp的端口一致</p>
-<p><img src="/images/proxifier-burp%E5%B0%8F%E7%A8%8B%E5%BA%8F%E4%BB%A3%E7%90%86/3.jpg"></p>
-<p><img src="/images/proxifier-burp%E5%B0%8F%E7%A8%8B%E5%BA%8F%E4%BB%A3%E7%90%86/4.jpg"></p>
-<p>最后设置规则即可</p>
-<p><img src="/images/proxifier-burp%E5%B0%8F%E7%A8%8B%E5%BA%8F%E4%BB%A3%E7%90%86/5.jpg"></p>
-<p><img src="/images/proxifier-burp%E5%B0%8F%E7%A8%8B%E5%BA%8F%E4%BB%A3%E7%90%86/6.jpg"></p>
-<p>这里的<code>WeChatAppEx.exe</code>路径在</p>
-<p><code>C:\Users\用户名\AppData\Roaming\Tencent\WeChat\XPlugin\Plugins\RadiumWMPF\9185\extracted\runtime</code>下面</p>
-<p><img src="/images/proxifier-burp%E5%B0%8F%E7%A8%8B%E5%BA%8F%E4%BB%A3%E7%90%86/7.jpg"></p>
-<p>就可以成功抓包了</p>
-<p><img src="/images/proxifier-burp%E5%B0%8F%E7%A8%8B%E5%BA%8F%E4%BB%A3%E7%90%86/9.png"></p>
-<p>优势：使用全局代理太过于麻烦，然后会抓取所有软件的流量，设置规则太过于麻烦，所以使用proxifier代理会比较专注于某一应用，流量分析会比较简单。</p>
+    <div class="post-body" itemprop="articleBody"><p>我们有时候会有需要要使用burp抓包小程序，然后还要通过clash代理转发出去，那么我们该怎么做呢？</p>
+<p>关于小程序+proxifier+burp转发的话，请参考<a href="https://monkeyx1.github.io/2024/07/17/proxifier-burp%E5%B0%8F%E7%A8%8B%E5%BA%8F%E4%BB%A3%E7%90%86/">proxifier-burp小程序代理</a>这篇文章，里面应该是写的还算清楚的吧……</p>
+<p>然后那么我们该怎么将clash代理加在里面呢？尝试的还是比较久的，我先是将clash使用系统代理，然后转发情况大致是如下图这样：</p>
+<p><img src="/images/%E6%97%A0%E6%A0%87%E9%A2%98.png" alt="无标题"></p>
+<p>然后发现burp中流量是抓取到了，但是转发不出去，如下图这样都是有请求包没有返回包的</p>
+<p><img src="/images/image-20240730091041325.png" alt="image-20240730091041325"></p>
+<p>所以我在想应该是下游代理转发不了，然后我在burp中设置了下游代理</p>
+<p><img src="/images/image-20240730091140205.png" alt="image-20240730091140205"></p>
+<p>但是还是发现不行……</p>
+<p>后面问了一位大佬，后面说可能是不能直接将clash代理放在proxifier代理前面。然后我就先将clash系统代理关掉了，然后在burp中设置了下游代理转发出去，发现可以获取到BP数据包中了，而且clash中会有相对应的流量</p>
+<p><img src="/images/image-20240730091550935.png" alt="image-20240730091550935"></p>
+<p><img src="/images/image-20240730091633864.png" alt="image-20240730091633864"></p>
+<p>成功代理转发。</p>
+<p>记得要将clash的系统代理设置关掉，如下：</p>
+<p><img src="/images/image-20240730091733470.png" alt="image-20240730091733470"></p>
+<p>文章可能会有一些地方不妥之处，还望各位师傅指正。</p>
 
     </div>
 
@@ -330,7 +322,7 @@
   </li>
   <li class="post-copyright-link">
       <strong>本文链接：</strong>
-      <a href="https://monkeyx1.github.io/2024/07/17/proxifier-burp%E5%B0%8F%E7%A8%8B%E5%BA%8F%E4%BB%A3%E7%90%86/" title="proxifier+burp小程序代理">https://monkeyx1.github.io/2024/07/17/proxifier-burp小程序代理/</a>
+      <a href="https://monkeyx1.github.io/2024/07/30/%E5%85%B3%E4%BA%8E%E5%B0%8F%E7%A8%8B%E5%BA%8F-proxifier-burp-clash%E4%BB%A3%E7%90%86%E7%9A%84%E6%80%9D%E8%80%83/" title="关于小程序+proxifier+burp+clash代理的思考">https://monkeyx1.github.io/2024/07/30/关于小程序-proxifier-burp-clash代理的思考/</a>
   </li>
   <li class="post-copyright-license">
       <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
