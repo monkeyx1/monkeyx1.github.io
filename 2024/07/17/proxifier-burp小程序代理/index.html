@@ -19,25 +19,39 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"monkeyx1.github.io","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.17.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"show_result":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="自先沉稳，而后爱人">
-<meta property="og:type" content="website">
-<meta property="og:title" content="monkey111">
-<meta property="og:url" content="https://monkeyx1.github.io/tags/vulnhub/index.html">
+    <meta name="description" content="下载proxifier软件，然后在网上找个注册码，否则只能使用一个月。 然后先开启HTTP服务器代理   然后设置代理服务器，要跟burp的端口一致   最后设置规则即可   这里的WeChatAppEx.exe路径在 C:\Users\用户名\AppData\Roaming\Tencent\WeChat\XPlugin\Plugins\RadiumWMPF\9185\extracted\runt">
+<meta property="og:type" content="article">
+<meta property="og:title" content="proxifier+burp小程序代理">
+<meta property="og:url" content="https://monkeyx1.github.io/2024/07/17/proxifier-burp%E5%B0%8F%E7%A8%8B%E5%BA%8F%E4%BB%A3%E7%90%86/index.html">
 <meta property="og:site_name" content="monkey111">
-<meta property="og:description" content="自先沉稳，而后爱人">
+<meta property="og:description" content="下载proxifier软件，然后在网上找个注册码，否则只能使用一个月。 然后先开启HTTP服务器代理   然后设置代理服务器，要跟burp的端口一致   最后设置规则即可   这里的WeChatAppEx.exe路径在 C:\Users\用户名\AppData\Roaming\Tencent\WeChat\XPlugin\Plugins\RadiumWMPF\9185\extracted\runt">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://monkeyx1.github.io/images/proxifier-burp%E5%B0%8F%E7%A8%8B%E5%BA%8F%E4%BB%A3%E7%90%86/1.jpg">
+<meta property="og:image" content="https://monkeyx1.github.io/images/proxifier-burp%E5%B0%8F%E7%A8%8B%E5%BA%8F%E4%BB%A3%E7%90%86/2.jpg">
+<meta property="og:image" content="https://monkeyx1.github.io/images/proxifier-burp%E5%B0%8F%E7%A8%8B%E5%BA%8F%E4%BB%A3%E7%90%86/3.jpg">
+<meta property="og:image" content="https://monkeyx1.github.io/images/proxifier-burp%E5%B0%8F%E7%A8%8B%E5%BA%8F%E4%BB%A3%E7%90%86/4.jpg">
+<meta property="og:image" content="https://monkeyx1.github.io/images/proxifier-burp%E5%B0%8F%E7%A8%8B%E5%BA%8F%E4%BB%A3%E7%90%86/5.jpg">
+<meta property="og:image" content="https://monkeyx1.github.io/images/proxifier-burp%E5%B0%8F%E7%A8%8B%E5%BA%8F%E4%BB%A3%E7%90%86/6.jpg">
+<meta property="og:image" content="https://monkeyx1.github.io/images/proxifier-burp%E5%B0%8F%E7%A8%8B%E5%BA%8F%E4%BB%A3%E7%90%86/7.jpg">
+<meta property="og:image" content="https://monkeyx1.github.io/images/proxifier-burp%E5%B0%8F%E7%A8%8B%E5%BA%8F%E4%BB%A3%E7%90%86/9.png">
+<meta property="article:published_time" content="2024-07-17T11:57:51.000Z">
+<meta property="article:modified_time" content="2024-07-30T01:20:12.441Z">
 <meta property="article:author" content="monkey111">
+<meta property="article:tag" content="web">
+<meta property="article:tag" content="安全">
+<meta property="article:tag" content="SRC">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://monkeyx1.github.io/images/proxifier-burp%E5%B0%8F%E7%A8%8B%E5%BA%8F%E4%BB%A3%E7%90%86/1.jpg">
 
 
-<link rel="canonical" href="https://monkeyx1.github.io/tags/vulnhub/">
+<link rel="canonical" href="https://monkeyx1.github.io/2024/07/17/proxifier-burp%E5%B0%8F%E7%A8%8B%E5%BA%8F%E4%BB%A3%E7%90%86/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":false,"lang":"zh-CN","comments":"","permalink":"","path":"tags/vulnhub/index.html","title":""}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://monkeyx1.github.io/2024/07/17/proxifier-burp%E5%B0%8F%E7%A8%8B%E5%BA%8F%E4%BB%A3%E7%90%86/","path":"2024/07/17/proxifier-burp小程序代理/","title":"proxifier+burp小程序代理"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>标签: vulnhub | monkey111</title>
+<title>proxifier+burp小程序代理 | monkey111</title>
   
 
 
@@ -193,170 +207,169 @@
 
     </div>
 
-    <div class="main-inner tag posts-collapse">
+    <div class="main-inner post posts-expand">
 
 
   
+
+
+<div class="post-block">
   
   
-  <div class="post-block">
-    <div class="post-content">
-      <div class="collection-title">
-        <h1 class="collection-header">vulnhub
-          <small>标签</small>
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://monkeyx1.github.io/2024/07/17/proxifier-burp%E5%B0%8F%E7%A8%8B%E5%BA%8F%E4%BB%A3%E7%90%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="monkey111">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="monkey111">
+      <meta itemprop="description" content="自先沉稳，而后爱人">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="proxifier+burp小程序代理 | monkey111">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          proxifier+burp小程序代理
         </h1>
-      </div>
 
-      
-    <div class="collection-year">
-      <span class="collection-header">2023</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2024-07-17 19:57:51" itemprop="dateCreated datePublished" datetime="2024-07-17T19:57:51+08:00">2024-07-17</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2024-07-30 09:20:12" itemprop="dateModified" datetime="2024-07-30T09:20:12+08:00">2024-07-30</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/web%E5%AE%89%E5%85%A8%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">web安全学习</span></a>
+        </span>
+    </span>
+
+  
+    <span id="/2024/07/17/proxifier-burp%E5%B0%8F%E7%A8%8B%E5%BA%8F%E4%BB%A3%E7%90%86/" class="post-meta-item leancloud_visitors" data-flag-title="proxifier+burp小程序代理" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>276</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>1 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>下载proxifier软件，然后在网上找个注册码，否则只能使用一个月。</p>
+<p>然后先开启HTTP服务器代理</p>
+<p><img src="/images/proxifier-burp%E5%B0%8F%E7%A8%8B%E5%BA%8F%E4%BB%A3%E7%90%86/1.jpg"></p>
+<p><img src="/images/proxifier-burp%E5%B0%8F%E7%A8%8B%E5%BA%8F%E4%BB%A3%E7%90%86/2.jpg"></p>
+<p>然后设置代理服务器，要跟burp的端口一致</p>
+<p><img src="/images/proxifier-burp%E5%B0%8F%E7%A8%8B%E5%BA%8F%E4%BB%A3%E7%90%86/3.jpg"></p>
+<p><img src="/images/proxifier-burp%E5%B0%8F%E7%A8%8B%E5%BA%8F%E4%BB%A3%E7%90%86/4.jpg"></p>
+<p>最后设置规则即可</p>
+<p><img src="/images/proxifier-burp%E5%B0%8F%E7%A8%8B%E5%BA%8F%E4%BB%A3%E7%90%86/5.jpg"></p>
+<p><img src="/images/proxifier-burp%E5%B0%8F%E7%A8%8B%E5%BA%8F%E4%BB%A3%E7%90%86/6.jpg"></p>
+<p>这里的<code>WeChatAppEx.exe</code>路径在</p>
+<p><code>C:\Users\用户名\AppData\Roaming\Tencent\WeChat\XPlugin\Plugins\RadiumWMPF\9185\extracted\runtime</code>下面</p>
+<p><img src="/images/proxifier-burp%E5%B0%8F%E7%A8%8B%E5%BA%8F%E4%BB%A3%E7%90%86/7.jpg"></p>
+<p>就可以成功抓包了</p>
+<p><img src="/images/proxifier-burp%E5%B0%8F%E7%A8%8B%E5%BA%8F%E4%BB%A3%E7%90%86/9.png"></p>
+<p>优势：使用全局代理太过于麻烦，然后会抓取所有软件的流量，设置规则太过于麻烦，所以使用proxifier代理会比较专注于某一应用，流量分析会比较简单。</p>
+
     </div>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2023-06-14T10:42:23+08:00"
-              content="2023-06-14">
-          06-14
-        </time>
-      </div>
+    
+    
+    
 
-      <div class="post-title">
-          <a class="post-title-link" href="/2023/06/14/THALES/" itemprop="url">
-            <span itemprop="name">THALES</span>
-          </a>
-      </div>
+    <footer class="post-footer">
+          
 
-      
-    </header>
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>monkey111
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://monkeyx1.github.io/2024/07/17/proxifier-burp%E5%B0%8F%E7%A8%8B%E5%BA%8F%E4%BB%A3%E7%90%86/" title="proxifier+burp小程序代理">https://monkeyx1.github.io/2024/07/17/proxifier-burp小程序代理/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+                    
+                      <a href="/" rel="tag"><i class="fa fa-tag"></i> </a>
+                    
+                      <a href="/" rel="tag"><i class="fa fa-tag"></i> </a>
+                    
+                      <a href="/" rel="tag"><i class="fa fa-tag"></i> </a>
+                    
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2023/08/22/jsonp%E8%B7%A8%E5%9F%9F%E6%BC%8F%E6%B4%9E/" rel="prev" title="jsonp跨域漏洞">
+                  <i class="fa fa-chevron-left"></i> jsonp跨域漏洞
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2024/07/30/%E5%85%B3%E4%BA%8E%E5%B0%8F%E7%A8%8B%E5%BA%8F-proxifier-burp-clash%E4%BB%A3%E7%90%86%E7%9A%84%E6%80%9D%E8%80%83/" rel="next" title="关于小程序+proxifier+burp+clash代理的思考">
+                  关于小程序+proxifier+burp+clash代理的思考 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
   </article>
+</div>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2023-06-13T15:54:34+08:00"
-              content="2023-06-13">
-          06-13
-        </time>
-      </div>
 
-      <div class="post-title">
-          <a class="post-title-link" href="/2023/06/13/Breakout/" itemprop="url">
-            <span itemprop="name">Breakout</span>
-          </a>
-      </div>
 
-      
-    </header>
-  </article>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2023-06-12T11:58:57+08:00"
-              content="2023-06-12">
-          06-12
-        </time>
-      </div>
 
-      <div class="post-title">
-          <a class="post-title-link" href="/2023/06/12/EmpireLupinOne/" itemprop="url">
-            <span itemprop="name">EmpireLupinOne</span>
-          </a>
-      </div>
-
-      
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2023-06-09T11:21:47+08:00"
-              content="2023-06-09">
-          06-09
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2023/06/09/napping/" itemprop="url">
-            <span itemprop="name">napping</span>
-          </a>
-      </div>
-
-      
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2023-06-08T23:28:35+08:00"
-              content="2023-06-08">
-          06-08
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2023/06/08/red/" itemprop="url">
-            <span itemprop="name">red</span>
-          </a>
-      </div>
-
-      
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2023-06-07T16:29:26+08:00"
-              content="2023-06-07">
-          06-07
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2023/06/07/earth/" itemprop="url">
-            <span itemprop="name">earth</span>
-          </a>
-      </div>
-
-      
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2023-06-07T13:07:45+08:00"
-              content="2023-06-07">
-          06-07
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2023/06/07/Jangow/" itemprop="url">
-            <span itemprop="name">Jangow</span>
-          </a>
-      </div>
-
-      
-    </header>
-  </article>
-
-    </div>
-  </div>
-  
-  
-  
 
 </div>
   </main>
